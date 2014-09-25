@@ -44,6 +44,11 @@ public class Player implements Serializable {
     private String password;
 
     /**
+     * The players email address.
+     */
+    private String email;
+
+    /**
      * The ELO-rating of the player. This field is not persisted in the player
      * table of the database.
      */
@@ -118,6 +123,22 @@ public class Player implements Serializable {
      */
     public final void setPassword(final String password) {
         this.password = password;
+    }
+
+    /**
+     * Gets {@link #email}.
+     * @return email
+     */
+    public final String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets {@link #email}.
+     * @param email email
+     */
+    public final void setEmail(final String email) {
+        this.email = email;
     }
 
     /**
