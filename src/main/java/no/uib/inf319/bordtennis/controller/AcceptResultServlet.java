@@ -38,7 +38,7 @@ public class AcceptResultServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
-        if (!ServletUtil.isPlayerLoggedIn(session)) {
+        if (!ServletUtil.isLoggedIn(session)) {
             // Not logged in
             ServletUtil.redirect(response, "Home");
             return;

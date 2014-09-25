@@ -7,9 +7,11 @@ import java.util.Date;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import no.uib.inf319.bordtennis.model.Player;
+
 /**
  * A utility class containing several method used my servlets.
- *
+ * 
  * @author Kjetil
  */
 public final class ServletUtil {
@@ -44,8 +46,24 @@ public final class ServletUtil {
      * @return <code>true</code> if a player is logged in, <code>false</code>
      *         otherwise.
      */
-    public static boolean isPlayerLoggedIn(final HttpSession session) {
+    public static boolean isLoggedIn(final HttpSession session) {
         return session != null && session.getAttribute("player") != null;
+    }
+
+    /**
+     * Checks if the spesified player is logged in in the spesified session.
+     *
+     * @param session the session to check.
+     * @param player the player to check.
+     * @return <code>true</code> if the player is logged in, <code>false</code>
+     *         otherwise.
+     */
+    public static boolean isLoggedInPlayer(final HttpSession session,
+            final Player player) {
+        return session != null
+                && session.getAttribute("player") != null
+                && ((Player) session.getAttribute("player")).getUsername()
+                        .equals(player.getUsername());
     }
 
     /**

@@ -37,25 +37,34 @@ public class ProfileServlet extends HttpServlet {
     protected final void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        HttpSession session = request.getSession(false);
-
-        
-        
-        if (!ServletUtil.isPlayerLoggedIn(session)) {
+        String username = request.getParameter("user");
+        if (username == null) {
             ServletUtil.redirect(response, "Home");
-        } else {
-            Player player = (Player) session.getAttribute("player");
-            PlayerDao pdao = new PlayerDaoJpa();
-            List<TimeAndElo> elopoints = pdao.getEloOverTimeList(player);
-            request.setAttribute("elochart", elopoints.toString());
+            return;
+        }
 
+        PlayerDao playerDao = new PlayerDaoJpa();
+        Player player = playerDao.find(username);
+        if (player == null) {
+            ServletUtil.redirect(response, "Home");
+            return;
+        }
+
+        request.setAttribute("profilePlayer", player);
+        List<TimeAndElo> elopoints = playerDao.getEloOverTimeList(player);
+        request.setAttribute("elochart", elopoints.toString());
+
+        HttpSession session = request.getSession(false);
+        boolean isLoggedIn = ServletUtil.isLoggedInPlayer(session, player);
+        request.setAttribute("loggedIn", isLoggedIn);
+        if (isLoggedIn) {
             MatchDao mdao = new MatchDaoJpa();
             List<PendingMatch> pendingmatches = mdao.getPendingMatches(player);
             request.setAttribute("pending", pendingmatches);
-
-            request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request,
-                    response);
         }
+
+        request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request,
+                    response);
     }
 
 }

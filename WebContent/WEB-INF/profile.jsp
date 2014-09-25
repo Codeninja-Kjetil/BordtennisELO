@@ -20,42 +20,44 @@
   <table>
     <tr>
       <td>Navn:</td>
-      <td>${player.name}</td>
+      <td>${profilePlayer.name}</td>
     </tr>
     <tr>
       <td>Elo:</td>
-      <td>${player.elo}</td>
+      <td>${profilePlayer.elo}</td>
     </tr>
   </table>
   <h2>Elo-rating over tid</h2>
   <div id="elochart"></div>
-  <h2>Kamper du må godkjenne</h2>
-  <c:choose>
-    <c:when test="${pending.isEmpty()}">
-      <p>Ingen kamper som krever godkjenning.</p>
-    </c:when>
-    <c:otherwise>
-      <table>
-        <tr>
-          <th>Motstander</th>
-          <th>Tidspunkt</th>
-          <th>Seier/Tap</th>
-          <th>Godkjenn/Avvis</th>
-        </tr>
-        <c:forEach items="${pending}" var="m">
+  <c:if test="${loggedIn}">
+    <h2>Kamper du må godkjenne</h2>
+    <c:choose>
+      <c:when test="${pending.isEmpty()}">
+        <p>Ingen kamper som krever godkjenning.</p>
+      </c:when>
+      <c:otherwise>
+        <table>
           <tr>
-            <td>${m.opponent}</td>
-            <td>${m.formatTime}</td>
-            <td>${m.victor ? "Seier" : "Tap"}</td>
-            <td><form method="post" action="Acceptresult">
-                <input type="hidden" name="resultid" value="${m.resultid}" />
-                <button type="submit" name="method" value="accept">Godkjenn</button>
-                <button type="submit" name="method" value="deny">Avvis</button>
-              </form></td>
+            <th>Motstander</th>
+            <th>Tidspunkt</th>
+            <th>Seier/Tap</th>
+            <th>Godkjenn/Avvis</th>
           </tr>
-        </c:forEach>
-      </table>
-    </c:otherwise>
-  </c:choose>
+          <c:forEach items="${pending}" var="m">
+            <tr>
+              <td>${m.opponent}</td>
+              <td>${m.formatTime}</td>
+              <td>${m.victor ? "Seier" : "Tap"}</td>
+              <td><form method="post" action="Acceptresult">
+                  <input type="hidden" name="resultid" value="${m.resultid}" />
+                  <button type="submit" name="method" value="accept">Godkjenn</button>
+                  <button type="submit" name="method" value="deny">Avvis</button>
+                </form></td>
+            </tr>
+          </c:forEach>
+        </table>
+      </c:otherwise>
+    </c:choose>
+  </c:if>
 </body>
 </html>

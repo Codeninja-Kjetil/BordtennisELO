@@ -13,7 +13,8 @@
     <c:choose>
         <c:when test="${player != null}">
             <p>
-                Logget inn som: <a href="Profile"></a>
+                Logget inn som:
+                <a href="Profile?user=${player.username}">${player.name}</a>
                 <a href="Logout">Logg ut</a>
             </p>
         </c:when>
@@ -30,7 +31,7 @@
         </tr>
         <c:forEach items="${players}" var="p">
             <tr>
-                <td>${p.name}</td>
+                <td><a href="Profile?user=${p.username}">${p.name}</a></td>
                 <td>${p.elo}</td>
             </tr>
         </c:forEach>

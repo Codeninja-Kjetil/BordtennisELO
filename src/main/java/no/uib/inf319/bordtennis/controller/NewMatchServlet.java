@@ -51,7 +51,7 @@ public class NewMatchServlet extends HttpServlet {
             IOException {
         HttpSession session = request.getSession(false);
 
-        if (!ServletUtil.isPlayerLoggedIn(session)) {
+        if (!ServletUtil.isLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
         } else {
             Player player = (Player) session.getAttribute("player");
@@ -74,7 +74,7 @@ public class NewMatchServlet extends HttpServlet {
             IOException {
         HttpSession session = request.getSession(false);
 
-        if (!ServletUtil.isPlayerLoggedIn(session)) {
+        if (!ServletUtil.isLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
             return;
         }

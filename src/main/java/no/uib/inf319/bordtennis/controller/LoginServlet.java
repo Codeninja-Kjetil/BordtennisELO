@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
-        if (ServletUtil.isPlayerLoggedIn(session)) {
+        if (ServletUtil.isLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
         } else {
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
-        if (ServletUtil.isPlayerLoggedIn(session)) {
+        if (ServletUtil.isLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
             return;
         }
