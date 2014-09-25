@@ -20,10 +20,10 @@ import no.uib.inf319.bordtennis.model.TimeAndElo;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class MypageServlet.
+ * Servlet implementation class ProfileServlet.
  */
-@WebServlet("/Mypage")
-public class MypageServlet extends HttpServlet {
+@WebServlet("/Profile")
+public class ProfileServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -39,6 +39,8 @@ public class MypageServlet extends HttpServlet {
             IOException {
         HttpSession session = request.getSession(false);
 
+        
+        
         if (!ServletUtil.isPlayerLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
         } else {
@@ -51,7 +53,7 @@ public class MypageServlet extends HttpServlet {
             List<PendingMatch> pendingmatches = mdao.getPendingMatches(player);
             request.setAttribute("pending", pendingmatches);
 
-            request.getRequestDispatcher("WEB-INF/mypage.jsp").forward(request,
+            request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request,
                     response);
         }
     }

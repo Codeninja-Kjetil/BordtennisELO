@@ -161,6 +161,6 @@ public class NewMatchServlet extends HttpServlet {
         resultDao.create(playerResult);
         resultDao.create(opponentResult);
 
-        ServletUtil.redirect(response, "Mypage");
+        ServletUtil.redirect(response, "Profile");
     }
 }

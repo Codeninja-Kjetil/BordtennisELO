@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Bordtennis - Min side</title>
+<title>Bordtennis - Profil</title>
 
 <script src="js/lib/jquery-1.11.1.js" type="text/javascript"></script>
 <script src="js/lib/highcharts.js" type="text/javascript"></script>
@@ -15,7 +15,7 @@
 
 </head>
 <body>
-  <h1>Min side</h1>
+  <h1>Profil</h1>
   <h2>Info</h2>
   <table>
     <tr>

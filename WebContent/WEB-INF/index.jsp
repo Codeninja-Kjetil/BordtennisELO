@@ -13,8 +13,8 @@
     <c:choose>
         <c:when test="${player != null}">
             <p>
-                Logget inn som: ${player.name} <a href="Mypage">Min
-                    side</a> <a href="Logout">Logg ut</a>
+                Logget inn som: <a href="Profile"></a>
+                <a href="Logout">Logg ut</a>
             </p>
         </c:when>
         <c:otherwise>
