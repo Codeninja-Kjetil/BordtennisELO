@@ -31,7 +31,7 @@ public final class Sha256HashUtil {
             byte[] ba = md.digest();
             return toHex(ba);
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            return "";
+            return null;
         }
     }
 

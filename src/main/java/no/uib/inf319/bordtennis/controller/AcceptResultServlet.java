@@ -89,7 +89,8 @@ public class AcceptResultServlet extends HttpServlet {
             match.setApproved(newApproved);
             mdao.edit(match);
             if (acceptmethod.equals("accept")) {
-                UpdateElo.updateElo(match.getTime());
+                UpdateElo updateElo = new UpdateElo();
+                updateElo.updateElo(match.getTime());
             }
         }
 

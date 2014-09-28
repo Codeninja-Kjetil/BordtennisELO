@@ -14,6 +14,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -67,6 +73,20 @@
                     <url>http://127.0.0.1:8080/manager/text</url>
                     <server>inf319LocalRepo</server>
                     <path>/BordtennisELO</path>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.1.0</version>
+                <configuration>
+                    <targetClasses>
+                        <param>no.uib.inf319.bordtennis.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>no.uib.inf319.bordtennis.*</param>
+                    </targetTests>
+                    <timestampedReports>false</timestampedReports>
                 </configuration>
             </plugin>
         </plugins>

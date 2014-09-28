@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 import no.uib.inf319.bordtennis.model.Player;
 
 /**
- * A utility class containing several method used my servlets.
- * 
+ * A utility class containing several method used by servlets.
+ *
  * @author Kjetil
  */
 public final class ServletUtil {
@@ -40,7 +40,7 @@ public final class ServletUtil {
     }
 
     /**
-     * Checks if any player is logged in in the spesified session.
+     * Checks if any player is logged in in the specified session.
      *
      * @param session the session to check.
      * @return <code>true</code> if a player is logged in, <code>false</code>
@@ -51,7 +51,7 @@ public final class ServletUtil {
     }
 
     /**
-     * Checks if the spesified player is logged in in the spesified session.
+     * Checks if the specified player is logged in in the specified session.
      *
      * @param session the session to check.
      * @param player the player to check.

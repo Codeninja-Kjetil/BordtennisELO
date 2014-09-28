@@ -13,16 +13,49 @@ import no.uib.inf319.bordtennis.model.Match;
 import no.uib.inf319.bordtennis.model.Result;
 
 /**
- * A utility class containing method to update the ELO-rating of all matches
+ * A class used to update the ELO-rating of all matches
  * after a given point in time.
  *
  * @author Kjetil
  */
 public final class UpdateElo {
+
     /**
-     * Private constructor.
+     * Player DAO.
      */
-    private UpdateElo() {
+    private PlayerDao playerDao;
+    /**
+     * Match DAO.
+     */
+    private MatchDao matchDao;
+    /**
+     * Result DAO.
+     */
+    private ResultDao resultDao;
+
+    /**
+     * Create a UpdateELO object using default DAO-objects to access the
+     * database.
+     */
+    public UpdateElo() {
+        playerDao = new PlayerDaoJpa();
+        matchDao = new MatchDaoJpa();
+        resultDao = new ResultDaoJpa();
+    }
+
+    /**
+     * Create a UpdateELO object using the specified DAO-objects to access the
+     * database.
+     *
+     * @param playerDao Player DAO
+     * @param matchDao Match DAO
+     * @param resultDao REsult DAO
+     */
+    public UpdateElo(final PlayerDao playerDao, final MatchDao matchDao,
+            final ResultDao resultDao) {
+        this.playerDao = playerDao;
+        this.matchDao = matchDao;
+        this.resultDao = resultDao;
     }
 
     /**
@@ -30,10 +63,7 @@ public final class UpdateElo {
      *
      * @param time the time
      */
-    public static void updateElo(final Timestamp time) {
-        PlayerDao playerDao = new PlayerDaoJpa();
-        MatchDao matchDao = new MatchDaoJpa();
-        ResultDao resultDao = new ResultDaoJpa();
+    public void updateElo(final Timestamp time) {
         List<Match> matches = matchDao.getMatchesAfter(time);
         for (Match m : matches) {
             if (m.getApproved() == 0) {
@@ -53,8 +83,8 @@ public final class UpdateElo {
                 int newElo2 = rating.getNewRatingB(m.getVictor() == 2 ? 1.0
                         : 0.0);
 
-                sendNewElo(resultDao, r1, newElo1);
-                sendNewElo(resultDao, r2, newElo2);
+                sendNewElo(r1, newElo1);
+                sendNewElo(r2, newElo2);
             }
         }
     }
@@ -62,15 +92,13 @@ public final class UpdateElo {
     /**
      * Update the ELO-rating in the database.
      *
-     * @param dao the dao-object used to communicate with the database.
      * @param result the result-object to be updated.
      * @param newElo the new ELO-rating.
      */
-    private static void sendNewElo(final ResultDao dao, final Result result,
-            final Integer newElo) {
+    private void sendNewElo(final Result result, final Integer newElo) {
         if (!newElo.equals(result.getElo())) {
             result.setElo(newElo);
-            dao.edit(result);
+            resultDao.edit(result);
         }
     }
 }

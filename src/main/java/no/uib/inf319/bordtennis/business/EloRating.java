@@ -20,6 +20,7 @@ public class EloRating {
      * Start ELO-rating for a new player.
      */
     public static final int START_ELO = 1000;
+
     /**
      * Maximal rating adjustment (K-factor).
      */

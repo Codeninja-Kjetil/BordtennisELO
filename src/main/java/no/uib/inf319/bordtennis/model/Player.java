@@ -56,6 +56,12 @@ public class Player implements Serializable {
     private Integer elo = null;
 
     /**
+     * The DAO object used to get the ELO rating to the player.
+     */
+    @Transient
+    private PlayerDao playerDao = new PlayerDaoJpa();
+
+    /**
      * Creates an empty Player object.
      */
     public Player() {
@@ -147,9 +153,16 @@ public class Player implements Serializable {
      */
     public final int getElo() {
         if (this.elo == null) {
-            final PlayerDao dao = new PlayerDaoJpa();
-            this.elo = dao.getLatestElo(this);
+            this.elo = playerDao.getLatestElo(this);
         }
         return this.elo;
+    }
+
+    /**
+     * Change the PlayerDAO object to an other implementation.
+     * @param dao the new PlayerDAo implementation
+     */
+    public final void setPlayerDao(final PlayerDao dao) {
+        this.playerDao = dao;
     }
 }
