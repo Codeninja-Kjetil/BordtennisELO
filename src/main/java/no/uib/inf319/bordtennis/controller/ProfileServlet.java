@@ -39,24 +39,33 @@ public class ProfileServlet extends HttpServlet {
             IOException {
         String username = request.getParameter("user");
         if (username == null) {
-            ServletUtil.redirect(response, "Home");
+            sendToErrorPage(request, response, "Ugyldig forespørsel. "
+                    + "Vennligst spesifiser et brukernavn i URL.");
             return;
         }
 
         PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(username);
         if (player == null) {
-            ServletUtil.redirect(response, "Home");
+            sendToErrorPage(request, response, "Ingen bruker med brukernavn: "
+                    + username);
+            return;
+        }
+
+        HttpSession session = request.getSession(false);
+        boolean isLoggedIn = ServletUtil.isLoggedInPlayer(session, player);
+
+        if (player.getPrivateprofile() && !isLoggedIn) {
+            sendToErrorPage(request, response, "Brukeren " + username
+                    + " har en privat brukerprofil.");
             return;
         }
 
         request.setAttribute("profilePlayer", player);
         List<TimeAndElo> elopoints = playerDao.getEloOverTimeList(player);
         request.setAttribute("elochart", elopoints.toString());
-
-        HttpSession session = request.getSession(false);
-        boolean isLoggedIn = ServletUtil.isLoggedInPlayer(session, player);
         request.setAttribute("loggedIn", isLoggedIn);
+
         if (isLoggedIn) {
             MatchDao mdao = new MatchDaoJpa();
             List<PendingMatch> pendingmatches = mdao.getPendingMatches(player);
@@ -67,4 +76,12 @@ public class ProfileServlet extends HttpServlet {
                     response);
     }
 
+    private static void sendToErrorPage(final HttpServletRequest request,
+            final HttpServletResponse response, final String message)
+                    throws ServletException, IOException {
+        request.setAttribute("errortitle", "Profil");
+        request.setAttribute("errormessage", message);
+        request.getRequestDispatcher("WEB-INF/errorpage.jsp")
+                .forward(request, response);
+    }
 }

@@ -49,6 +49,12 @@ public class Player implements Serializable {
     private String email;
 
     /**
+     * Field telling if the players profile is private (if other people can see
+     * it) or not.
+     */
+    private Boolean privateprofile;
+
+    /**
      * The ELO-rating of the player. This field is not persisted in the player
      * table of the database.
      */
@@ -145,6 +151,22 @@ public class Player implements Serializable {
      */
     public final void setEmail(final String email) {
         this.email = email;
+    }
+
+    /**
+     * Gets {@link #privateprofile}.
+     * @return privateprofile
+     */
+    public final Boolean getPrivateprofile() {
+        return privateprofile;
+    }
+
+    /**
+     * Sets {@link #privateprofile}.
+     * @param privateprofile privateprofile
+     */
+    public final void setPrivateprofile(final Boolean privateprofile) {
+        this.privateprofile = privateprofile;
     }
 
     /**

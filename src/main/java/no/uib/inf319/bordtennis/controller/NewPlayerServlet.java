@@ -110,6 +110,7 @@ public class NewPlayerServlet extends HttpServlet {
         newplayer.setPassword(Sha256HashUtil.sha256hash(password1));
         newplayer.setName(name);
         newplayer.setAdmin(false);
+        newplayer.setPrivateprofile(false);
 
         dao.create(newplayer);
 
