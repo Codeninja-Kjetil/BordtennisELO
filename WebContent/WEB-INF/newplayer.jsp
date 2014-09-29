@@ -7,35 +7,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Bordtennis - Ny Spiller</title>
+<title>Table tennis - New Player</title>
 </head>
 <body>
-	<h1>Ny Spiller</h1>
+	<h1>New Player</h1>
 	<form method="post" action="NewPlayer">
 		<table>
 			<tr>
-				<td><label>Brukernavn: </label></td>
+				<td><label>Username: </label></td>
 				<td><input type="text" name="user" /></td>
 			</tr>
 			<tr>
-				<td><label>Passord: </label></td>
+				<td><label>Password: </label></td>
 				<td><input type="password" name="pass1" /></td>
 			</tr>
 			<tr>
-				<td><label>Passord igjen: </label></td>
+				<td><label>Password again: </label></td>
 				<td><input type="password" name="pass2" /></td>
 			</tr>
 			<tr>
-				<td><label>Navn: </label></td>
+				<td><label>Name: </label></td>
 				<td><input type="text" name="name" /></td>
 			</tr>
+            <tr>
+                <td><label>E-mail: </label></td>
+                <td><input type="text" name="email" /></td>
+            </tr>
 			<c:if test="${error != null && !error.isEmpty()}">
 				<tr>
 					<td colspan="2">${error}</td>
 				</tr>
 			</c:if>
 			<tr>
-				<td colspan="2"><button type="submit">Registrer</button>
+				<td colspan="2"><button type="submit">Submit</button>
 					<button type="reset">Reset</button></td>
 			</tr>
 		</table>

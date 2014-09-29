@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.model.Player;
+import no.uib.inf319.bordtennis.util.InputValidator;
 import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
@@ -65,9 +66,10 @@ public class NewPlayerServlet extends HttpServlet {
         String password1 = request.getParameter("pass1");
         String password2 = request.getParameter("pass2");
         String name = request.getParameter("name");
+        String email = request.getParameter("email");
 
         if (username == null || username.isEmpty()) {
-            request.setAttribute("error", "Skriv inn et brukernavn");
+            request.setAttribute("error", "Please type in a username.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
             return;
@@ -77,14 +79,14 @@ public class NewPlayerServlet extends HttpServlet {
         Player playercheck = dao.find(username);
 
         if (playercheck != null) {
-            request.setAttribute("error", "Det brukernavnet finnes fra før");
+            request.setAttribute("error", "That username already exists.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
             return;
         }
 
         if (password1 == null || password1.isEmpty()) {
-            request.setAttribute("error", "Skriv inn et passord");
+            request.setAttribute("error", "Please type in a password.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
             return;
@@ -92,14 +94,29 @@ public class NewPlayerServlet extends HttpServlet {
 
         if (!password1.equals(password2)) {
             request.setAttribute("error",
-                    "Passord feltene stemmer ikke overens");
+                    "The password fields do not match.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
             return;
         }
 
         if (name == null || name.isEmpty()) {
-            request.setAttribute("error", "Skriv inn et navn");
+            request.setAttribute("error", "Please type in a name.");
+            request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
+                    response);
+            return;
+        }
+
+        if (email == null || email.isEmpty()) {
+            request.setAttribute("error", "Please type in an e-mail address.");
+            request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
+                    response);
+            return;
+        }
+
+        if (!InputValidator.validateEmail(email)) {
+            request.setAttribute("error",
+                    "Please type in a valid e-mail address.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
             return;
@@ -109,6 +126,7 @@ public class NewPlayerServlet extends HttpServlet {
         newplayer.setUsername(username);
         newplayer.setPassword(Sha256HashUtil.sha256hash(password1));
         newplayer.setName(name);
+        newplayer.setEmail(email);
         newplayer.setAdmin(false);
         newplayer.setPrivateprofile(false);
 

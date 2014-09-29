@@ -86,14 +86,14 @@ public class NewMatchServlet extends HttpServlet {
         String timeString = request.getParameter("time");
 
         if (opponentUsername == null || opponentUsername.isEmpty()) {
-            request.setAttribute("error", "Vennligst velg en motstander.");
+            request.setAttribute("error", "Please select an opponent.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;
         }
 
         if (victorString == null || victorString.isEmpty()) {
-            request.setAttribute("error", "Vennligst velg et resultat.");
+            request.setAttribute("error", "Please select a result.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;
@@ -101,7 +101,7 @@ public class NewMatchServlet extends HttpServlet {
 
         if (timeString == null || timeString.isEmpty()) {
             request.setAttribute("error",
-                    "Vennligst skriv inn tidspunkte kampen ble spilt.");
+                    "Please type in the time the match was played.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;
@@ -110,15 +110,14 @@ public class NewMatchServlet extends HttpServlet {
         PlayerDao playerDao = new PlayerDaoJpa();
         Player opponent = playerDao.find(opponentUsername);
         if (opponent == null) {
-            request.setAttribute("error",
-                    "Vennligst velg en gyldig motstander.");
+            request.setAttribute("error", "Please select a valid opponent.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;
         }
 
         if (!victorString.equals("1") && !victorString.equals("2")) {
-            request.setAttribute("error", "Vennligst velg en gyldig resultat.");
+            request.setAttribute("error", "Please select a valid result.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;
@@ -132,8 +131,8 @@ public class NewMatchServlet extends HttpServlet {
             Date date = dateformat.parse(timeString);
             time = new Timestamp(date.getTime());
         } catch (ParseException e) {
-            request.setAttribute("error", "Vennligst skriv inn tidspunkt med "
-                    + "formatet \"dd.mm.åååå tt.mm.ss\".");
+            request.setAttribute("error", "Please type in a valid time. "
+                    + "A valid time format is: \"dd.mm.yyyy hh.mm.ss\".");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;

@@ -7,14 +7,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Bordtennis - Registrere ny kamp</title>
+<title>Table tennis - Register new match</title>
 </head>
 <body>
-  <h1>Registrere ny kamp</h1>
+  <h1>Register new match</h1>
   <form action="Newmatch" method="post">
     <table>
       <tr>
-        <td><label>Motstander: </label></td>
+        <td><label>Opponent: </label></td>
         <td><select name="opponent">
             <option value=""></option>
             <c:forEach items="${playerlist}" var="p">
@@ -23,19 +23,24 @@
         </select></td>
       </tr>
       <tr>
-        <td><label>Resultat: </label></td>
+        <td><label>Result: </label></td>
         <td><select name="victor">
             <option value=""></option>
-            <option value="1">Seier</option>
-            <option value="2">Tap</option>
+            <option value="1">Victory</option>
+            <option value="2">Loss</option>
         </select></td>
       </tr>
       <tr>
-        <td><label>Tidspunkt: </label></td>
+        <td><label>Time: </label></td>
         <td><input type="text" name="time" /></td>
       </tr>
+      <c:if test="${error != null && !error.isEmpty()}">
+        <tr>
+          <td colspan="2">${error}</td>
+        </tr>
+      </c:if>
       <tr>
-        <td colspan="2"><button type="submit">Registrer</button></td>
+        <td colspan="2"><button type="submit">Register</button></td>
       </tr>
     </table>
   </form>

@@ -6,27 +6,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; UTF-8" />
-<title>Bordtennis</title>
+<title>Table tennis</title>
 </head>
 <body>
-    <h1>Bordtennis</h1>
+    <h1>Table tennis</h1>
     <c:choose>
         <c:when test="${player != null}">
             <p>
-                Logget inn som:
+                Logged in as:
                 <a href="Profile?user=${player.username}">${player.name}</a>
-                <a href="Logout">Logg ut</a>
+                <a href="Logout">Log out</a>
             </p>
         </c:when>
         <c:otherwise>
             <p>
-                <a href="Login">Login</a> <a href="NewPlayer">Registrer</a>
+                <a href="Login">Login</a> <a href="NewPlayer">Register</a>
             </p>
         </c:otherwise>
     </c:choose>
     <table>
         <tr>
-            <th>Navn</th>
+            <th>Name</th>
             <th>Elo-rating</th>
         </tr>
         <c:forEach items="${players}" var="p">

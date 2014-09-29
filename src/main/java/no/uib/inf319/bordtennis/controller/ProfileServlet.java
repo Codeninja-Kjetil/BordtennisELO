@@ -39,15 +39,15 @@ public class ProfileServlet extends HttpServlet {
             IOException {
         String username = request.getParameter("user");
         if (username == null) {
-            sendToErrorPage(request, response, "Ugyldig forespørsel. "
-                    + "Vennligst spesifiser et brukernavn i URL.");
+            sendToErrorPage(request, response, "Invalid request. "
+                    + "Please type in the username in the URL.");
             return;
         }
 
         PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(username);
         if (player == null) {
-            sendToErrorPage(request, response, "Ingen bruker med brukernavn: "
+            sendToErrorPage(request, response, "No user with username "
                     + username);
             return;
         }
@@ -56,8 +56,8 @@ public class ProfileServlet extends HttpServlet {
         boolean isLoggedIn = ServletUtil.isLoggedInPlayer(session, player);
 
         if (player.getPrivateprofile() && !isLoggedIn) {
-            sendToErrorPage(request, response, "Brukeren " + username
-                    + " har en privat brukerprofil.");
+            sendToErrorPage(request, response, "The user " + username
+                    + " has a private user profile.");
             return;
         }
 

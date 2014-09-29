@@ -42,7 +42,7 @@ public class ServletUtilTest {
     }
 
     @Test
-    public final void redirectShouldRedirectInResponse() {
+    public final void redirectShouldRedirectInResponse() throws Exception {
         ServletUtil.redirect(response, URL);
 
         verify(response).setStatus(HttpServletResponse.SC_SEE_OTHER);

@@ -12,7 +12,7 @@ public class Sha256HashUtilTest {
     }
 
     @Test
-    public final void hashOfDanielLokshtanovShouldBeCorrect() {
+    public final void hashOfDanielLokshtanovShouldBeCorrect() throws Exception {
         String string = "Daniel Lokshtanov";
         String hash = "833add45b20288e613c821e95478f5d9"
                 + "a972059ecb5cc14a55e4a32ab324fa43";
@@ -21,7 +21,7 @@ public class Sha256HashUtilTest {
     }
 
     @Test
-    public final void hashOfKjetilLundShouldBeCorrect() {
+    public final void hashOfKjetilLundShouldBeCorrect() throws Exception {
         String string = "Kjetil Lund";
         String hash = "262bef771ae23d287619ab80f88e6133"
                 + "235535452575d4d59affc9e00dabf779";

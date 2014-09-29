@@ -65,13 +65,13 @@ public class LoginServlet extends HttpServlet {
                 .getParameter("pass"));
 
         if (username == null || username.isEmpty()) {
-            request.setAttribute("error", "Skriv inn brukernavn");
+            request.setAttribute("error", "Please type in your username.");
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
             return;
         }
 
         if (password == null || password.isEmpty()) {
-            request.setAttribute("error", "Skriv inn passord");
+            request.setAttribute("error", "Please type in your password.");
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
             return;
         }
@@ -81,7 +81,7 @@ public class LoginServlet extends HttpServlet {
 
         if (player == null || !player.getPassword().equals(password)) {
             request.setAttribute("error",
-                    "Brukernavnet og/eller passordet er feil");
+                    "The combination of username and password is invalid.");
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
             return;
         }

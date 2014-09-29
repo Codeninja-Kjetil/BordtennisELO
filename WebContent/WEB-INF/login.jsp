@@ -6,18 +6,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Bordtennis - Login</title>
+<title>Table tennis - Login</title>
 </head>
 <body>
 	<h1>Login</h1>
 	<form method="post" action="Login">
 		<table>
 			<tr>
-				<td><label>Brukernavn: </label></td>
+				<td><label>Username: </label></td>
 				<td><input type="text" name="user" /></td>
 			</tr>
 			<tr>
-				<td><label>Passord: </label></td>
+				<td><label>Password: </label></td>
 				<td><input type="password" name="pass" /></td>
 			</tr>
 			<c:if test="${error != null && !error.isEmpty()}">
