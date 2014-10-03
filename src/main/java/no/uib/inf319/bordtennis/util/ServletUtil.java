@@ -77,4 +77,15 @@ public final class ServletUtil {
         DateFormat dateformat = new SimpleDateFormat(DATEFORMAT_PATTERN);
         return dateformat.format(time);
     }
+
+    /**
+     * Checks if a string is empty or null.
+     *
+     * @param string the string to check.
+     * @return <code>true</code> if the string is empty or null,
+     * <code>false</code> otherwise
+     */
+    public static boolean isEmptyString(final String string) {
+        return string == null || string.isEmpty();
+    }
 }
