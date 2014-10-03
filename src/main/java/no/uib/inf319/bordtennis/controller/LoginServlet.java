@@ -64,13 +64,13 @@ public class LoginServlet extends HttpServlet {
         String password = Sha256HashUtil.sha256hash(request
                 .getParameter("pass"));
 
-        if (username == null || username.isEmpty()) {
+        if (ServletUtil.isEmptyString(username)) {
             request.setAttribute("error", "Please type in your username.");
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
             return;
         }
 
-        if (password == null || password.isEmpty()) {
+        if (ServletUtil.isEmptyString(password)) {
             request.setAttribute("error", "Please type in your password.");
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
             return;

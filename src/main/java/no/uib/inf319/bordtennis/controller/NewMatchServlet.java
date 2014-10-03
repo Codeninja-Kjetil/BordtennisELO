@@ -85,21 +85,21 @@ public class NewMatchServlet extends HttpServlet {
         String victorString = request.getParameter("victor");
         String timeString = request.getParameter("time");
 
-        if (opponentUsername == null || opponentUsername.isEmpty()) {
+        if (ServletUtil.isEmptyString(opponentUsername)) {
             request.setAttribute("error", "Please select an opponent.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;
         }
 
-        if (victorString == null || victorString.isEmpty()) {
+        if (ServletUtil.isEmptyString(victorString)) {
             request.setAttribute("error", "Please select a result.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                     response);
             return;
         }
 
-        if (timeString == null || timeString.isEmpty()) {
+        if (ServletUtil.isEmptyString(timeString)) {
             request.setAttribute("error",
                     "Please type in the time the match was played.");
             request.getRequestDispatcher(NEWMATCH_JSP).forward(request,

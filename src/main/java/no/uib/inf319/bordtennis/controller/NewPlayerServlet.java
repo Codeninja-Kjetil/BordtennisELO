@@ -68,7 +68,7 @@ public class NewPlayerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
 
-        if (username == null || username.isEmpty()) {
+        if (ServletUtil.isEmptyString(username)) {
             request.setAttribute("error", "Please type in a username.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
@@ -85,7 +85,7 @@ public class NewPlayerServlet extends HttpServlet {
             return;
         }
 
-        if (password1 == null || password1.isEmpty()) {
+        if (ServletUtil.isEmptyString(password1)) {
             request.setAttribute("error", "Please type in a password.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
@@ -100,14 +100,14 @@ public class NewPlayerServlet extends HttpServlet {
             return;
         }
 
-        if (name == null || name.isEmpty()) {
+        if (ServletUtil.isEmptyString(name)) {
             request.setAttribute("error", "Please type in a name.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
             return;
         }
 
-        if (email == null || email.isEmpty()) {
+        if (ServletUtil.isEmptyString(email)) {
             request.setAttribute("error", "Please type in an e-mail address.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
                     response);
