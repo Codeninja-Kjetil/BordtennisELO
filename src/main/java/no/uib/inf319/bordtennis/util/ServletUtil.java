@@ -1,9 +1,12 @@
 package no.uib.inf319.bordtennis.util;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -87,5 +90,25 @@ public final class ServletUtil {
      */
     public static boolean isEmptyString(final String string) {
         return string == null || string.isEmpty();
+    }
+
+    /**
+     * Forwards a request to the error page with a specific title and message.
+     *
+     * @param request the request
+     * @param response the response
+     * @param title the error title
+     * @param message the error message
+     *
+     * @throws ServletException if the target resource throws this exception
+     * @throws IOException if the target resource throws this exception
+     */
+    public static void sendToErrorPage(final HttpServletRequest request,
+            final HttpServletResponse response, final String title,
+            final String message) throws ServletException, IOException {
+        request.setAttribute("errortitle", title);
+        request.setAttribute("errormessage", message);
+        request.getRequestDispatcher("WEB-INF/errorpage.jsp").forward(request,
+                response);
     }
 }

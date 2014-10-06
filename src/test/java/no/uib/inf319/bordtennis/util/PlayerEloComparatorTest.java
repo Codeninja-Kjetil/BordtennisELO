@@ -21,13 +21,13 @@ public class PlayerEloComparatorTest {
     private Player player2;
 
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         player1 = new Player();
         player1.setPlayerDao(playerDao);
         player2 = new Player();
         player2.setPlayerDao(playerDao);
     }
- 
+
     @Test
     public final void higherShouldBeHigher() throws Exception {
         when(playerDao.getLatestElo(player1)).thenReturn(1200);

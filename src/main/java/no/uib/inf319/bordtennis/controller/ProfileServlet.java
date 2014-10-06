@@ -31,7 +31,7 @@ public class ProfileServlet extends HttpServlet {
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     @Override
     protected final void doGet(final HttpServletRequest request,
@@ -39,16 +39,16 @@ public class ProfileServlet extends HttpServlet {
             IOException {
         String username = request.getParameter("user");
         if (username == null) {
-            sendToErrorPage(request, response, "Invalid request. "
-                    + "Please type in the username in the URL.");
+            ServletUtil.sendToErrorPage(request, response, "Profil",
+                    "Invalid request. Please type in the username in the URL.");
             return;
         }
 
         PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(username);
         if (player == null) {
-            sendToErrorPage(request, response, "No user with username "
-                    + username);
+            ServletUtil.sendToErrorPage(request, response, "Profil",
+                    "No user with username " + username);
             return;
         }
 
@@ -56,8 +56,8 @@ public class ProfileServlet extends HttpServlet {
         boolean isLoggedIn = ServletUtil.isLoggedInPlayer(session, player);
 
         if (player.getPrivateprofile() && !isLoggedIn) {
-            sendToErrorPage(request, response, "The user " + username
-                    + " has a private user profile.");
+            ServletUtil.sendToErrorPage(request, response, "Profil",
+                    "The user " + username + " has a private user profile.");
             return;
         }
 
@@ -73,15 +73,6 @@ public class ProfileServlet extends HttpServlet {
         }
 
         request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request,
-                    response);
-    }
-
-    private static void sendToErrorPage(final HttpServletRequest request,
-            final HttpServletResponse response, final String message)
-                    throws ServletException, IOException {
-        request.setAttribute("errortitle", "Profil");
-        request.setAttribute("errormessage", message);
-        request.getRequestDispatcher("WEB-INF/errorpage.jsp")
-                .forward(request, response);
+                response);
     }
 }

@@ -1,11 +1,15 @@
 package no.uib.inf319.bordtennis.util;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,6 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ServletUtilTest {
 
     private static final String URL = "URL";
+    private static final String ERRORPAGE_JSP = "WEB-INF/errorpage.jsp";
 
     @Mock
     private HttpServletRequest request;
@@ -29,6 +34,8 @@ public class ServletUtilTest {
     private HttpServletResponse response;
     @Mock
     private HttpSession session;
+    @Mock
+    private RequestDispatcher requestDispatcher;
 
     private Player player1;
     private Player player2;
@@ -75,7 +82,7 @@ public class ServletUtilTest {
 
     @Test
     public final void noPlayerInSessionShouldNotBeLoggedInPlayer()
-                throws Exception {
+            throws Exception {
         when(session.getAttribute("player")).thenReturn(null);
 
         assertFalse(ServletUtil.isLoggedInPlayer(session, player1));
@@ -83,7 +90,7 @@ public class ServletUtilTest {
 
     @Test
     public final void anOtherPlayerInSessionShouldNotBeLoggedInPlayer()
-                throws Exception {
+            throws Exception {
         when(session.getAttribute("player")).thenReturn(player2);
 
         assertFalse(ServletUtil.isLoggedInPlayer(session, player1));
@@ -91,7 +98,7 @@ public class ServletUtilTest {
 
     @Test
     public final void samePlayerInSessionShouldBeLoggedInPlayer()
-                throws Exception {
+            throws Exception {
         when(session.getAttribute("player")).thenReturn(player2);
 
         assertTrue(ServletUtil.isLoggedInPlayer(session, player2));
@@ -105,5 +112,20 @@ public class ServletUtilTest {
         Date date = cal.getTime();
 
         assertEquals("27.09.2014 16:55", ServletUtil.formatDate(date));
+    }
+
+    @Test
+    public final void sendToErrorPageShouldSendToErrorPage() throws Exception {
+        String title = "Title";
+        String message = "Message";
+
+        when(request.getRequestDispatcher(ERRORPAGE_JSP)).thenReturn(
+                requestDispatcher);
+
+        ServletUtil.sendToErrorPage(request, response, title, message);
+
+        verify(request).setAttribute("errortitle", title);
+        verify(request).setAttribute("errormessage", message);
+        verify(requestDispatcher).forward(request, response);
     }
 }
