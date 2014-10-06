@@ -27,6 +27,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateEloTest {
 
+    private static final int ONETHOUSANDTWOHUNDRED = 1200;
+
     private static final Timestamp TIME0 = new Timestamp(0);
     //private static final Timestamp TIME1000 = new Timestamp(1000);
     //private static final Timestamp TIME2000 = new Timestamp(2000);
@@ -120,11 +122,11 @@ public class UpdateEloTest {
         when(this.resultDao.getResultsFromMatch(match))
                 .thenReturn(this.results);
         when(this.playerDao.getPreviousElo(any(Player.class),
-                        any(Timestamp.class))).thenReturn(1200);
+                    any(Timestamp.class))).thenReturn(ONETHOUSANDTWOHUNDRED);
 
         this.updateElo.updateElo(TIME0);
 
-        assertTrue(this.result1.getElo() > 1200);
+        assertTrue(this.result1.getElo() > ONETHOUSANDTWOHUNDRED);
     }
 
     @Test
@@ -140,11 +142,11 @@ public class UpdateEloTest {
         when(this.resultDao.getResultsFromMatch(match))
                 .thenReturn(this.results);
         when(this.playerDao.getPreviousElo(any(Player.class),
-                        any(Timestamp.class))).thenReturn(1200);
+                    any(Timestamp.class))).thenReturn(ONETHOUSANDTWOHUNDRED);
 
         this.updateElo.updateElo(TIME0);
 
-        assertTrue(this.result2.getElo() < 1200);
+        assertTrue(this.result2.getElo() < ONETHOUSANDTWOHUNDRED);
     }
 
     @Test
@@ -160,11 +162,11 @@ public class UpdateEloTest {
         when(this.resultDao.getResultsFromMatch(match))
                 .thenReturn(this.results);
         when(this.playerDao.getPreviousElo(any(Player.class),
-                        any(Timestamp.class))).thenReturn(1200);
+                    any(Timestamp.class))).thenReturn(ONETHOUSANDTWOHUNDRED);
 
         this.updateElo.updateElo(TIME0);
 
-        assertTrue(this.result1.getElo() < 1200);
+        assertTrue(this.result1.getElo() < ONETHOUSANDTWOHUNDRED);
     }
 
     @Test
@@ -180,10 +182,10 @@ public class UpdateEloTest {
         when(this.resultDao.getResultsFromMatch(match))
                 .thenReturn(this.results);
         when(this.playerDao.getPreviousElo(any(Player.class),
-                        any(Timestamp.class))).thenReturn(1200);
+                    any(Timestamp.class))).thenReturn(ONETHOUSANDTWOHUNDRED);
 
         this.updateElo.updateElo(TIME0);
 
-        assertTrue(this.result2.getElo() > 1200);
+        assertTrue(this.result2.getElo() > ONETHOUSANDTWOHUNDRED);
     }
 }

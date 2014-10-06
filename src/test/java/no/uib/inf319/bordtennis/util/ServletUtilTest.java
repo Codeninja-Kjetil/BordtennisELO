@@ -106,9 +106,15 @@ public class ServletUtilTest {
 
     @Test
     public final void formatDateShouldUseCorrectFormat() throws Exception {
+        final int year = 2014;
+        final int month = 8; // Sept.
+        final int day = 27;
+        final int hour = 16;
+        final int minute = 55;
+
         Calendar cal = Calendar.getInstance();
         cal.clear();
-        cal.set(2014, 8, 27, 16, 55);
+        cal.set(year, month, day, hour, minute);
         Date date = cal.getTime();
 
         assertEquals("27.09.2014 16:55", ServletUtil.formatDate(date));

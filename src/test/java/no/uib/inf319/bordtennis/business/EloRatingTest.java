@@ -31,21 +31,25 @@ public class EloRatingTest {
 
     @Test
     public final void newRatingAShouldBe1205ifAisVictor() throws Exception {
-        assertEquals(1205, rating.getNewRatingA(1.0));
+        final int newRatingA = 1205;
+        assertEquals(newRatingA, rating.getNewRatingA(1.0));
     }
 
     @Test
     public final void newRatingBShouldBe796ifAisVictor() throws Exception {
-        assertEquals(796, rating.getNewRatingB(0.0));
+        final int newRatingB = 796;
+        assertEquals(newRatingB, rating.getNewRatingB(0.0));
     }
 
     @Test
     public final void newRatingAShouldBe1205ifBisVictor() throws Exception {
-        assertEquals(1155, rating.getNewRatingA(0.0));
+        final int newRatingA = 1155;
+        assertEquals(newRatingA, rating.getNewRatingA(0.0));
     }
 
     @Test
     public final void newRatingBShouldBe796ifBisVictor() throws Exception {
-        assertEquals(846, rating.getNewRatingB(1.0));
+        final int newRatingB = 846;
+        assertEquals(newRatingB, rating.getNewRatingB(1.0));
     }
 }

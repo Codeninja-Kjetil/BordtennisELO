@@ -20,6 +20,9 @@ public class PlayerEloComparatorTest {
     private Player player1;
     private Player player2;
 
+    private static final int THOUSAND = 1000;
+    private static final int ONETHOUSANDTWOHUNDRED = 1200;
+
     @Before
     public final void setUp() throws Exception {
         player1 = new Player();
@@ -30,8 +33,8 @@ public class PlayerEloComparatorTest {
 
     @Test
     public final void higherShouldBeHigher() throws Exception {
-        when(playerDao.getLatestElo(player1)).thenReturn(1200);
-        when(playerDao.getLatestElo(player2)).thenReturn(1000);
+        when(playerDao.getLatestElo(player1)).thenReturn(ONETHOUSANDTWOHUNDRED);
+        when(playerDao.getLatestElo(player2)).thenReturn(THOUSAND);
 
         PlayerEloComparator comp = new PlayerEloComparator();
 
@@ -40,8 +43,8 @@ public class PlayerEloComparatorTest {
 
     @Test
     public final void lowerShouldBeLower() throws Exception {
-        when(playerDao.getLatestElo(player1)).thenReturn(1000);
-        when(playerDao.getLatestElo(player2)).thenReturn(1200);
+        when(playerDao.getLatestElo(player1)).thenReturn(THOUSAND);
+        when(playerDao.getLatestElo(player2)).thenReturn(ONETHOUSANDTWOHUNDRED);
 
         PlayerEloComparator comp = new PlayerEloComparator();
 
@@ -50,8 +53,8 @@ public class PlayerEloComparatorTest {
 
     @Test
     public final void equalShouldBeEqual() throws Exception {
-        when(playerDao.getLatestElo(player1)).thenReturn(1200);
-        when(playerDao.getLatestElo(player2)).thenReturn(1200);
+        when(playerDao.getLatestElo(player1)).thenReturn(ONETHOUSANDTWOHUNDRED);
+        when(playerDao.getLatestElo(player2)).thenReturn(ONETHOUSANDTWOHUNDRED);
 
         PlayerEloComparator comp = new PlayerEloComparator();
 
