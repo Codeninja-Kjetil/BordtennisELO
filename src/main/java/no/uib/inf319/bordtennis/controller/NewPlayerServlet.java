@@ -20,7 +20,7 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
  * Servlet implementation class NewPlayerServlet.
  */
 @WebServlet("/NewPlayer")
-public class NewPlayerServlet extends HttpServlet {
+public final class NewPlayerServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -36,7 +36,7 @@ public class NewPlayerServlet extends HttpServlet {
      *      response)
      */
     @Override
-    protected final void doGet(final HttpServletRequest request,
+    protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
@@ -53,7 +53,7 @@ public class NewPlayerServlet extends HttpServlet {
      *      response)
      */
     @Override
-    protected final void doPost(final HttpServletRequest request,
+    protected void doPost(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);

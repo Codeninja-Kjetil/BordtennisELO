@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
  * The persistent class for the result database table.
  */
 @Entity
-public class Result implements Serializable {
+public final class Result implements Serializable {
     /**
      * serialVersionUID.
      */
@@ -66,7 +66,7 @@ public class Result implements Serializable {
      * Gets {@link #resultid}.
      * @return resultid
      */
-    public final Integer getResultid() {
+    public Integer getResultid() {
         return this.resultid;
     }
 
@@ -74,7 +74,7 @@ public class Result implements Serializable {
      * Sets {@link #resultid}.
      * @param resultid resultid
      */
-    public final void setResultid(final Integer resultid) {
+    public void setResultid(final Integer resultid) {
         this.resultid = resultid;
     }
 
@@ -82,7 +82,7 @@ public class Result implements Serializable {
      * Gets {@link #elo}.
      * @return elo
      */
-    public final Integer getElo() {
+    public Integer getElo() {
         return this.elo;
     }
 
@@ -90,7 +90,7 @@ public class Result implements Serializable {
      * Sets {@link #elo}.
      * @param elo elo
      */
-    public final void setElo(final Integer elo) {
+    public void setElo(final Integer elo) {
         this.elo = elo;
     }
 
@@ -98,7 +98,7 @@ public class Result implements Serializable {
      * Gets {@link #playernumber}.
      * @return playernumber
      */
-    public final Integer getPlayernumber() {
+    public Integer getPlayernumber() {
         return this.playernumber;
     }
 
@@ -106,7 +106,7 @@ public class Result implements Serializable {
      * Sets {@link #playernumber}.
      * @param playernumber playernumber
      */
-    public final void setPlayernumber(final Integer playernumber) {
+    public void setPlayernumber(final Integer playernumber) {
         this.playernumber = playernumber;
     }
 
@@ -114,7 +114,7 @@ public class Result implements Serializable {
      * Gets {@link #match}.
      * @return match
      */
-    public final Match getMatch() {
+    public Match getMatch() {
         return this.match;
     }
 
@@ -122,7 +122,7 @@ public class Result implements Serializable {
      * Sets {@link #match}.
      * @param match match
      */
-    public final void setMatch(final Match match) {
+    public void setMatch(final Match match) {
         this.match = match;
     }
 
@@ -130,7 +130,7 @@ public class Result implements Serializable {
      * Gets {@link #player}.
      * @return player
      */
-    public final Player getPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 
@@ -138,7 +138,7 @@ public class Result implements Serializable {
      * Sets {@link #player}.
      * @param player player
      */
-    public final void setPlayer(final Player player) {
+    public void setPlayer(final Player player) {
         this.player = player;
     }
 }

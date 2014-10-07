@@ -23,7 +23,7 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
  * Servlet implementation class AcceptResultServlet.
  */
 @WebServlet("/Acceptresult")
-public class AcceptResultServlet extends HttpServlet {
+public final class AcceptResultServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -34,7 +34,7 @@ public class AcceptResultServlet extends HttpServlet {
      *      response)
      */
     @Override
-    protected final void doPost(final HttpServletRequest request,
+    protected void doPost(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);

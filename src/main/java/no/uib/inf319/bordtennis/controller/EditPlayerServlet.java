@@ -20,7 +20,7 @@ import no.uib.inf319.bordtennis.util.Sha256HashUtil;
  * Servlet implementation class EditPlayerServlet.
  */
 @WebServlet("/EditPlayer")
-public class EditPlayerServlet extends HttpServlet {
+public final class EditPlayerServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -36,7 +36,7 @@ public class EditPlayerServlet extends HttpServlet {
      * response)
      */
     @Override
-    protected final void doGet(final HttpServletRequest request,
+    protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
@@ -53,7 +53,7 @@ public class EditPlayerServlet extends HttpServlet {
      * response)
      */
     @Override
-    protected final void doPost(final HttpServletRequest request,
+    protected void doPost(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);

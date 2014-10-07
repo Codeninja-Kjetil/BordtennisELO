@@ -1,20 +1,18 @@
 package no.uib.inf319.bordtennis.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class LogoutServlet.
+ * Servlet implementation class AdminServlet.
  */
-@WebServlet("/Logout")
-public final class LogoutServlet extends HttpServlet {
+@WebServlet("/Admin")
+public final class AdminHomeServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -22,18 +20,14 @@ public final class LogoutServlet extends HttpServlet {
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     @Override
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
+        request.getRequestDispatcher("WEB-INF/admin.jsp").forward(request,
+                response);
 
-        ServletUtil.redirect(response, "Home");
     }
-
 }

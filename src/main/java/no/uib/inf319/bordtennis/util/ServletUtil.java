@@ -6,7 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -103,12 +104,12 @@ public final class ServletUtil {
      * @throws ServletException if the target resource throws this exception
      * @throws IOException if the target resource throws this exception
      */
-    public static void sendToErrorPage(final HttpServletRequest request,
-            final HttpServletResponse response, final String title,
+    public static void sendToErrorPage(final ServletRequest request,
+            final ServletResponse response, final String title,
             final String message) throws ServletException, IOException {
         request.setAttribute("errortitle", title);
         request.setAttribute("errormessage", message);
-        request.getRequestDispatcher("WEB-INF/errorpage.jsp").forward(request,
+        request.getRequestDispatcher("/WEB-INF/errorpage.jsp").forward(request,
                 response);
     }
 }

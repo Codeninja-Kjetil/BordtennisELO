@@ -14,10 +14,10 @@ import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.model.Player;
 
 /**
- * Servlet implementation class TestServlet.
+ * Servlet implementation class AdminPlayerList.
  */
-@WebServlet("/Home")
-public final class HomepageServlet extends HttpServlet {
+@WebServlet("/Admin/PlayerList")
+public final class AdminPlayerListServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -25,18 +25,17 @@ public final class HomepageServlet extends HttpServlet {
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     @Override
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        PlayerDao dao = new PlayerDaoJpa();
-        List<Player> players = dao.getEloSortedPlayerList();
-        request.setAttribute("players", players);
-
-        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request,
-                response);
+        System.out.println("AdminPlayerListServlet.doGet()");
+        PlayerDao playerDao = new PlayerDaoJpa();
+        List<Player> playerlist = playerDao.findAll();
+        request.setAttribute("playerlist", playerlist);
+        request.getRequestDispatcher("/WEB-INF/admin_playerlist.jsp").forward(
+                request, response);
     }
-
 }

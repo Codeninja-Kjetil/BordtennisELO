@@ -16,7 +16,7 @@ import javax.persistence.OrderBy;
  * The persistent class for the match database table.
  */
 @Entity
-public class Match implements Serializable {
+public final class Match implements Serializable {
     /**
      * serialVersionUID.
      */
@@ -72,7 +72,7 @@ public class Match implements Serializable {
      * Gets {@link #matchid}.
      * @return matchid
      */
-    public final Integer getMatchid() {
+    public Integer getMatchid() {
         return this.matchid;
     }
 
@@ -80,7 +80,7 @@ public class Match implements Serializable {
      * Sets {@link #matchid}.
      * @param matchid matchid
      */
-    public final void setMatchid(final Integer matchid) {
+    public void setMatchid(final Integer matchid) {
         this.matchid = matchid;
     }
 
@@ -88,7 +88,7 @@ public class Match implements Serializable {
      * Gets {@link #time}.
      * @return time
      */
-    public final Timestamp getTime() {
+    public Timestamp getTime() {
         return this.time;
     }
 
@@ -96,7 +96,7 @@ public class Match implements Serializable {
      * Sets {@link #time}.
      * @param time time
      */
-    public final void setTime(final Timestamp time) {
+    public void setTime(final Timestamp time) {
         this.time = time;
     }
 
@@ -104,7 +104,7 @@ public class Match implements Serializable {
      * Gets {@link #victor}.
      * @return victor
      */
-    public final Integer getVictor() {
+    public Integer getVictor() {
         return this.victor;
     }
 
@@ -112,7 +112,7 @@ public class Match implements Serializable {
      * Sets {@link #victor}.
      * @param victor victor
      */
-    public final void setVictor(final Integer victor) {
+    public void setVictor(final Integer victor) {
         this.victor = victor;
     }
 
@@ -120,7 +120,7 @@ public class Match implements Serializable {
      * Gets {@link #approved}.
      * @return approved
      */
-    public final Integer getApproved() {
+    public Integer getApproved() {
         return this.approved;
     }
 
@@ -128,7 +128,7 @@ public class Match implements Serializable {
      * Sets {@link #approved}.
      * @param approved approved
      */
-    public final void setApproved(final Integer approved) {
+    public void setApproved(final Integer approved) {
         this.approved = approved;
     }
 
@@ -136,7 +136,7 @@ public class Match implements Serializable {
      * Gets {@link #results}.
      * @return results
      */
-    public final List<Result> getResults() {
+    public List<Result> getResults() {
         return this.results;
         /*
         if (results == null) {
@@ -152,7 +152,7 @@ public class Match implements Serializable {
      * Sets {@link #results}.
      * @param results results
      */
-    public final void setResults(final List<Result> results) {
+    public void setResults(final List<Result> results) {
         this.results = results;
     }
 }

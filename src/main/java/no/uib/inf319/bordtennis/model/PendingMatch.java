@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
-public class PendingMatch {
+public final class PendingMatch {
     private String player;
     private String opponent;
     private Timestamp time;
@@ -27,59 +27,59 @@ public class PendingMatch {
         this.resultid = resultid;
     }
 
-    public final String getPlayer() {
+    public String getPlayer() {
         return this.player;
     }
 
-    public final void setPlayer(final String player) {
+    public void setPlayer(final String player) {
         this.player = player;
     }
 
-    public final String getOpponent() {
+    public String getOpponent() {
         return this.opponent;
     }
 
-    public final void setOpponent(final String opponent) {
+    public void setOpponent(final String opponent) {
         this.opponent = opponent;
     }
 
-    public final Timestamp getTime() {
+    public Timestamp getTime() {
         return this.time;
     }
 
-    public final void setTime(final Timestamp time) {
+    public void setTime(final Timestamp time) {
         this.time = time;
     }
 
-    public final int getPlayernumber() {
+    public int getPlayernumber() {
         return this.playernumber;
     }
 
-    public final void setPlayernumber(final int playernumber) {
+    public void setPlayernumber(final int playernumber) {
         this.playernumber = playernumber;
     }
 
-    public final int getVictornumber() {
+    public int getVictornumber() {
         return this.victornumber;
     }
 
-    public final void setVictornumber(final int victornumber) {
+    public void setVictornumber(final int victornumber) {
         this.victornumber = victornumber;
     }
 
-    public final int getResultid() {
+    public int getResultid() {
         return this.resultid;
     }
 
-    public final void setResultid(final int resultid) {
+    public void setResultid(final int resultid) {
         this.resultid = resultid;
     }
 
-    public final boolean isVictor() {
+    public boolean isVictor() {
         return this.playernumber == this.victornumber;
     }
 
-    public final String getFormatTime() {
+    public String getFormatTime() {
         return ServletUtil.formatDate(this.time);
     }
 }

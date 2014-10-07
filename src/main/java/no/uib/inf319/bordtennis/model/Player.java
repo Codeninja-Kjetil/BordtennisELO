@@ -13,7 +13,7 @@ import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
  * The persistent class for the player database table.
  */
 @Entity
-public class Player implements Serializable {
+public final class Player implements Serializable {
     /**
      * serialVersionUID.
      */
@@ -77,7 +77,7 @@ public class Player implements Serializable {
      * Gets {@link #username}.
      * @return username
      */
-    public final String getUsername() {
+    public String getUsername() {
         return this.username;
     }
 
@@ -85,7 +85,7 @@ public class Player implements Serializable {
      * Sets {@link #username}.
      * @param username username
      */
-    public final void setUsername(final String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -93,7 +93,7 @@ public class Player implements Serializable {
      * Gets {@link #admin}.
      * @return admin
      */
-    public final Boolean getAdmin() {
+    public Boolean getAdmin() {
         return this.admin;
     }
 
@@ -101,7 +101,7 @@ public class Player implements Serializable {
      * Sets {@link #admin}.
      * @param admin admin
      */
-    public final void setAdmin(final Boolean admin) {
+    public void setAdmin(final Boolean admin) {
         this.admin = admin;
     }
 
@@ -109,7 +109,7 @@ public class Player implements Serializable {
      * Gets {@link #name}.
      * @return name
      */
-    public final String getName() {
+    public String getName() {
         return this.name;
     }
 
@@ -117,7 +117,7 @@ public class Player implements Serializable {
      * Sets {@link #name}.
      * @param name name
      */
-    public final void setName(final String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -125,7 +125,7 @@ public class Player implements Serializable {
      * Gets {@link #password}.
      * @return password
      */
-    public final String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
@@ -133,7 +133,7 @@ public class Player implements Serializable {
      * Sets {@link #password}.
      * @param password password
      */
-    public final void setPassword(final String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -141,7 +141,7 @@ public class Player implements Serializable {
      * Gets {@link #email}.
      * @return email
      */
-    public final String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -149,7 +149,7 @@ public class Player implements Serializable {
      * Sets {@link #email}.
      * @param email email
      */
-    public final void setEmail(final String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -157,7 +157,7 @@ public class Player implements Serializable {
      * Gets {@link #privateprofile}.
      * @return privateprofile
      */
-    public final Boolean getPrivateprofile() {
+    public Boolean getPrivateprofile() {
         return privateprofile;
     }
 
@@ -165,7 +165,7 @@ public class Player implements Serializable {
      * Sets {@link #privateprofile}.
      * @param privateprofile privateprofile
      */
-    public final void setPrivateprofile(final Boolean privateprofile) {
+    public void setPrivateprofile(final Boolean privateprofile) {
         this.privateprofile = privateprofile;
     }
 
@@ -173,7 +173,7 @@ public class Player implements Serializable {
      * Gets {@link #elo}.
      * @return elo
      */
-    public final int getElo() {
+    public int getElo() {
         if (this.elo == null) {
             this.elo = playerDao.getLatestElo(this);
         }
@@ -184,7 +184,7 @@ public class Player implements Serializable {
      * Change the PlayerDAO object to an other implementation.
      * @param dao the new PlayerDAo implementation
      */
-    public final void setPlayerDao(final PlayerDao dao) {
+    public void setPlayerDao(final PlayerDao dao) {
         this.playerDao = dao;
     }
 }

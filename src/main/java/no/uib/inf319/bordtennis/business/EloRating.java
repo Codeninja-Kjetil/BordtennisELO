@@ -6,7 +6,7 @@ package no.uib.inf319.bordtennis.business;
  *
  * @author Kjetil
  */
-public class EloRating {
+public final class EloRating {
     /**
      * Ten.
      */
@@ -64,7 +64,7 @@ public class EloRating {
      *
      * @return expected result for player A.
      */
-    public final double getExpectedResultA() {
+    public double getExpectedResultA() {
         return this.expectedResultA;
     }
 
@@ -73,7 +73,7 @@ public class EloRating {
      *
      * @return expected result for player B.
      */
-    public final double getExpectedResultB() {
+    public double getExpectedResultB() {
         return this.expectedResultB;
     }
 
@@ -83,7 +83,7 @@ public class EloRating {
      * @param result the result of the match.
      * @return the new ELO rating.
      */
-    public final int getNewRatingA(final double result) {
+    public int getNewRatingA(final double result) {
         return calcNewRating(this.ratingA, result, this.expectedResultA);
     }
 
@@ -93,7 +93,7 @@ public class EloRating {
      * @param result the result of the match.
      * @return the new ELO rating.
      */
-    public final int getNewRatingB(final double result) {
+    public int getNewRatingB(final double result) {
         return calcNewRating(this.ratingB, result, this.expectedResultB);
     }
 

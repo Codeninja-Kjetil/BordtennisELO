@@ -23,7 +23,7 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
  * Servlet implementation class ProfileServlet.
  */
 @WebServlet("/Profile")
-public class ProfileServlet extends HttpServlet {
+public final class ProfileServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -34,7 +34,7 @@ public class ProfileServlet extends HttpServlet {
      * response)
      */
     @Override
-    protected final void doGet(final HttpServletRequest request,
+    protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         String username = request.getParameter("user");

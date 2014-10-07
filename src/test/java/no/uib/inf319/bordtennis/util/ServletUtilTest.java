@@ -26,7 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ServletUtilTest {
 
     private static final String URL = "URL";
-    private static final String ERRORPAGE_JSP = "WEB-INF/errorpage.jsp";
+    private static final String ERRORPAGE_JSP = "/WEB-INF/errorpage.jsp";
 
     @Mock
     private HttpServletRequest request;

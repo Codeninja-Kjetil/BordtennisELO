@@ -19,7 +19,7 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
  * Servlet implementation class LoginServlet.
  */
 @WebServlet("/Login")
-public class LoginServlet extends HttpServlet {
+public final class LoginServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
      *      response)
      */
     @Override
-    protected final void doGet(final HttpServletRequest request,
+    protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
      *      response)
      */
     @Override
-    protected final void doPost(final HttpServletRequest request,
+    protected void doPost(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
