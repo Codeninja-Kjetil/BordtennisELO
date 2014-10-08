@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the match database table.
  */
 @Entity
+@Table(name = "ttmatch")
 public final class Match implements Serializable {
     /**
      * serialVersionUID.

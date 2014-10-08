@@ -61,14 +61,14 @@ public class UpdateEloTest {
         this.result2 = new Result();
         this.result2.setPlayer(this.player2);
 
-        this.results = new ArrayList<>();
+        this.results = new ArrayList<Result>();
         this.results.add(this.result1);
         this.results.add(this.result2);
     }
 
     @Test
     public final void emptyMatchListShouldntUpdateAnyResults() {
-        List<Match> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<Match>();
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);
 
         this.updateElo.updateElo(TIME0);
@@ -81,7 +81,7 @@ public class UpdateEloTest {
         Match match = new Match();
         match.setApproved(1);
 
-        List<Match> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<Match>();
         matches.add(match);
 
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);
@@ -97,7 +97,7 @@ public class UpdateEloTest {
         match.setApproved(0);
         match.setVictor(1);
 
-        List<Match> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<Match>();
         matches.add(match);
 
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);
@@ -115,7 +115,7 @@ public class UpdateEloTest {
         match.setApproved(0);
         match.setVictor(1);
 
-        List<Match> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<Match>();
         matches.add(match);
 
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);
@@ -135,7 +135,7 @@ public class UpdateEloTest {
         match.setApproved(0);
         match.setVictor(1);
 
-        List<Match> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<Match>();
         matches.add(match);
 
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);
@@ -155,7 +155,7 @@ public class UpdateEloTest {
         match.setApproved(0);
         match.setVictor(2);
 
-        List<Match> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<Match>();
         matches.add(match);
 
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);
@@ -175,7 +175,7 @@ public class UpdateEloTest {
         match.setApproved(0);
         match.setVictor(2);
 
-        List<Match> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<Match>();
         matches.add(match);
 
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);

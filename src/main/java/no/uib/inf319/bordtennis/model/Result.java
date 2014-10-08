@@ -9,11 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the result database table.
  */
 @Entity
+@Table(name = "ttresult")
 public final class Result implements Serializable {
     /**
      * serialVersionUID.

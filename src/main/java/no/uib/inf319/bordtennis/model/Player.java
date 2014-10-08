@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import no.uib.inf319.bordtennis.dao.PlayerDao;
@@ -13,6 +14,7 @@ import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
  * The persistent class for the player database table.
  */
 @Entity
+@Table(name = "player")
 public final class Player implements Serializable {
     /**
      * serialVersionUID.

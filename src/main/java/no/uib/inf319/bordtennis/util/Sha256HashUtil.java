@@ -30,7 +30,9 @@ public final class Sha256HashUtil {
             md.update(string.getBytes("UTF-8"));
             byte[] ba = md.digest();
             return toHex(ba);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        } catch (UnsupportedEncodingException e) {
             return null;
         }
     }
