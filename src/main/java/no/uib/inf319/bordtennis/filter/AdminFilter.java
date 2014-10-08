@@ -28,7 +28,6 @@ public final class AdminFilter implements Filter {
     public void doFilter(final ServletRequest request,
             final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
-        System.out.println("AdminFilter.doFilter()");
         HttpSession session = ((HttpServletRequest) request).getSession(false);
 
         if (!isLoggedInAdmin(session)) {

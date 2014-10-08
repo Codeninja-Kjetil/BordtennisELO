@@ -31,7 +31,6 @@ public final class AdminPlayerListServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        System.out.println("AdminPlayerListServlet.doGet()");
         PlayerDao playerDao = new PlayerDaoJpa();
         List<Player> playerlist = playerDao.findAll();
         request.setAttribute("playerlist", playerlist);
