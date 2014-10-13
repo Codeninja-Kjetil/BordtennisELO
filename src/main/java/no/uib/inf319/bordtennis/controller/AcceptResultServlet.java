@@ -22,12 +22,14 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 /**
  * Servlet implementation class AcceptResultServlet.
  */
-@WebServlet("/Acceptresult")
+@WebServlet("/AcceptResult")
 public final class AcceptResultServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
+
+    private static final String ERROR_PAGE_TITLE = "Accept Result";
 
     /*
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -48,10 +50,14 @@ public final class AcceptResultServlet extends HttpServlet {
         String acceptmethod = request.getParameter("method");
 
         if (resultString == null || acceptmethod == null
-                || !acceptmethod.equals("accept")
-                || !acceptmethod.equals("deny")) {
+                || (!acceptmethod.equals("accept")
+                && !acceptmethod.equals("deny"))) {
             // Bad request
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
+                    "Missing acceptmethod parameter. "
+                    + "resultid = " + resultString
+                    + ", method = " + acceptmethod);
             return;
         }
 
@@ -60,7 +66,9 @@ public final class AcceptResultServlet extends HttpServlet {
             resultNumber = Integer.parseInt(resultString);
         } catch (NumberFormatException e) {
             // resultString is not a number
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
+                    "Resultid parameter missing or not a number.");
             return;
         }
 
@@ -68,7 +76,9 @@ public final class AcceptResultServlet extends HttpServlet {
         Result result = rdao.find(resultNumber);
         if (result == null) {
             // No result with that id
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
+                    "No result with the resultid in the parameter.");
             return;
         }
 
@@ -78,7 +88,9 @@ public final class AcceptResultServlet extends HttpServlet {
 
         if (!resultPlayer.getUsername().equals(loggedinPlayer.getUsername())) {
             // Not correct player logged in
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
+                    "Not correct player logged in.");
             return;
         }
 
@@ -94,7 +106,8 @@ public final class AcceptResultServlet extends HttpServlet {
             }
         }
 
-        ServletUtil.redirect(response, "Mypage");
+        ServletUtil.redirect(response, "Profile?user="
+                + loggedinPlayer.getUsername());
     }
 
 }

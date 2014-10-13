@@ -29,7 +29,7 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 /**
  * Servlet implementation class NewMatchServlet.
  */
-@WebServlet("/Newmatch")
+@WebServlet("/NewMatch")
 public final class NewMatchServlet extends HttpServlet {
     /**
      * serialVersionUID.
@@ -54,13 +54,7 @@ public final class NewMatchServlet extends HttpServlet {
         if (!ServletUtil.isLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
         } else {
-            Player player = (Player) session.getAttribute("player");
-            PlayerDao playerDao = new PlayerDaoJpa();
-            List<Player> playerlist = playerDao
-                    .getAllPlayersExceptForOne(player);
-            request.setAttribute("playerlist", playerlist);
-            request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
-                    response);
+            forwardWithPlayerlist(request, response, session);
         }
     }
 
@@ -87,23 +81,20 @@ public final class NewMatchServlet extends HttpServlet {
 
         if (ServletUtil.isEmptyString(opponentUsername)) {
             request.setAttribute("error", "Please select an opponent.");
-            request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
-                    response);
+            forwardWithPlayerlist(request, response, session);
             return;
         }
 
         if (ServletUtil.isEmptyString(victorString)) {
             request.setAttribute("error", "Please select a result.");
-            request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
-                    response);
+            forwardWithPlayerlist(request, response, session);
             return;
         }
 
         if (ServletUtil.isEmptyString(timeString)) {
             request.setAttribute("error",
                     "Please type in the time the match was played.");
-            request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
-                    response);
+            forwardWithPlayerlist(request, response, session);
             return;
         }
 
@@ -111,20 +102,18 @@ public final class NewMatchServlet extends HttpServlet {
         Player opponent = playerDao.find(opponentUsername);
         if (opponent == null) {
             request.setAttribute("error", "Please select a valid opponent.");
-            request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
-                    response);
+            forwardWithPlayerlist(request, response, session);
             return;
         }
 
         if (!victorString.equals("1") && !victorString.equals("2")) {
             request.setAttribute("error", "Please select a valid result.");
-            request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
-                    response);
+            forwardWithPlayerlist(request, response, session);
             return;
         }
         int victor = Integer.parseInt(victorString);
 
-        DateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        DateFormat dateformat = new SimpleDateFormat("dd.MM.yy HH:mm");
         // dateformat.setLenient(false);
         Timestamp time;
         try {
@@ -132,9 +121,8 @@ public final class NewMatchServlet extends HttpServlet {
             time = new Timestamp(date.getTime());
         } catch (ParseException e) {
             request.setAttribute("error", "Please type in a valid time. "
-                    + "A valid time format is: \"dd.mm.yyyy hh.mm.ss\".");
-            request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
-                    response);
+                    + "A valid time format is: \"dd.mm.yy hh:mm\".");
+            forwardWithPlayerlist(request, response, session);
             return;
         }
 
@@ -160,6 +148,18 @@ public final class NewMatchServlet extends HttpServlet {
         resultDao.create(playerResult);
         resultDao.create(opponentResult);
 
-        ServletUtil.redirect(response, "Profile");
+        ServletUtil.redirect(response, "Profile?user=" + player.getUsername());
+    }
+
+    private void forwardWithPlayerlist(final HttpServletRequest request,
+            final HttpServletResponse response, final HttpSession session)
+            throws ServletException, IOException {
+        Player player = (Player) session.getAttribute("player");
+        PlayerDao playerDao = new PlayerDaoJpa();
+        List<Player> playerlist = playerDao
+                .getAllPlayersExceptForOne(player);
+        request.setAttribute("playerlist", playerlist);
+        request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
+                response);
     }
 }

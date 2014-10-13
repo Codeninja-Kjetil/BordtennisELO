@@ -11,7 +11,7 @@
 </head>
 <body>
   <h1>Register new match</h1>
-  <form action="Newmatch" method="post">
+  <form action="NewMatch" method="post">
     <table>
       <tr>
         <td><label>Opponent: </label></td>

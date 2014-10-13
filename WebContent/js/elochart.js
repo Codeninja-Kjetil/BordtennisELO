@@ -4,7 +4,7 @@ $(function () {
             type: 'line'
         },
         title: {
-            text: 'Chart test'
+            text: 'Elo-rating over time'
         },
         xAxis: {
         	type: 'datetime',

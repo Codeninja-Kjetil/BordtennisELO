@@ -30,6 +30,7 @@
   <h2>Elo-rating over time</h2>
   <div id="elochart"></div>
   <c:if test="${loggedIn}">
+    <p><a href="NewMatch">Register new match</a></p>
     <h2>Matches to approve</h2>
     <c:choose>
       <c:when test="${pending.isEmpty()}">
@@ -48,7 +49,7 @@
               <td>${m.opponent}</td>
               <td>${m.formatTime}</td>
               <td>${m.victor ? "Victory" : "Loss"}</td>
-              <td><form method="post" action="Acceptresult">
+              <td><form method="post" action="AcceptResult">
                   <input type="hidden" name="resultid" value="${m.resultid}" />
                   <button type="submit" name="method" value="accept">Approve</button>
                   <button type="submit" name="method" value="deny">Reject</button>
