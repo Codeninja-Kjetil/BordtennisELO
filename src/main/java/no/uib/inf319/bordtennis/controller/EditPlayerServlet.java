@@ -40,7 +40,7 @@ public final class EditPlayerServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
-        if (ServletUtil.isLoggedIn(session)) {
+        if (!ServletUtil.isLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
         } else {
             request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
@@ -57,7 +57,7 @@ public final class EditPlayerServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession(false);
-        if (ServletUtil.isLoggedIn(session)) {
+        if (!ServletUtil.isLoggedIn(session)) {
             ServletUtil.redirect(response, "Home");
             return;
         }
@@ -69,7 +69,7 @@ public final class EditPlayerServlet extends HttpServlet {
         String newemail = request.getParameter("newemail");
         String oldpassword = request.getParameter("oldpass");
 
-        if (oldpassword == null || sessionPlayer.getPassword().equals(
+        if (oldpassword == null || !sessionPlayer.getPassword().equals(
                         Sha256HashUtil.sha256hash(oldpassword))) {
             request.setAttribute("error",
                     "The entered password is not correct.");

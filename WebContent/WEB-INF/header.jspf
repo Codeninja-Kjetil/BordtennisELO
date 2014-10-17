@@ -1,0 +1,18 @@
+<h1><a href="Home"><img src="img/tabletennis_logo.png" alt="Table tennis" /></a></h1>
+<c:choose>
+    <c:when test="${player != null}">
+        <p>
+            Logged in as:
+            <a href="Profile?user=${player.username}">${player.name}</a>
+            <a href="Logout">Log out</a>
+            <c:if test="${player.admin}">
+                <a href="Admin">Admin</a>
+            </c:if>
+        </p>
+    </c:when>
+    <c:otherwise>
+        <p>
+            <a href="Login">Login</a> <a href="NewPlayer">Register</a>
+        </p>
+    </c:otherwise>
+</c:choose>

@@ -57,6 +57,11 @@ public final class Player implements Serializable {
     private Boolean privateprofile;
 
     /**
+     * The path to the profile image to the player.
+     */
+    private String imagepath;
+
+    /**
      * The ELO-rating of the player. This field is not persisted in the player
      * table of the database.
      */
@@ -169,6 +174,22 @@ public final class Player implements Serializable {
      */
     public void setPrivateprofile(final Boolean privateprofile) {
         this.privateprofile = privateprofile;
+    }
+
+    /**
+     * Gets {@link #imagepath}.
+     * @return imagepath
+     */
+    public String getImagepath() {
+        return imagepath;
+    }
+
+    /**
+     * Sets {@link #imagepath}.
+     * @param imagepath imagepath
+     */
+    public void setImagepath(final String imagepath) {
+        this.imagepath = imagepath;
     }
 
     /**

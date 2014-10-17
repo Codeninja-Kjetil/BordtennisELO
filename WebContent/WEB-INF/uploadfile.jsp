@@ -7,15 +7,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Table tennis - Admin</title>
+<title>Table tennis - Upload Profile Image</title>
 </head>
 <body>
-  <%@ include file="header.jspf" %>
-  <h1>Admin</h1>
-  <h2>Edit Players</h2>
-  <p><a href="Admin/PlayerList">Player list</a></p>
-  <h2>Edit Matches</h2>
-  <p><a href="Admin/NewMatch">New Match</a></p>
-  <p><a href="Admin/MatchList">Match List</a></p>
+    <%@ include file="header.jspf" %>
+    <h1>Upload Profile Image</h1>
+    <form method="post" action="UploadFile" enctype="multipart/form-data" >
+            File: <input type="file" name="file" id="file" /><br/>
+            <button type="submit">Upload</button>
+        </form>
 </body>
 </html>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,7 +16,12 @@
 
 </head>
 <body>
+  <%@ include file="header.jspf" %>
   <h1>Profile</h1>
+  <c:if test="${profilePlayer.imagepath != null && !profilePlayer.imagepath.isEmpty()}">
+    <div><img src="${profilePlayer.imagepath}" alt="Profile Image" /></div>
+  </c:if>
+  
   <h2>Info</h2>
   <table>
     <tr>
@@ -31,6 +37,8 @@
   <div id="elochart"></div>
   <c:if test="${loggedIn}">
     <p><a href="NewMatch">Register new match</a></p>
+    <p><a href="EditPlayer">Edit user data</a></p>
+    <p><a href="UploadFile">Edit profile image</a></p>
     <h2>Matches to approve</h2>
     <c:choose>
       <c:when test="${pending.isEmpty()}">
