@@ -74,6 +74,11 @@ public final class UploadFileServlet extends HttpServlet {
         String fileName = getFileName(filePart);
         String filePath = dirPath + fileName;
 
+        if (!isValidImageFormat(fileName)) {
+            ServletUtil.sendToErrorPage(request, response,
+                    "Upload Profile Image", "Not a valid image file format.");
+        }
+
         OutputStream out = null;
         InputStream filecontent = null;
 
@@ -144,5 +149,28 @@ public final class UploadFileServlet extends HttpServlet {
     private String getExtensionFromFileName(final String filename) {
         String[] fileparts = filename.split("//.");
         return fileparts[fileparts.length - 1];
+    }
+
+    /**
+     * Checks if a file is of a valid image file format.
+     * The valid file formats is:
+     * <ul>
+     * <li>.png</li>
+     * <li>.jpg/.jpeg</li>
+     * <li>.bmp</li>
+     * <li>.gif</li>
+     * </ul>
+     *
+     * @param filename the filename to check
+     * @return <code>true</code> if it's a valid image file format,
+     * <code>false</code> otherwise
+     */
+    private boolean isValidImageFormat(final String filename) {
+        String extension = getExtensionFromFileName(filename);
+        return extension.equalsIgnoreCase("png")
+                || extension.equalsIgnoreCase("jpg")
+                || extension.equalsIgnoreCase("jpeg")
+                || extension.equalsIgnoreCase("bmp")
+                || extension.equalsIgnoreCase("gif");
     }
 }
