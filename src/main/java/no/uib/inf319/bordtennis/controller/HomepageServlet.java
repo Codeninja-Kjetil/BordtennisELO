@@ -18,10 +18,17 @@ import no.uib.inf319.bordtennis.model.Player;
  */
 @WebServlet("/Home")
 public final class HomepageServlet extends HttpServlet {
+    public static final String INDEX_JSP = "WEB-INF/index.jsp";
+
     /**
      * serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -31,12 +38,20 @@ public final class HomepageServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        PlayerDao dao = new PlayerDaoJpa();
-        List<Player> players = dao.getEloSortedPlayerList();
+        List<Player> players = playerDao.getEloSortedPlayerList();
         request.setAttribute("players", players);
 
-        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request,
+        request.getRequestDispatcher(INDEX_JSP).forward(request,
                 response);
     }
 
+    /**
+     * Changes the implementations of the DAO-objects
+     * to use to access the database.
+     *
+     * @param playerDao the new PlayerDao implementation.
+     */
+    public void setDaoImpl(final PlayerDao playerDao) {
+        this.playerDao = playerDao;
+    }
 }

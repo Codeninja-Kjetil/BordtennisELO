@@ -25,7 +25,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UpdateEloTest {
+public final class UpdateEloTest {
 
     private static final int ONETHOUSANDTWOHUNDRED = 1200;
 
@@ -49,7 +49,7 @@ public class UpdateEloTest {
     private ResultDao resultDao;
 
     @Before
-    public final void setUp() throws Exception {
+    public void setUp() throws Exception {
         this.updateElo = new UpdateElo(this.playerDao, this.matchDao,
                 this.resultDao);
 
@@ -67,7 +67,7 @@ public class UpdateEloTest {
     }
 
     @Test
-    public final void emptyMatchListShouldntUpdateAnyResults() {
+    public void emptyMatchListShouldntUpdateAnyResults() throws Exception {
         List<Match> matches = new ArrayList<Match>();
         when(this.matchDao.getMatchesAfter(TIME0)).thenReturn(matches);
 
@@ -77,7 +77,7 @@ public class UpdateEloTest {
     }
 
     @Test
-    public final void unaccepedMatchShouldntUpdateAnyResults() {
+    public void unaccepedMatchShouldntUpdateAnyResults() throws Exception {
         Match match = new Match();
         match.setApproved(1);
 
@@ -92,7 +92,7 @@ public class UpdateEloTest {
     }
 
     @Test
-    public final void accepedMatchShouldUpdateTwoResults() {
+    public void accepedMatchShouldUpdateTwoResults() throws Exception {
         Match match = new Match();
         match.setApproved(0);
         match.setVictor(1);
@@ -110,7 +110,7 @@ public class UpdateEloTest {
     }
 
     @Test
-    public final void victor1ShouldIncreasePlayer1Elo() throws Exception {
+    public void victor1ShouldIncreasePlayer1Elo() throws Exception {
         Match match = new Match();
         match.setApproved(0);
         match.setVictor(1);
@@ -130,7 +130,7 @@ public class UpdateEloTest {
     }
 
     @Test
-    public final void victor1ShouldDecreasePlayer2Elo() throws Exception {
+    public void victor1ShouldDecreasePlayer2Elo() throws Exception {
         Match match = new Match();
         match.setApproved(0);
         match.setVictor(1);
@@ -150,7 +150,7 @@ public class UpdateEloTest {
     }
 
     @Test
-    public final void victor2ShouldDecreasePlayer1Elo() throws Exception {
+    public void victor2ShouldDecreasePlayer1Elo() throws Exception {
         Match match = new Match();
         match.setApproved(0);
         match.setVictor(2);
@@ -170,7 +170,7 @@ public class UpdateEloTest {
     }
 
     @Test
-    public final void victor2ShouldIncreasePlayer2Elo() throws Exception {
+    public void victor2ShouldIncreasePlayer2Elo() throws Exception {
         Match match = new Match();
         match.setApproved(0);
         match.setVictor(2);

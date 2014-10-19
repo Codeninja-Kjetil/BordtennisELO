@@ -62,7 +62,7 @@ public final class AdminFilter implements Filter {
      * @return <code>true</code> if logged in player is admin,
      * <code>false</code> otherwise
      */
-    private boolean isLoggedInAdmin(final HttpSession session) {
+    private static boolean isLoggedInAdmin(final HttpSession session) {
         return ServletUtil.isLoggedIn(session)
                 && ((Player) session.getAttribute("player")).getAdmin();
     }

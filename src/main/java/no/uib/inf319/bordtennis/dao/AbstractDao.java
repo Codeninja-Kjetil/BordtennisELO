@@ -15,7 +15,8 @@ public interface AbstractDao<T> {
      * the database.
      *
      * @param id the id of the entity to retrieve.
-     * @return the entity with id <code>id</code>.
+     * @return the entity with id <code>id</code>,
+     * or <code>null</code> if it doesn't exist
      */
     T find(Object id);
 

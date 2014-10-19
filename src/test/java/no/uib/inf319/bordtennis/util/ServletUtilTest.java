@@ -23,7 +23,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ServletUtilTest {
+public final class ServletUtilTest {
 
     private static final String URL = "URL";
     private static final String ERRORPAGE_JSP = "/WEB-INF/errorpage.jsp";
@@ -41,7 +41,7 @@ public class ServletUtilTest {
     private Player player2;
 
     @Before
-    public final void setUp() throws Exception {
+    public void setUp() throws Exception {
         player1 = new Player();
         player1.setUsername("Player 1");
         player2 = new Player();
@@ -49,7 +49,7 @@ public class ServletUtilTest {
     }
 
     @Test
-    public final void redirectShouldRedirectInResponse() throws Exception {
+    public void redirectShouldRedirectInResponse() throws Exception {
         ServletUtil.redirect(response, URL);
 
         verify(response).setStatus(HttpServletResponse.SC_SEE_OTHER);
@@ -57,31 +57,31 @@ public class ServletUtilTest {
     }
 
     @Test
-    public final void noSessionShouldNotBeLoggedIn() throws Exception {
+    public void noSessionShouldNotBeLoggedIn() throws Exception {
         assertFalse(ServletUtil.isLoggedIn(null));
     }
 
     @Test
-    public final void noPlayerInSessionShouldNotBeLoggedIn() throws Exception {
+    public void noPlayerInSessionShouldNotBeLoggedIn() throws Exception {
         when(session.getAttribute("player")).thenReturn(null);
 
         assertFalse(ServletUtil.isLoggedIn(session));
     }
 
     @Test
-    public final void aPlayerInSessionShouldBeLoggedIn() throws Exception {
+    public void aPlayerInSessionShouldBeLoggedIn() throws Exception {
         when(session.getAttribute("player")).thenReturn(player2);
 
         assertTrue(ServletUtil.isLoggedIn(session));
     }
 
     @Test
-    public final void noSessionShouldNotBeLoggedInPlayer() throws Exception {
+    public void noSessionShouldNotBeLoggedInPlayer() throws Exception {
         assertFalse(ServletUtil.isLoggedInPlayer(null, player1));
     }
 
     @Test
-    public final void noPlayerInSessionShouldNotBeLoggedInPlayer()
+    public void noPlayerInSessionShouldNotBeLoggedInPlayer()
             throws Exception {
         when(session.getAttribute("player")).thenReturn(null);
 
@@ -89,7 +89,7 @@ public class ServletUtilTest {
     }
 
     @Test
-    public final void anOtherPlayerInSessionShouldNotBeLoggedInPlayer()
+    public void anOtherPlayerInSessionShouldNotBeLoggedInPlayer()
             throws Exception {
         when(session.getAttribute("player")).thenReturn(player2);
 
@@ -97,7 +97,7 @@ public class ServletUtilTest {
     }
 
     @Test
-    public final void samePlayerInSessionShouldBeLoggedInPlayer()
+    public void samePlayerInSessionShouldBeLoggedInPlayer()
             throws Exception {
         when(session.getAttribute("player")).thenReturn(player2);
 
@@ -105,7 +105,7 @@ public class ServletUtilTest {
     }
 
     @Test
-    public final void formatDateShouldUseCorrectFormat() throws Exception {
+    public void formatDateShouldUseCorrectFormat() throws Exception {
         final int year = 2014;
         final int month = 8; // Sept.
         final int day = 27;
@@ -121,7 +121,7 @@ public class ServletUtilTest {
     }
 
     @Test
-    public final void sendToErrorPageShouldSendToErrorPage() throws Exception {
+    public void sendToErrorPageShouldSendToErrorPage() throws Exception {
         String title = "Title";
         String message = "Message";
 
@@ -133,5 +133,20 @@ public class ServletUtilTest {
         verify(request).setAttribute("errortitle", title);
         verify(request).setAttribute("errormessage", message);
         verify(requestDispatcher).forward(request, response);
+    }
+
+    @Test
+    public void nullShouldBeEmptyString() throws Exception {
+        assertTrue(ServletUtil.isEmptyString(null));
+    }
+
+    @Test
+    public void emptyStringShouldBeEmptyString() throws Exception {
+        assertTrue(ServletUtil.isEmptyString(""));
+    }
+
+    @Test
+    public void nonEmptyStringShouldNotBeEmptyString() throws Exception {
+        assertFalse(ServletUtil.isEmptyString("abc"));
     }
 }

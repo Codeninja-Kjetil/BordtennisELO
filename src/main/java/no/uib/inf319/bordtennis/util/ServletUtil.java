@@ -20,6 +20,7 @@ import no.uib.inf319.bordtennis.model.Player;
  */
 public final class ServletUtil {
 
+    public static final String ERRORPAGE_JSP = "/WEB-INF/errorpage.jsp";
     /**
      * A dateformat pattern: <code>dd.MM.yyyy HH:mm</code>.
      */
@@ -109,7 +110,7 @@ public final class ServletUtil {
             final String message) throws ServletException, IOException {
         request.setAttribute("errortitle", title);
         request.setAttribute("errormessage", message);
-        request.getRequestDispatcher("/WEB-INF/errorpage.jsp").forward(request,
+        request.getRequestDispatcher(ERRORPAGE_JSP).forward(request,
                 response);
     }
 }

@@ -24,7 +24,7 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 /**
  * Servlet implementation class UploadFileServlet.
  */
-@WebServlet("/UploadFile")
+@WebServlet("/UploadProfileImage")
 @MultipartConfig
 public final class UploadFileServlet extends HttpServlet {
     /**

@@ -1,18 +1,18 @@
 package no.uib.inf319.bordtennis.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class Sha256HashUtilTest {
+public final class Sha256HashUtilTest {
 
     @Before
     public void setUp() throws Exception {
     }
 
     @Test
-    public final void hashOfDanielLokshtanovShouldBeCorrect() throws Exception {
+    public void hashOfDanielLokshtanovShouldBeCorrect() throws Exception {
         String string = "Daniel Lokshtanov";
         String hash = "833add45b20288e613c821e95478f5d9"
                 + "a972059ecb5cc14a55e4a32ab324fa43";
@@ -21,7 +21,7 @@ public class Sha256HashUtilTest {
     }
 
     @Test
-    public final void hashOfKjetilLundShouldBeCorrect() throws Exception {
+    public void hashOfKjetilLundShouldBeCorrect() throws Exception {
         String string = "Kjetil Lund";
         String hash = "262bef771ae23d287619ab80f88e6133"
                 + "235535452575d4d59affc9e00dabf779";
@@ -30,7 +30,7 @@ public class Sha256HashUtilTest {
     }
 
     @Test
-    public final void hashBeginingWithZerosShouldHaveZerosInString()
+    public void hashBeginingWithZerosShouldHaveZerosInString()
                 throws Exception {
         String string = "Hello, world!4250";
         String hash = "0000c3af42fc31103f1fdc0151fa747f"

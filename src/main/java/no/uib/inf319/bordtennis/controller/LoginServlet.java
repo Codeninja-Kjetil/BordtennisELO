@@ -28,7 +28,12 @@ public final class LoginServlet extends HttpServlet {
     /**
      * The url to the Login JSP.
      */
-    private static final String LOGIN_JSP = "WEB-INF/login.jsp";
+    public static final String LOGIN_JSP = "WEB-INF/login.jsp";
+
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -61,8 +66,8 @@ public final class LoginServlet extends HttpServlet {
         }
 
         String username = request.getParameter("user");
-        String password = Sha256HashUtil.sha256hash(request
-                .getParameter("pass"));
+        String password = request.getParameter("pass");
+        String hashedPassword = Sha256HashUtil.sha256hash(password);
 
         if (ServletUtil.isEmptyString(username)) {
             request.setAttribute("error", "Please type in your username.");
@@ -76,10 +81,10 @@ public final class LoginServlet extends HttpServlet {
             return;
         }
 
-        PlayerDao dao = new PlayerDaoJpa();
-        Player player = dao.find(username);
+        //PlayerDao playerDao = new PlayerDaoJpa();
+        Player player = playerDao.find(username);
 
-        if (player == null || !player.getPassword().equals(password)) {
+        if (player == null || !player.getPassword().equals(hashedPassword)) {
             request.setAttribute("error",
                     "The combination of username and password is invalid.");
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
@@ -89,6 +94,15 @@ public final class LoginServlet extends HttpServlet {
         session = request.getSession();
         session.setAttribute("player", player);
         ServletUtil.redirect(response, "Home");
+    }
 
+    /**
+     * Changes the implementations of the DAO-objects
+     * to use to access the database.
+     *
+     * @param playerDao the new PlayerDao implementation.
+     */
+    public void setDaoImpl(final PlayerDao playerDao) {
+        this.playerDao = playerDao;
     }
 }

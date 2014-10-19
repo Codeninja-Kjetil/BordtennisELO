@@ -12,7 +12,7 @@
 <body>
     <%@ include file="header.jspf" %>
     <h1>Upload Profile Image</h1>
-    <form method="post" action="UploadFile" enctype="multipart/form-data" >
+    <form method="post" action="UploadProfileImage" enctype="multipart/form-data" >
             File: <input type="file" name="file" id="file" /><br/>
             <button type="submit">Upload</button>
         </form>

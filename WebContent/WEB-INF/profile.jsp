@@ -19,7 +19,7 @@
   <%@ include file="header.jspf" %>
   <h1>Profile</h1>
   <c:if test="${profilePlayer.imagepath != null && !profilePlayer.imagepath.isEmpty()}">
-    <div><img src="${profilePlayer.imagepath}" alt="Profile Image" /></div>
+    <div style="float:right;"><img src="${profilePlayer.imagepath}" alt="Profile Image" /></div>
   </c:if>
   
   <h2>Info</h2>
@@ -38,7 +38,7 @@
   <c:if test="${loggedIn}">
     <p><a href="NewMatch">Register new match</a></p>
     <p><a href="EditPlayer">Edit user data</a></p>
-    <p><a href="UploadFile">Edit profile image</a></p>
+    <p><a href="UploadProfileImage">Edit profile image</a></p>
     <h2>Matches to approve</h2>
     <c:choose>
       <c:when test="${pending.isEmpty()}">
