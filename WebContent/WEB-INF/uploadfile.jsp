@@ -10,11 +10,12 @@
 <title>Table tennis - Upload Profile Image</title>
 </head>
 <body>
-    <%@ include file="header.jspf" %>
+    <%@ include file="header.jspf"%>
     <h1>Upload Profile Image</h1>
-    <form method="post" action="UploadProfileImage" enctype="multipart/form-data" >
-            File: <input type="file" name="file" id="file" /><br/>
-            <button type="submit">Upload</button>
-        </form>
+    <p>Valid image file formats is: .jpg/.jpeg, .png, .bmp and .gif</p>
+    <form method="post" action="UploadProfileImage" enctype="multipart/form-data">
+        File: <input type="file" name="file" id="file" />
+        <button type="submit">Upload</button>
+    </form>
 </body>
 </html>

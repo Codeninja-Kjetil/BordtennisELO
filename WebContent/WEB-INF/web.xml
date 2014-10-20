@@ -17,4 +17,9 @@
         <param-name>imageWebDir</param-name>
         <param-value>/TableTennisData/profile/</param-value>
     </context-param>
+    <context-param>
+        <description>Location of webapps dir</description>
+        <param-name>webDirPath</param-name>
+        <param-value>/usr/share/tomcat/webapps</param-value>
+    </context-param>
 </web-app>

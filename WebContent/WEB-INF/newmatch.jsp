@@ -35,6 +35,9 @@
         <td><label>Time: </label></td>
         <td><input type="text" name="time" /></td>
       </tr>
+      <tr>
+        <td colspan="2">Valid time format is: dd.mm.yy hh:mm</td>
+      </tr>
       <c:if test="${error != null && !error.isEmpty()}">
         <tr>
           <td colspan="2">${error}</td>

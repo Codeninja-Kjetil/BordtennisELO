@@ -77,6 +77,7 @@ public final class UploadFileServlet extends HttpServlet {
         if (!isValidImageFormat(fileName)) {
             ServletUtil.sendToErrorPage(request, response,
                     "Upload Profile Image", "Not a valid image file format.");
+            return;
         }
 
         OutputStream out = null;
@@ -115,6 +116,14 @@ public final class UploadFileServlet extends HttpServlet {
 
         PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(logedinPlayer.getUsername());
+
+        String oldImagePath = player.getImagepath();
+        if (oldImagePath != null && !imagePath.equals(oldImagePath)) {
+            String webApp = getServletContext().getInitParameter("webDirPath");
+            File oldImage = new File(webApp + oldImagePath);
+            oldImage.delete();
+        }
+
         player.setImagepath(imagePath);
         playerDao.edit(player);
 
@@ -147,7 +156,7 @@ public final class UploadFileServlet extends HttpServlet {
      * @return extension of the filename
      */
     private String getExtensionFromFileName(final String filename) {
-        String[] fileparts = filename.split("//.");
+        String[] fileparts = filename.split("\\.");
         return fileparts[fileparts.length - 1];
     }
 
