@@ -52,8 +52,8 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
 
     @Override
     public int getLatestElo(final Player player) {
+        EntityManager em = this.factory.createEntityManager();
         try {
-            EntityManager em = this.factory.createEntityManager();
             TypedQuery<Object[]> q = em.createQuery(
                     "SELECT r.elo, m.time "
                     + "FROM Result r, Match m "
@@ -65,9 +65,11 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
             q.setParameter("player", player);
             q.setMaxResults(1);
             Object[] res = q.getSingleResult();
+            em.close();
             return (Integer) res[0];
         } catch (NoResultException e) {
             // No matches in database, use default (start) ELO-rating
+            em.close();
             return EloRating.START_ELO;
         }
     }
@@ -86,13 +88,14 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
                 TimeAndElo.class);
         q.setParameter("player", player);
         List<TimeAndElo> res = q.getResultList();
+        em.close();
         return res;
     }
 
     @Override
     public int getPreviousElo(final Player player, final Timestamp time) {
+        EntityManager em = this.factory.createEntityManager();
         try {
-            EntityManager em = this.factory.createEntityManager();
             TypedQuery<Object[]> q = em.createQuery(
                     "SELECT r.elo, m.time "
                     + "FROM Result r, Match m "
@@ -105,9 +108,11 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
             q.setParameter("time", time);
             q.setMaxResults(1);
             Object[] res = q.getSingleResult();
+            em.close();
             return (Integer) res[0];
         } catch (NoResultException e) {
             // No previous Elo-rating, use default (start) Elo
+            em.close();
             return EloRating.START_ELO;
         }
     }
@@ -122,6 +127,7 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
                 + "ORDER BY p.name", Player.class);
         q.setParameter("player", player);
         List<Player> players = q.getResultList();
+        em.close();
         return players;
     }
 }

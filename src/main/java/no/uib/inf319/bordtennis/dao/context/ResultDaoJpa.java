@@ -47,6 +47,7 @@ public final class ResultDaoJpa extends AbstractDaoJpa<Result> implements
                 + "ORDER BY r.playernumber", Result.class);
         q.setParameter("match", match);
         List<Result> results = q.getResultList();
+        em.close();
         return results;
     }
 }

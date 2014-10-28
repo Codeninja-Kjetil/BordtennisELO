@@ -18,13 +18,20 @@
 <body>
   <%@ include file="header.jspf" %>
   <h1>Profile</h1>
+  <%--
   <c:if test="${profilePlayer.imagepath != null && !profilePlayer.imagepath.isEmpty()}">
     <div style="float:right;"><img src="${profilePlayer.imagepath}" alt="Profile Image" /></div>
   </c:if>
-  
+  --%>
+
   <h2>Info</h2>
   <table>
     <tr>
+      <c:if test="${profilePlayer.imagepath != null && !profilePlayer.imagepath.isEmpty()}">
+        <td rowspan="2">
+          <img src="${profilePlayer.imagepath}" alt="Profile Image" />
+        </td>
+      </c:if>
       <td>Name:</td>
       <td>${profilePlayer.name}</td>
     </tr>

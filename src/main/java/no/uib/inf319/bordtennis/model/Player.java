@@ -72,7 +72,7 @@ public final class Player implements Serializable {
      * The DAO object used to get the ELO rating to the player.
      */
     @Transient
-    private PlayerDao playerDao = new PlayerDaoJpa();
+    private transient PlayerDao playerDao = new PlayerDaoJpa();
 
     /**
      * Creates an empty Player object.

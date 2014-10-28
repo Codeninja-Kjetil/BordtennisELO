@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import no.uib.inf319.bordtennis.model.Match;
+import no.uib.inf319.bordtennis.model.MatchWithPlayerNames;
 import no.uib.inf319.bordtennis.model.PendingMatch;
 import no.uib.inf319.bordtennis.model.Player;
 
@@ -31,4 +32,12 @@ public interface MatchDao extends AbstractDao<Match> {
      * @return a list of PendingMatch-objects.
      */
     List<PendingMatch> getPendingMatches(Player player);
+
+    /**
+     * Get a list of all matches with the player names included.
+     * The list is sorted by matchid;
+     *
+     * @return a list of MatchWithPlayerNames-objects
+     */
+    List<MatchWithPlayerNames> getAllMatchesWithPlayerNames();
 }

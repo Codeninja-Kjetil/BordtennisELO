@@ -7,11 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Table tennis - Admin - Playerlist</title>
+<title>Table tennis - Admin - Player list</title>
 </head>
 <body>
   <%@ include file="header.jspf" %>
-  <h1>Admin - Playerlist</h1>
+  <h1>Admin - Player list</h1>
   <table>
     <tr>
       <th>User Name</th>

@@ -38,40 +38,48 @@ public abstract class AbstractDaoJpa<T> implements AbstractDao<T> {
 
     @Override
     public final T find(final Object id) {
-        return getEntityManager().find(this.entityClass, id);
+        EntityManager em = getEntityManager();
+        T entity = em.find(this.entityClass, id);
+        em.close();
+        return entity;
     }
 
     @Override
     public final List<T> findAll() {
-        final EntityManager em = getEntityManager();
-        final CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(
+        EntityManager em = getEntityManager();
+        CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(
                 this.entityClass);
         cq.select(cq.from(this.entityClass));
-        return em.createQuery(cq).getResultList();
+        List<T> entities = em.createQuery(cq).getResultList();
+        em.close();
+        return entities;
     }
 
     @Override
     public final void create(final T entity) {
-        final EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager();
         em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
+        em.close();
     }
 
     @Override
     public final void edit(final T entity) {
-        final EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager();
         em.getTransaction().begin();
         em.merge(entity);
         em.getTransaction().commit();
+        em.close();
     }
 
     @Override
     public final void remove(final T entity) {
-        final EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager();
         em.getTransaction().begin();
         em.remove(em.merge(entity));
         em.getTransaction().commit();
+        em.close();
     }
 
 }

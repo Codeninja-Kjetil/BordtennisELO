@@ -9,19 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.uib.inf319.bordtennis.dao.MatchDao;
 import no.uib.inf319.bordtennis.dao.PlayerDao;
+import no.uib.inf319.bordtennis.dao.context.MatchDaoJpa;
 import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
-import no.uib.inf319.bordtennis.model.Player;
+import no.uib.inf319.bordtennis.model.MatchWithPlayerNames;
 
 /**
- * Servlet implementation class TestServlet.
+ * Servlet implementation class AdminMatchListServlet.
  */
-@WebServlet("/Home")
-public final class HomepageServlet extends HttpServlet {
+@WebServlet("/AdminMatchList")
+public final class AdminMatchListServlet extends HttpServlet {
     /**
-     * The url to the Homepage JSP.
+     * The url to the Admin MatchList JSP.
      */
-    public static final String INDEX_JSP = "WEB-INF/index.jsp";
+    public static final String ADMIN_MATCH_LIST_JSP =
+            "WEB-INF/admin_matchlist.jsp";
 
     /**
      * serialVersionUID.
@@ -29,9 +32,9 @@ public final class HomepageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * DAO-object to access the database for player-data.
+     * DAO-object to access the database for match-data.
      */
-    private PlayerDao playerDao = new PlayerDaoJpa();
+    private MatchDao matchDao = new MatchDaoJpa();
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -41,20 +44,21 @@ public final class HomepageServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        List<Player> players = playerDao.getEloSortedPlayerList();
-        request.setAttribute("players", players);
+        List<MatchWithPlayerNames> matchlist =
+                matchDao.getAllMatchesWithPlayerNames();
+        request.setAttribute("matchlist", matchlist);
 
-        request.getRequestDispatcher(INDEX_JSP).forward(request,
-                response);
+        request.getRequestDispatcher(ADMIN_MATCH_LIST_JSP)
+                .forward(request, response);
     }
 
     /**
      * Changes the implementations of the DAO-objects
      * to use to access the database.
      *
-     * @param playerDao the new PlayerDao implementation.
+     * @param matchDao the new MatchDao implementation.
      */
-    public void setDaoImpl(final PlayerDao playerDao) {
-        this.playerDao = playerDao;
+    public void setDaoImpl(final MatchDao matchDao) {
+        this.matchDao = matchDao;
     }
 }

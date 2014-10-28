@@ -13,9 +13,9 @@
   <%@ include file="header.jspf" %>
   <h1>Admin</h1>
   <h2>Edit Players</h2>
-  <p><a href="Admin/PlayerList">Player list</a></p>
+  <p><a href="AdminPlayerList">Player list</a></p>
   <h2>Edit Matches</h2>
-  <p><a href="Admin/NewMatch">New Match</a></p>
-  <p><a href="Admin/MatchList">Match List</a></p>
+  <p><a href="AdminNewMatch">New Match</a></p>
+  <p><a href="AdminMatchList">Match List</a></p>
 </body>
 </html>

@@ -16,7 +16,7 @@ import no.uib.inf319.bordtennis.model.Player;
 /**
  * Servlet implementation class AdminPlayerList.
  */
-@WebServlet("/Admin/PlayerList")
+@WebServlet("/AdminPlayerList")
 public final class AdminPlayerListServlet extends HttpServlet {
     /**
      * serialVersionUID.
