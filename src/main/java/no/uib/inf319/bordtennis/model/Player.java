@@ -62,6 +62,17 @@ public final class Player implements Serializable {
     private String imagepath;
 
     /**
+     * Tells if a user is locked or not. A locked user can't log in.
+     */
+    private Boolean locked;
+
+    /**
+     * Tells if the user want email notifications when somebody challenges
+     * him/her.
+     */
+    private Boolean notification;
+
+    /**
      * The ELO-rating of the player. This field is not persisted in the player
      * table of the database.
      */
@@ -190,6 +201,38 @@ public final class Player implements Serializable {
      */
     public void setImagepath(final String imagepath) {
         this.imagepath = imagepath;
+    }
+
+    /**
+     * Gets {@link #locked}.
+     * @return locked
+     */
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    /**
+     * Sets {@link #locked}.
+     * @param locked locked
+     */
+    public void setLocked(final Boolean locked) {
+        this.locked = locked;
+    }
+
+    /**
+     * Gets {@link #notification}.
+     * @return notification
+     */
+    public Boolean getNotification() {
+        return notification;
+    }
+
+    /**
+     * Sets {@link #notification}.
+     * @param notification notification
+     */
+    public void setNotification(final Boolean notification) {
+        this.notification = notification;
     }
 
     /**
