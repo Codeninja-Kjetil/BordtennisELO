@@ -1,7 +1,7 @@
 package no.uib.inf319.bordtennis.controller;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.uib.inf319.bordtennis.dao.MatchDao;
-import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.model.MatchWithPlayerNames;
 
 import org.junit.Before;

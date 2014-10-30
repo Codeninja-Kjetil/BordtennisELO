@@ -47,6 +47,7 @@ public final class LoginServletTest {
         player = new Player();
         player.setUsername("username");
         player.setPassword(PASSWORD_HASH);
+        player.setLocked(false);
 
         when(request.getSession(false)).thenReturn(session);
         when(request.getSession()).thenReturn(session);
@@ -135,6 +136,17 @@ public final class LoginServletTest {
 
         verify(request).setAttribute("error",
                 "The combination of username and password is invalid.");
+        verify(dispatcher).forward(request, response);
+    }
+
+    @Test
+    public void doPostShouldReturnToLoginIfLockedUser() throws Exception {
+        player.setLocked(true);
+
+        loginServlet.doPost(request, response);
+
+        verify(request).setAttribute("error",
+                "That user is locked and can't log in.");
         verify(dispatcher).forward(request, response);
     }
 

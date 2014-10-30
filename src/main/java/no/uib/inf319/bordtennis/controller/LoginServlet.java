@@ -91,6 +91,13 @@ public final class LoginServlet extends HttpServlet {
             return;
         }
 
+        if (player.getLocked()) {
+            request.setAttribute("error",
+                    "That user is locked and can't log in.");
+            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
+            return;
+        }
+
         session = request.getSession();
         session.setAttribute("player", player);
         ServletUtil.redirect(response, "Home");

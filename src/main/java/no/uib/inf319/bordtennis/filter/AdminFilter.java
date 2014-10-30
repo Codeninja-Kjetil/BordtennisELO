@@ -21,7 +21,13 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 @WebFilter(urlPatterns = {
                 "/Admin",
                 "/AdminPlayerList",
-                "/AdminMatchList"
+                "/AdminEditPlayer",
+                "/AdminLockPlayer",
+                "/AdminRemovePlayer",
+                "/AdminMatchList",
+                "/AdminAddMatch",
+                "/AdminEditMatch",
+                "/AdminRemoveMatch"
         })
 public final class AdminFilter implements Filter {
 

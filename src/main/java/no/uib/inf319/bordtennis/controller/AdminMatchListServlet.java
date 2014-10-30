@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.uib.inf319.bordtennis.dao.MatchDao;
-import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.context.MatchDaoJpa;
-import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.model.MatchWithPlayerNames;
 
 /**
