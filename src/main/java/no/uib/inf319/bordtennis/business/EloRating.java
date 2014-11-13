@@ -109,7 +109,7 @@ public final class EloRating {
     private int calcNewRating(final int oldRating, final double actualResult,
             final double expectedResult) {
         return (int) Math
-                .ceil(oldRating + K * (actualResult - expectedResult));
+                .round(oldRating + K * (actualResult - expectedResult));
     }
 
 }

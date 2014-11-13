@@ -3,7 +3,9 @@ package no.uib.inf319.bordtennis.dao.context;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import no.uib.inf319.bordtennis.dao.AbstractDao;
 
@@ -39,7 +41,7 @@ public abstract class AbstractDaoJpa<T> implements AbstractDao<T> {
     @Override
     public final T find(final Object id) {
         EntityManager em = getEntityManager();
-        T entity = em.find(this.entityClass, id);
+        T entity = em.find(entityClass, id);
         em.close();
         return entity;
     }
@@ -47,9 +49,8 @@ public abstract class AbstractDaoJpa<T> implements AbstractDao<T> {
     @Override
     public final List<T> findAll() {
         EntityManager em = getEntityManager();
-        CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(
-                this.entityClass);
-        cq.select(cq.from(this.entityClass));
+        CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(entityClass);
+        cq.select(cq.from(entityClass));
         List<T> entities = em.createQuery(cq).getResultList();
         em.close();
         return entities;
@@ -82,4 +83,16 @@ public abstract class AbstractDaoJpa<T> implements AbstractDao<T> {
         em.close();
     }
 
+    @Override
+    public final void removeMulti(final List<T> entities) {
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        CriteriaDelete<T> cd = em.getCriteriaBuilder().createCriteriaDelete(
+                entityClass);
+        Root<T> r = cd.from(entityClass);
+        cd.where(r.in(entities));
+        em.createQuery(cd).executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+    }
 }

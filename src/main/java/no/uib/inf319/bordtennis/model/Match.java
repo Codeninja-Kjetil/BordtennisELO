@@ -62,7 +62,7 @@ public final class Match implements Serializable {
     @OneToMany(mappedBy = "match")
     @OrderBy("playernumber")
     //@Transient
-    private List<Result> results = null;
+    private List<Result> results;
 
     /**
      * Creates an empty Match object.

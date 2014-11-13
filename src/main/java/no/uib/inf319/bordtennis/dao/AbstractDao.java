@@ -47,4 +47,11 @@ public interface AbstractDao<T> {
      * @param entity the entity to be removed.
      */
     void remove(T entity);
+
+    /**
+     * Remove multiple entities from the database.
+     *
+     * @param entities a list of the entities to be removed.
+     */
+    void removeMulti(List<T> entities);
 }

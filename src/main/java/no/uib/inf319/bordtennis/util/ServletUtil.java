@@ -72,6 +72,26 @@ public final class ServletUtil {
     }
 
     /**
+     * Forwards a request to the error page with a specific title and message.
+     *
+     * @param request the request
+     * @param response the response
+     * @param title the error title
+     * @param message the error message
+     *
+     * @throws ServletException if the target resource throws this exception
+     * @throws IOException if the target resource throws this exception
+     */
+    public static void sendToErrorPage(final ServletRequest request,
+            final ServletResponse response, final String title,
+            final String message) throws ServletException, IOException {
+        request.setAttribute("errortitle", title);
+        request.setAttribute("errormessage", message);
+        request.getRequestDispatcher(ERRORPAGE_JSP).forward(request,
+                response);
+    }
+
+    /**
      * Converts a date to string based on the format pattern
      * <code>dd.MM.yyyy HH:mm</code>.
      *
@@ -95,22 +115,15 @@ public final class ServletUtil {
     }
 
     /**
-     * Forwards a request to the error page with a specific title and message.
+     * Check if a string is equal, ignoring case,
+     * to the strings "true" or "false".
      *
-     * @param request the request
-     * @param response the response
-     * @param title the error title
-     * @param message the error message
-     *
-     * @throws ServletException if the target resource throws this exception
-     * @throws IOException if the target resource throws this exception
+     * @param string the string to check
+     * @return <code>true</code> if the string is equal, ignoring case,
+     * to the strings "true" or "false", <code>false</code> otherwise.
      */
-    public static void sendToErrorPage(final ServletRequest request,
-            final ServletResponse response, final String title,
-            final String message) throws ServletException, IOException {
-        request.setAttribute("errortitle", title);
-        request.setAttribute("errormessage", message);
-        request.getRequestDispatcher(ERRORPAGE_JSP).forward(request,
-                response);
+    public static boolean isStringABoolean(final String string) {
+        return string != null && (string.equalsIgnoreCase("true")
+                || string.equalsIgnoreCase("false"));
     }
 }

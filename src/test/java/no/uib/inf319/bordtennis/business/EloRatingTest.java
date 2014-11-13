@@ -19,13 +19,17 @@ public final class EloRatingTest {
 
     @Test
     public void expectedAShouldBe10Over11() throws Exception {
-        assertEquals(10.0 / 11.0,
+        final double ten = 10.0;
+        final double eleven = 11.0;
+        assertEquals(ten / eleven,
                 rating.getExpectedResultA(), Double.MIN_VALUE);
     }
 
     @Test
     public void expectedBShouldBe1Over11() throws Exception {
-        assertEquals(1.0 / 11.0,
+        final double one = 1.0;
+        final double eleven = 11.0;
+        assertEquals(one / eleven,
                 rating.getExpectedResultB(), Double.MIN_VALUE);
     }
 
@@ -36,20 +40,20 @@ public final class EloRatingTest {
     }
 
     @Test
-    public void newRatingBShouldBe796ifAisVictor() throws Exception {
-        final int newRatingB = 796;
+    public void newRatingBShouldBe795ifAisVictor() throws Exception {
+        final int newRatingB = 795;
         assertEquals(newRatingB, rating.getNewRatingB(0.0));
     }
 
     @Test
-    public void newRatingAShouldBe1205ifBisVictor() throws Exception {
+    public void newRatingAShouldBe1155ifBisVictor() throws Exception {
         final int newRatingA = 1155;
         assertEquals(newRatingA, rating.getNewRatingA(0.0));
     }
 
     @Test
-    public void newRatingBShouldBe796ifBisVictor() throws Exception {
-        final int newRatingB = 846;
+    public void newRatingBShouldBe845ifBisVictor() throws Exception {
+        final int newRatingB = 845;
         assertEquals(newRatingB, rating.getNewRatingB(1.0));
     }
 }

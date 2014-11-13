@@ -32,17 +32,17 @@ public final class MatchDaoJpa extends AbstractDaoJpa<Match> implements
      */
     public MatchDaoJpa() {
         super(Match.class);
-        this.factory = Persistence.createEntityManagerFactory("BordtennisELO");
+        factory = Persistence.createEntityManagerFactory("BordtennisELO");
     }
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.factory.createEntityManager();
+        return factory.createEntityManager();
     }
 
     @Override
     public List<Match> getMatchesAfter(final Timestamp time) {
-        EntityManager em = this.factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
         TypedQuery<Match> q = em.createQuery(
                 "SELECT m "
                 + "FROM Match m "
@@ -56,7 +56,7 @@ public final class MatchDaoJpa extends AbstractDaoJpa<Match> implements
 
     @Override
     public List<PendingMatch> getPendingMatches(final Player player) {
-        EntityManager em = this.factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
         TypedQuery<PendingMatch> q = em.createQuery(
                 "SELECT NEW no.uib.inf319.bordtennis.model.PendingMatch("
                         + "r1.player.name, r2.player.name, m.time, "
@@ -74,7 +74,7 @@ public final class MatchDaoJpa extends AbstractDaoJpa<Match> implements
 
     @Override
     public List<MatchWithPlayerNames> getAllMatchesWithPlayerNames() {
-        EntityManager em = this.factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
         TypedQuery<MatchWithPlayerNames> q = em.createQuery(
                 "SELECT NEW no.uib.inf319.bordtennis.model."
                         + "MatchWithPlayerNames(m, p1.name, p2.name) "
@@ -86,6 +86,20 @@ public final class MatchDaoJpa extends AbstractDaoJpa<Match> implements
                 + "ORDER BY m.matchid ASC",
                 MatchWithPlayerNames.class);
         List<MatchWithPlayerNames> matches = q.getResultList();
+        em.close();
+        return matches;
+    }
+
+    @Override
+    public List<Match> getAllPlayerMatches(final Player player) {
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<Match> q = em.createQuery(
+                "SELECT m "
+                + "FROM Match m JOIN m.results r "
+                + "WHERE r.player = :player "
+                + "ORDER BY m.time ASC", Match.class);
+        q.setParameter("player", player);
+        List<Match> matches = q.getResultList();
         em.close();
         return matches;
     }

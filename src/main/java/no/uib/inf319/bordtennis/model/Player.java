@@ -29,12 +29,6 @@ public final class Player implements Serializable {
     private String username;
 
     /**
-     * If the player is an administrator.
-     * <code>true</code> if yes, <code>false</code> if no.
-     */
-    private Boolean admin;
-
-    /**
      * The name of the player.
      */
     private String name;
@@ -51,15 +45,21 @@ public final class Player implements Serializable {
     private String email;
 
     /**
+     * The path to the profile image to the player.
+     */
+    private String imagepath;
+
+    /**
+     * If the player is an administrator.
+     * <code>true</code> if yes, <code>false</code> if no.
+     */
+    private Boolean admin;
+
+    /**
      * Field telling if the players profile is private (if other people can see
      * it) or not.
      */
     private Boolean privateprofile;
-
-    /**
-     * The path to the profile image to the player.
-     */
-    private String imagepath;
 
     /**
      * Tells if a user is locked or not. A locked user can't log in.

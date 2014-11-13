@@ -1,16 +1,21 @@
 package no.uib.inf319.bordtennis.controller;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import no.uib.inf319.bordtennis.dao.MatchDao;
 import no.uib.inf319.bordtennis.dao.PlayerDao;
+import no.uib.inf319.bordtennis.dao.ResultDao;
+import no.uib.inf319.bordtennis.model.Match;
 import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
@@ -21,9 +26,12 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public final class AdminLockPlayerServletTest {
+public final class AdminRemovePlayerServletTest {
 
-    private AdminLockPlayerServlet adminLockPlayerServlet;
+    private static final String PASSWORD_HASH =
+            "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";
+
+    private AdminRemovePlayerServlet adminRemovePlayerServlet;
 
     @Mock
     private HttpServletRequest request;
@@ -32,35 +40,55 @@ public final class AdminLockPlayerServletTest {
     @Mock
     private HttpSession session;
     @Mock
-    private RequestDispatcher lockPlayerDispatcher;
+    private RequestDispatcher removePlayerDispatcher;
     @Mock
     private RequestDispatcher errorDispatcher;
     @Mock
     private PlayerDao playerDao;
+    @Mock
+    private MatchDao matchDao;
+    @Mock
+    private ResultDao resultDao;
 
     private Player player;
     private Player admin;
+    private Match match1;
+    private Timestamp time1;
+    private List<Match> matches;
 
     @Before
     public void setUp() throws Exception {
-        adminLockPlayerServlet = new AdminLockPlayerServlet();
-        adminLockPlayerServlet.setDaoImpl(playerDao);
+        adminRemovePlayerServlet = new AdminRemovePlayerServlet();
+        adminRemovePlayerServlet.setDaoImpl(playerDao, matchDao, resultDao);
 
         admin = new Player();
         admin.setUsername("admin");
+        admin.setPassword(PASSWORD_HASH);
         admin.setLocked(false);
 
         player = new Player();
         player.setUsername("username");
         player.setLocked(false);
 
+        time1 = new Timestamp(0);
+        match1 = new Match();
+        match1.setMatchid(1);
+        match1.setTime(time1);
+
+        matches = new ArrayList<Match>();
+        matches.add(match1);
+
         when(request.getParameter("user")).thenReturn("username");
+        when(request.getParameter("password")).thenReturn("password");
+
         when(playerDao.find("username")).thenReturn(player);
         when(playerDao.find("admin")).thenReturn(admin);
 
+        when(matchDao.getAllPlayerMatches(player)).thenReturn(matches);
+
         when(request.getRequestDispatcher(
-                AdminLockPlayerServlet.ADMIN_LOCK_PLAYER_JSP))
-                .thenReturn(lockPlayerDispatcher);
+                AdminRemovePlayerServlet.ADMIN_REMOVE_PLAYER_JSP))
+                .thenReturn(removePlayerDispatcher);
         when(request.getRequestDispatcher(ServletUtil.ERRORPAGE_JSP))
                 .thenReturn(errorDispatcher);
 
@@ -72,7 +100,7 @@ public final class AdminLockPlayerServletTest {
     public void doGetShouldForwardToErrorIfNoUsername() throws Exception {
         when(request.getParameter("user")).thenReturn(null);
 
-        adminLockPlayerServlet.doGet(request, response);
+        adminRemovePlayerServlet.doGet(request, response);
 
         verify(request).setAttribute("errormessage",
                 "Please specify username in URL.");
@@ -83,7 +111,7 @@ public final class AdminLockPlayerServletTest {
     public void doGetShouldForwardToErrorIfInvalidUsername() throws Exception {
         when(playerDao.find("username")).thenReturn(null);
 
-        adminLockPlayerServlet.doGet(request, response);
+        adminRemovePlayerServlet.doGet(request, response);
 
         verify(request).setAttribute("errormessage",
                 "No user with that username.");
@@ -94,25 +122,25 @@ public final class AdminLockPlayerServletTest {
     public void doGetShouldForwardToErrorIfUserIsLoggedIn() throws Exception {
         when(playerDao.find("username")).thenReturn(admin);
 
-        adminLockPlayerServlet.doGet(request, response);
+        adminRemovePlayerServlet.doGet(request, response);
 
         verify(request).setAttribute("errormessage",
-                "Can't lock yourself.");
+                "Can't remove yourself.");
         verify(errorDispatcher).forward(request, response);
     }
 
     @Test
-    public void doGetShouldForwardToLockPlayerIfValidUsername()
+    public void doGetShouldForwardToRemovePlayerIfValidUsername()
             throws Exception {
-        adminLockPlayerServlet.doGet(request, response);
+        adminRemovePlayerServlet.doGet(request, response);
 
-        verify(lockPlayerDispatcher).forward(request, response);
+        verify(removePlayerDispatcher).forward(request, response);
     }
 
     @Test
     public void doGetShouldSetPlayerAttributeIfValidUsername()
             throws Exception {
-        adminLockPlayerServlet.doGet(request, response);
+        adminRemovePlayerServlet.doGet(request, response);
 
         verify(request).setAttribute("user", player);
     }
@@ -121,7 +149,7 @@ public final class AdminLockPlayerServletTest {
     public void doPostShouldForwardToErrorIfNoUsername() throws Exception {
         when(request.getParameter("user")).thenReturn(null);
 
-        adminLockPlayerServlet.doPost(request, response);
+        adminRemovePlayerServlet.doPost(request, response);
 
         verify(request).setAttribute("errormessage",
                 "Please specify username in request.");
@@ -132,7 +160,7 @@ public final class AdminLockPlayerServletTest {
     public void doPostShouldForwardToErrorIfInvalidUsername() throws Exception {
         when(playerDao.find("username")).thenReturn(null);
 
-        adminLockPlayerServlet.doPost(request, response);
+        adminRemovePlayerServlet.doPost(request, response);
 
         verify(request).setAttribute("errormessage",
                 "No user with that username.");
@@ -143,38 +171,52 @@ public final class AdminLockPlayerServletTest {
     public void doPostShouldForwardToErrorIfUserIsLoggedIn() throws Exception {
         when(playerDao.find("username")).thenReturn(admin);
 
-        adminLockPlayerServlet.doPost(request, response);
+        adminRemovePlayerServlet.doPost(request, response);
 
         verify(request).setAttribute("errormessage",
-                "Can't lock yourself.");
+                "Can't remove yourself.");
         verify(errorDispatcher).forward(request, response);
     }
 
     @Test
-    public void doPostShouldLockIfUnlockedUser() throws Exception {
-        adminLockPlayerServlet.doPost(request, response);
+    public void doPostShouldReturnToAdminRemovePlayerIfWrongAdminPassword()
+            throws Exception {
+        when(request.getParameter("password")).thenReturn("wrong");
 
-        assertTrue(player.getLocked());
+        adminRemovePlayerServlet.doPost(request, response);
+
+        verify(removePlayerDispatcher).forward(request, response);
     }
 
     @Test
-    public void doPostShouldUnlockIfLockedUser() throws Exception {
-        player.setLocked(true);
-        adminLockPlayerServlet.doPost(request, response);
+    public void doPostShouldSetRequestAttributesIfWrongAdminPassword()
+            throws Exception {
+        when(request.getParameter("password")).thenReturn("wrong");
 
-        assertFalse(player.getLocked());
+        adminRemovePlayerServlet.doPost(request, response);
+
+        verify(request).setAttribute("user", player);
+        verify(request).setAttribute("error", "Wrong password.");
     }
 
     @Test
-    public void doPostShouldCommitToDbIfAllOK() throws Exception {
-        adminLockPlayerServlet.doPost(request, response);
+    public void doPostShouldRemovePlayerMatchesFromDbIfAllOK()
+            throws Exception {
+        adminRemovePlayerServlet.doPost(request, response);
 
-        verify(playerDao).edit(player);
+        verify(matchDao).removeMulti(matches);
+    }
+
+    @Test
+    public void doPostShouldRemovePlayerFromDbIfAllOK() throws Exception {
+        adminRemovePlayerServlet.doPost(request, response);
+
+        verify(playerDao).remove(player);
     }
 
     @Test
     public void doPostShouldRedirectToPlayerListIfAllOK() throws Exception {
-        adminLockPlayerServlet.doPost(request, response);
+        adminRemovePlayerServlet.doPost(request, response);
 
         verify(response).setStatus(HttpServletResponse.SC_SEE_OTHER);
         verify(response).setHeader("Location", "AdminPlayerList");

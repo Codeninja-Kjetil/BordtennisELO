@@ -14,6 +14,7 @@
     <h1>Admin - Match list</h1>
     <table>
         <tr>
+            <th>ID</th>
             <th>Player 1</th>
             <th>Player 2</th>
             <th>Time</th>
@@ -24,6 +25,7 @@
         </tr>
         <c:forEach items="${matchlist}" var="m">
             <tr>
+                <td>${m.match.matchid}</td>
                 <td>${m.player1}</td>
                 <td>${m.player2}</td>
                 <td>${m.match.time}</td>
@@ -35,8 +37,8 @@
                         <c:when test="${m.match.approved < 0}">Player ${- m.match.approved} denied</c:when>
                     </c:choose>
                 </td>
-                <td>Edit</td>
-                <td>Delete</td>
+                <td><a href="AdminEditMatch?matchid=${m.match.matchid}">Edit</a></td>
+                <td><a href="AdminRemoveMatch?matchid=${m.match.matchid}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>

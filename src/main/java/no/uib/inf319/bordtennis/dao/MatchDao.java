@@ -35,9 +35,18 @@ public interface MatchDao extends AbstractDao<Match> {
 
     /**
      * Get a list of all matches with the player names included.
-     * The list is sorted by matchid;
+     * The list is sorted by matchid.
      *
      * @return a list of MatchWithPlayerNames-objects
      */
     List<MatchWithPlayerNames> getAllMatchesWithPlayerNames();
+
+    /**
+     * Get a list of all matches played by a specific player.
+     * The list is sorted by time played.
+     *
+     * @param player the player
+     * @return a list of Match-entities
+     */
+    List<Match> getAllPlayerMatches(Player player);
 }

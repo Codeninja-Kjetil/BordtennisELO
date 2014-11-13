@@ -68,13 +68,17 @@ public final class UploadFileServlet extends HttpServlet {
             ServletUtil.redirect(response, "Home");
             return;
         }
+        Player logedinPlayer = (Player) session.getAttribute("player");
+
         Part filePart = request.getPart("file");
 
         String dirPath = getServletContext().getInitParameter("fileUpload");
-        String fileName = getFileName(filePart);
-        String filePath = dirPath + fileName;
+        String oldFileName = getFileName(filePart);
+        String newFileName = logedinPlayer.getUsername() + "."
+                + getExtensionFromFileName(oldFileName);
+        String filePath = dirPath + newFileName;
 
-        if (!isValidImageFormat(fileName)) {
+        if (!isValidImageFormat(newFileName)) {
             ServletUtil.sendToErrorPage(request, response,
                     "Upload Profile Image", "Not a valid image file format.");
             return;
@@ -110,9 +114,7 @@ public final class UploadFileServlet extends HttpServlet {
         }
 
         String imagePath = getServletContext().getInitParameter("imageWebDir")
-                + fileName;
-
-        Player logedinPlayer = (Player) session.getAttribute("player");
+                + newFileName;
 
         PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(logedinPlayer.getUsername());

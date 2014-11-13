@@ -5,7 +5,8 @@ public final class MatchWithPlayerNames {
     private String player1;
     private String player2;
 
-    public MatchWithPlayerNames(Match match, String player1, String player2) {
+    public MatchWithPlayerNames(final Match match, final String player1,
+            final String player2) {
         this.match = match;
         this.player1 = player1;
         this.player2 = player2;
@@ -15,7 +16,7 @@ public final class MatchWithPlayerNames {
         return match;
     }
 
-    public void setMatch(Match match) {
+    public void setMatch(final Match match) {
         this.match = match;
     }
 
@@ -23,7 +24,7 @@ public final class MatchWithPlayerNames {
         return player1;
     }
 
-    public void setPlayer1(String player1) {
+    public void setPlayer1(final String player1) {
         this.player1 = player1;
     }
 
@@ -31,7 +32,7 @@ public final class MatchWithPlayerNames {
         return player2;
     }
 
-    public void setPlayer2(String player2) {
+    public void setPlayer2(final String player2) {
         this.player2 = player2;
     }
 }

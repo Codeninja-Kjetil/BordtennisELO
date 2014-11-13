@@ -67,7 +67,6 @@ public final class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
-        String hashedPassword = Sha256HashUtil.sha256hash(password);
 
         if (ServletUtil.isEmptyString(username)) {
             request.setAttribute("error", "Please type in your username.");
@@ -81,6 +80,7 @@ public final class LoginServlet extends HttpServlet {
             return;
         }
 
+        String hashedPassword = Sha256HashUtil.sha256hash(password);
         //PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(username);
 

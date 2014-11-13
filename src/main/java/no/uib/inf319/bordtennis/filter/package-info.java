@@ -1,5 +1,5 @@
 /**
- * TODO: Add info.
+ * Package containing servlet filters.
  *
  * @author Kjetil
  */

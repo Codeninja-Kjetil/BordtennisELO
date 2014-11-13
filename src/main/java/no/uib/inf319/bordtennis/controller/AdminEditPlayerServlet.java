@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
@@ -17,19 +16,20 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 
 /**
- * Servlet implementation class EditPlayerServlet.
+ * Servlet implementation class AdminEditPlayerServlet.
  */
-@WebServlet("/EditPlayer")
-public final class EditPlayerServlet extends HttpServlet {
+@WebServlet("/AdminEditPlayer")
+public final class AdminEditPlayerServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * The url to the NewPlayer JSP.
+     * The url to the Edit Player JSP.
      */
-    private static final String EDITPLAYER_JSP = "WEB-INF/editplayer.jsp";
+    public static final String ADMIN_EDIT_PLAYER_JSP =
+            "WEB-INF/admin_editplayer.jsp";
 
     /**
      * DAO-object to access the database for player-data.
@@ -38,40 +38,53 @@ public final class EditPlayerServlet extends HttpServlet {
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     * response)
+     *      response)
      */
     @Override
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        HttpSession session = request.getSession(false);
-        if (!ServletUtil.isLoggedIn(session)) {
-            ServletUtil.redirect(response, "Home");
-        } else {
-            Player sessionPlayer = (Player) session.getAttribute("player");
-            Player player = playerDao.find(sessionPlayer.getUsername());
-            request.setAttribute("user", player);
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
-                    response);
+        String username = request.getParameter("user");
+        if (ServletUtil.isEmptyString(username)) {
+            ServletUtil.sendToErrorPage(request, response,
+                    "Admin - Edit Player", "Please specify username in URL.");
+            return;
         }
+
+        Player player = playerDao.find(username);
+        if (player == null) {
+            ServletUtil.sendToErrorPage(request, response,
+                    "Admin - Edit Player", "No user with that username.");
+            return;
+        }
+
+        request.setAttribute("user", player);
+        request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
+                response);
     }
 
     /*
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
+     *      response)
      */
     @Override
     protected void doPost(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        HttpSession session = request.getSession(false);
-        if (!ServletUtil.isLoggedIn(session)) {
-            ServletUtil.redirect(response, "Home");
+        String username = request.getParameter("user");
+        if (ServletUtil.isEmptyString(username)) {
+            ServletUtil.sendToErrorPage(request, response,
+                    "Admin - Edit Player",
+                    "Please specify username in request.");
             return;
         }
 
-        Player sessionPlayer = (Player) session.getAttribute("player");
-        Player newPlayer = playerDao.find(sessionPlayer.getUsername());
+        Player player = playerDao.find(username);
+        if (player == null) {
+            ServletUtil.sendToErrorPage(request, response,
+                    "Admin - Edit Player", "No user with that username.");
+            return;
+        }
 
         String name = request.getParameter("name");
         String email = request.getParameter("email");
@@ -81,26 +94,14 @@ public final class EditPlayerServlet extends HttpServlet {
         String newpassword1 = request.getParameter("newpass1");
         String newpassword2 = request.getParameter("newpass2");
 
-        String oldpassword = request.getParameter("oldpass");
+        request.setAttribute("user", player);
 
-        request.setAttribute("user", newPlayer);
-
-        // Old password
-        if (oldpassword == null || !sessionPlayer.getPassword().equals(
-                        Sha256HashUtil.sha256hash(oldpassword))) {
-            request.setAttribute("error",
-                    "The entered password is not correct.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
-                    response);
-            return;
-        }
-
-        // New password
+     // New password
         if (ServletUtil.isEmptyString(newpassword1)
                 != ServletUtil.isEmptyString(newpassword2)) {
             request.setAttribute("error",
                     "Please enter the new password in both fields.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
+            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
                     response);
             return;
         }
@@ -109,7 +110,7 @@ public final class EditPlayerServlet extends HttpServlet {
                 && !ServletUtil.isEmptyString(newpassword2);
         if (changePassword && !newpassword1.equals(newpassword2)) {
             request.setAttribute("error", "The password fields do not match.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
+            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
                     response);
             return;
         }
@@ -117,7 +118,7 @@ public final class EditPlayerServlet extends HttpServlet {
         // Name
         if (ServletUtil.isEmptyString(name)) {
             request.setAttribute("error", "Please type in a name.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
+            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
                     response);
             return;
         }
@@ -125,13 +126,13 @@ public final class EditPlayerServlet extends HttpServlet {
         // Email
         if (ServletUtil.isEmptyString(email)) {
             request.setAttribute("error", "Please type in an email address.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
+            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
                     response);
             return;
         }
         if (!InputValidator.validateEmail(email)) {
             request.setAttribute("error", "Please type a valid email address.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
+            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
                     response);
             return;
         }
@@ -140,7 +141,7 @@ public final class EditPlayerServlet extends HttpServlet {
         if (!ServletUtil.isStringABoolean(privateprofileString)) {
             request.setAttribute("error",
                     "Invalid privateprofile field in request.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
+            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
                     response);
             return;
         }
@@ -150,27 +151,32 @@ public final class EditPlayerServlet extends HttpServlet {
         if (!ServletUtil.isStringABoolean(notificationString)) {
             request.setAttribute("error",
                     "Invalid notification field in request.");
-            request.getRequestDispatcher(EDITPLAYER_JSP).forward(request,
+            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
                     response);
             return;
         }
         Boolean notification = Boolean.parseBoolean(notificationString);
 
-        newPlayer.setName(name);
-        newPlayer.setEmail(email);
-        newPlayer.setPrivateprofile(privateprofile);
-        newPlayer.setNotification(notification);
+        player.setName(name);
+        player.setEmail(email);
+        player.setPrivateprofile(privateprofile);
+        player.setNotification(notification);
         if (changePassword) {
-            newPlayer.setPassword(Sha256HashUtil.sha256hash(newpassword1));
+            player.setPassword(Sha256HashUtil.sha256hash(newpassword1));
         }
 
-        playerDao.edit(newPlayer);
+        playerDao.edit(player);
 
-        Player newSessionPlayer = playerDao.find(sessionPlayer.getUsername());
-        session.setAttribute("player", newSessionPlayer);
-
-        ServletUtil.redirect(response,
-                "Profile?user=" + newSessionPlayer.getUsername());
+        ServletUtil.redirect(response, "AdminPlayerList");
     }
 
+    /**
+     * Changes the implementations of the DAO-objects to use to access the
+     * database.
+     *
+     * @param playerDao the new PlayerDao implementation.
+     */
+    public void setDaoImpl(final PlayerDao playerDao) {
+        this.playerDao = playerDao;
+    }
 }
