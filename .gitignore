@@ -50,6 +50,11 @@ Temporary Items
 .settings/
 target/
 
+# ============================
+# Tests and other local files
+# ============================
+src/main/java/no/uib/inf319/bordtennis/test/*
+
 # ========================
 # Other
 # ========================
