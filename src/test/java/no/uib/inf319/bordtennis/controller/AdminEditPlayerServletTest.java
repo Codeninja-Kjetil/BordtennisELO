@@ -1,7 +1,7 @@
 package no.uib.inf319.bordtennis.controller;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;

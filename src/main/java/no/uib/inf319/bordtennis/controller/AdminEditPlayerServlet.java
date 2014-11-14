@@ -26,7 +26,7 @@ public final class AdminEditPlayerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The url to the Edit Player JSP.
+     * The url to the Admin Edit Player JSP.
      */
     public static final String ADMIN_EDIT_PLAYER_JSP =
             "WEB-INF/admin_editplayer.jsp";

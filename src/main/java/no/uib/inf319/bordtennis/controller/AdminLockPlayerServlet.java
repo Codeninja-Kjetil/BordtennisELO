@@ -25,7 +25,7 @@ public final class AdminLockPlayerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The url to the Login JSP.
+     * The url to the Admin Lock Player JSP.
      */
     public static final String ADMIN_LOCK_PLAYER_JSP =
             "WEB-INF/admin_lockplayer.jsp";

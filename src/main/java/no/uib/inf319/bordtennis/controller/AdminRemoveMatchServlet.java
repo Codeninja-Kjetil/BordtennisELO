@@ -30,7 +30,7 @@ public final class AdminRemoveMatchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The url to the Login JSP.
+     * The url to the Admin Remove Match JSP.
      */
     public static final String ADMIN_REMOVE_MATCH_JSP =
             "WEB-INF/admin_removematch.jsp";

@@ -27,7 +27,7 @@ public final class EditPlayerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The url to the NewPlayer JSP.
+     * The url to the Edit Player JSP.
      */
     private static final String EDITPLAYER_JSP = "WEB-INF/editplayer.jsp";
 
