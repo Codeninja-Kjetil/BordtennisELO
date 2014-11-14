@@ -15,7 +15,7 @@
   <h2>Edit Players</h2>
   <p><a href="AdminPlayerList">Player list</a></p>
   <h2>Edit Matches</h2>
-  <p><a href="AdminNewMatch">New Match</a></p>
+  <p><a href="AdminAddMatch">New Match</a></p>
   <p><a href="AdminMatchList">Match List</a></p>
 </body>
 </html>

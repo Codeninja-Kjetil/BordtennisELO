@@ -42,5 +42,6 @@
             </tr>
         </c:forEach>
     </table>
+    <p><a href="AdminAddMatch">New Match</a></p>
 </body>
 </html>
