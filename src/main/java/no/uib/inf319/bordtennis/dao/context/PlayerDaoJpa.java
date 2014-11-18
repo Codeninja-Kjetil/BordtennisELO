@@ -65,12 +65,12 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
             q.setParameter("player", player);
             q.setMaxResults(1);
             Object[] res = q.getSingleResult();
-            em.close();
             return (Integer) res[0];
         } catch (NoResultException e) {
             // No matches in database, use default (start) ELO-rating
-            em.close();
             return EloRating.START_ELO;
+        } finally {
+            em.close();
         }
     }
 
@@ -108,12 +108,12 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
             q.setParameter("time", time);
             q.setMaxResults(1);
             Object[] res = q.getSingleResult();
-            em.close();
             return (Integer) res[0];
         } catch (NoResultException e) {
             // No previous Elo-rating, use default (start) Elo
-            em.close();
             return EloRating.START_ELO;
+        } finally {
+            em.close();
         }
     }
 

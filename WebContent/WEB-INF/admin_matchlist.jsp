@@ -28,7 +28,7 @@
                 <td>${m.match.matchid}</td>
                 <td>${m.player1}</td>
                 <td>${m.player2}</td>
-                <td>${m.match.time}</td>
+                <td>${m.match.timeString}</td>
                 <td>${(m.match.victor == 1 ? "Player 1" : "Player 2")}</td>
                 <td>
                     <c:choose>

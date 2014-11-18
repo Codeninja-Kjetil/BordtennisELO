@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -102,5 +103,30 @@ public final class MatchDaoJpa extends AbstractDaoJpa<Match> implements
         List<Match> matches = q.getResultList();
         em.close();
         return matches;
+    }
+
+    @Override
+    public MatchWithPlayerNames getMatchWithPlayerUsernames(
+            final Integer matchid) {
+        EntityManager em = factory.createEntityManager();
+        try {
+            TypedQuery<MatchWithPlayerNames> q = em.createQuery(
+                    "SELECT NEW no.uib.inf319.bordtennis.model."
+                        + "MatchWithPlayerNames(m, p1.username, p2.username) "
+                    + "FROM Match m JOIN m.results r1 JOIN m.results r2 "
+                            + "JOIN r1.player p1 JOIN r2.player p2 "
+                    + "WHERE m.matchid = :matchid "
+                            + "AND r1 <> r2 "
+                            + "AND r1.playernumber = 1 "
+                            + "AND r2.playernumber = 2",
+                    MatchWithPlayerNames.class);
+            q.setParameter("matchid", matchid);
+            MatchWithPlayerNames match = q.getSingleResult();
+            return match;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
     }
 }

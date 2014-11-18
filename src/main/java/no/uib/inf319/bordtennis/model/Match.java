@@ -2,6 +2,8 @@ package no.uib.inf319.bordtennis.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -103,6 +105,16 @@ public final class Match implements Serializable {
     }
 
     /**
+     * Returns a string representation of {@link #time}.
+     *
+     * @return a string representation of the match time
+     */
+    public String getTimeString() {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm");
+        return dateFormat.format(time);
+    }
+
+    /**
      * Gets {@link #victor}.
      * @return victor
      */
@@ -140,14 +152,6 @@ public final class Match implements Serializable {
      */
     public List<Result> getResults() {
         return this.results;
-        /*
-        if (results == null) {
-            ResultDao dao = new ResultDaoJpa();
-            return dao.getResultsFromMatch(this);
-        } else {
-            return this.results;
-        }
-        */
     }
 
     /**

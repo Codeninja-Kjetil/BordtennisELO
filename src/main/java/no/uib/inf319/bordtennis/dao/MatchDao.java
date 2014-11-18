@@ -34,10 +34,11 @@ public interface MatchDao extends AbstractDao<Match> {
     List<PendingMatch> getPendingMatches(Player player);
 
     /**
-     * Get a list of all matches with the player names included.
+     * Get a list of all matches with the player names (not usernames) included.
      * The list is sorted by matchid.
      *
-     * @return a list of MatchWithPlayerNames-objects
+     * @return a list of MatchWithPlayerNames-objects where the name fields are
+     * the names of the players
      */
     List<MatchWithPlayerNames> getAllMatchesWithPlayerNames();
 
@@ -49,4 +50,13 @@ public interface MatchDao extends AbstractDao<Match> {
      * @return a list of Match-entities
      */
     List<Match> getAllPlayerMatches(Player player);
+
+    /**
+     * Get a match with the player usernames included.
+     *
+     * @param matchid the matchid of the match to get
+     * @return a MatchWithPlayerNames-object where the name fields are the
+     * usernames of the players
+     */
+    MatchWithPlayerNames getMatchWithPlayerUsernames(Integer matchid);
 }
