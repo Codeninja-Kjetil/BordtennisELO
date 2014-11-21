@@ -43,4 +43,65 @@ public final class InputValidatorTest {
         String email = "";
         assertFalse(InputValidator.validateEmail(email));
     }
+
+    @Test
+    public void stringWithPeriodShouldBeUsername() throws Exception {
+        String username = ".";
+        assertTrue(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithHypenShouldBeUsername() throws Exception {
+        String username = "-";
+        assertTrue(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithUnderscoreShouldBeUsername() throws Exception {
+        String username = "_";
+        assertTrue(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithNumbersShouldBeUsername() throws Exception {
+        String username = "12345";
+        assertTrue(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithLettersShouldBeUsername() throws Exception {
+        String username = "abcde";
+        assertTrue(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithCapitalLettersShouldBeUsername() throws Exception {
+        String username = "FGHIJ";
+        assertTrue(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithSpacesShouldNotBeUsername() throws Exception {
+        String username = " ";
+        assertFalse(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithSpesialLettersShouldNotBeUsername() throws Exception {
+        String username = "æøå";
+        assertFalse(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void stringWithSpesialCharactersShouldNotBeUsername()
+            throws Exception {
+        String username = ",;#$";
+        assertFalse(InputValidator.validateUsername(username));
+    }
+
+    @Test
+    public void emptyStringShouldNotBeUsername() throws Exception {
+        String username = "";
+        assertFalse(InputValidator.validateUsername(username));
+    }
 }

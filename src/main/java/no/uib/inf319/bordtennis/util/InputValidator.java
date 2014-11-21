@@ -28,4 +28,19 @@ public final class InputValidator {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
+    /**
+     * Checks if a string is a valid username.
+     * A valid username can contain only letters (A-Z, a-z), numbers (0-9),
+     * periods (.), hyphens (-) and underscores (_).
+     *
+     * @param username the string to check.
+     * @return <code>true</code> if a valid username,
+     * <code>false</code> otherwise
+     */
+    public static boolean validateUsername(final String username) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9\\._-]+$");
+        Matcher matcher = pattern.matcher(username);
+        return matcher.matches();
+    }
 }

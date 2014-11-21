@@ -85,6 +85,15 @@ public final class NewPlayerServlet extends HttpServlet {
             return;
         }
 
+        if (!InputValidator.validateUsername(username)) {
+            request.setAttribute("error", "Invalid username. A valid username "
+                    + "can contain only letters (A-Z, a-z), numbers (0-9), "
+                    + "periods (.), hyphens (-) and underscores (_).");
+            request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
+                    response);
+            return;
+        }
+
         if (ServletUtil.isEmptyString(password1)) {
             request.setAttribute("error", "Please type in a password.");
             request.getRequestDispatcher(NEWPLAYER_JSP).forward(request,
