@@ -59,16 +59,14 @@
                     <option value="-2" ${match.match.approved eq -2 ? 'selected="selected"' : ''}>Denied by Player 2</option>
                 </select></td>
             </tr>
-            <c:if test="${error != null && !error.isEmpty()}">
-                <tr>
-                    <td colspan="2">${error}</td>
-                </tr>
-            </c:if>
-            <tr><td colspan="2">
-                <button type="submit">Submit</button>
-                <button type="reset">Reset</button>
-            </td></tr>
         </table>
+        <c:if test="${error != null && !error.isEmpty()}">
+            <div>${error}</div>
+        </c:if>
+        <div>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </div>
     </form>
     
 </body>

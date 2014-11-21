@@ -22,15 +22,13 @@
 				<td><label>Password: </label></td>
 				<td><input type="password" name="pass" /></td>
 			</tr>
-			<c:if test="${error != null && !error.isEmpty()}">
-				<tr>
-					<td colspan="2">${error}</td>
-				</tr>
-			</c:if>
-			<tr>
-				<td colspan="2"><input type="submit" value="Login" /></td>
-			</tr>
 		</table>
+        <c:if test="${error != null && !error.isEmpty()}">
+            <div>${error}</div>
+        </c:if>
+        <div>
+            <button type="submit">Login</button>
+        </div>
 	</form>
 </body>
 </html>

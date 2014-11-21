@@ -38,15 +38,13 @@
             <tr>
                 <td colspan="2">Valid time format is: dd.mm.yy hh:mm</td>
             </tr>
-            <c:if test="${error != null && !error.isEmpty()}">
-                <tr>
-                    <td colspan="2">${error}</td>
-                </tr>
-            </c:if>
-            <tr>
-                <td colspan="2"><button type="submit">Register</button></td>
-            </tr>
         </table>
+        <c:if test="${error != null && !error.isEmpty()}">
+            <div>${error}</div>
+        </c:if>
+        <div>
+            <button type="submit">Register</button>
+        </div>
     </form>
 </body>
 </html>

@@ -34,16 +34,14 @@
                 <td><label>E-mail: </label></td>
                 <td><input type="text" name="email" /></td>
             </tr>
-			<c:if test="${error != null && !error.isEmpty()}">
-				<tr>
-					<td colspan="2">${error}</td>
-				</tr>
-			</c:if>
-			<tr>
-				<td colspan="2"><button type="submit">Submit</button>
-					<button type="reset">Reset</button></td>
-			</tr>
-		</table>
+        </table>
+		<c:if test="${error != null && !error.isEmpty()}">
+			<div>${error}</div>
+		</c:if>
+		<div>
+            <button type="submit">Submit</button>
+			<button type="reset">Reset</button>
+        </div>
 	</form>
 </body>
 </html>
