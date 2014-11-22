@@ -11,6 +11,7 @@
 </head>
 <body>
     <%@ include file="header.jspf" %>
+    <p><a href="pdf/rules.pdf">Rules (pdf)</a></p>
     <table>
         <tr>
             <th>Name</th>
