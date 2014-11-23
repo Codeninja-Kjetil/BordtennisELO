@@ -22,11 +22,11 @@ import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class UploadFileServlet.
+ * Servlet implementation class UploadProfileImageServlet.
  */
 @WebServlet("/UploadProfileImage")
 @MultipartConfig
-public final class UploadFileServlet extends HttpServlet {
+public final class UploadProfileImageServlet extends HttpServlet {
     /**
      * serialVersionUID.
      */
