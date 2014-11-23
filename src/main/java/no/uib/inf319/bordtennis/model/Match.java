@@ -52,6 +52,7 @@ public final class Match implements Serializable {
      * <li>2 = waiting for player 2 to approve.</li>
      * <li>-1 = player 1 did not approve.</li>
      * <li>-2 = player 2 did not approve.</li>
+     * <li>-3 = an admin did not approve.</li>
      * </ul>
      */
     private Integer approved;

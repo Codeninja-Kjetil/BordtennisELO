@@ -57,6 +57,7 @@
                     <option value="2" ${match.match.approved eq 2 ? 'selected="selected"' : ''}>Waiting for Player 2</option>
                     <option value="-1" ${match.match.approved eq -1 ? 'selected="selected"' : ''}>Denied by Player 1</option>
                     <option value="-2" ${match.match.approved eq -2 ? 'selected="selected"' : ''}>Denied by Player 2</option>
+                    <option value="-3" ${match.match.approved eq -3 ? 'selected="selected"' : ''}>Denied by Admin</option>
                 </select></td>
             </tr>
         </table>

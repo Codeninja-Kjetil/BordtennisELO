@@ -187,7 +187,8 @@ public final class AdminEditMatchServlet extends HttpServlet {
         // Approved
         if (!approvedString.equals("0") && !approvedString.equals("1")
                 && !approvedString.equals("2") && !approvedString.equals("-1")
-                && !approvedString.equals("-2")) {
+                && !approvedString.equals("-2")
+                && !approvedString.equals("-3")) {
             request.setAttribute("error",
                     "Please select a valid approved value.");
             forwardWithMatchAndPlayerlist(request, response, matchWithPlayers);

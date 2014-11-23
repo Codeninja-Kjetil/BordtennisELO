@@ -33,6 +33,7 @@
                 <td>
                     <c:choose>
                         <c:when test="${m.match.approved == 0}">Approved</c:when>
+                        <c:when test="${m.match.approved == -3}">Admin denied</c:when>
                         <c:when test="${m.match.approved > 0}">Waiting for Player ${m.match.approved}</c:when>
                         <c:when test="${m.match.approved < 0}">Player ${- m.match.approved} denied</c:when>
                     </c:choose>

@@ -56,6 +56,7 @@
                     <option value="2">Waiting for Player 2</option>
                     <option value="-1">Denied by Player 1</option>
                     <option value="-2">Denied by Player 2</option>
+                    <option value="-3">Denied by Admin</option>
                 </select></td>
             </tr>
         </table>
