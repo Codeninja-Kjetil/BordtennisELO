@@ -12,6 +12,7 @@
 <body>
     <%@ include file="header.jspf" %>
     <p><a href="pdf/rules.pdf">Rules (pdf)</a></p>
+    <p><a href="DownloadRankings">Ranking-list (pdf)</a></p>
     <table>
         <tr>
             <th>Name</th>

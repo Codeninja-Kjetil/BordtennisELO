@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import no.uib.inf319.bordtennis.model.Player;
+import no.uib.inf319.bordtennis.model.RankingListPlayer;
 import no.uib.inf319.bordtennis.model.TimeAndElo;
 
 /**
@@ -55,4 +56,15 @@ public interface PlayerDao extends AbstractDao<Player> {
      * @return a list of all players except for one
      */
     List<Player> getAllPlayersExceptForOne(Player player);
+
+    /**
+     * Get a list of all active, non-locked players for the ranking list.
+     * With each player it is included his/her current elo,
+     * the time of the last match played and the number of matches played.
+     *
+     * @param time the list only includes players that have played a match after
+     * this time
+     * @return a list of RankingListPlayer-objects
+     */
+    List<RankingListPlayer> getRankingListPlayers(Timestamp time);
 }

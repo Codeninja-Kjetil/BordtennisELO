@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 import no.uib.inf319.bordtennis.business.EloRating;
 import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.model.Player;
+import no.uib.inf319.bordtennis.model.RankingListPlayer;
 import no.uib.inf319.bordtennis.model.TimeAndElo;
 import no.uib.inf319.bordtennis.util.PlayerEloComparator;
 
@@ -44,7 +45,7 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
 
     @Override
     public List<Player> getEloSortedPlayerList() {
-        List<Player> players = this.findAll();
+        List<Player> players = findAll();
         Collections.sort(players, new PlayerEloComparator());
         Collections.reverse(players);
         return players;
@@ -52,20 +53,22 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
 
     @Override
     public int getLatestElo(final Player player) {
-        EntityManager em = this.factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
         try {
-            TypedQuery<Object[]> q = em.createQuery(
-                    "SELECT r.elo, m.time "
-                    + "FROM Result r, Match m "
+            TypedQuery<Integer> q = em.createQuery(
+                    "SELECT r.elo "
+                    + "FROM Result r JOIN r.match m "
                     + "WHERE r.player = :player "
-                            + "AND r.match = m "
-                            + "AND m.approved = 0 "
-                    + "ORDER BY m.time DESC",
-                    Object[].class);
+                        + "AND m.approved = 0 "
+                        + "AND m.time = "
+                            + "(SELECT MAX(m2.time) "
+                            + "FROM Result r2 JOIN r2.match m2 "
+                            + "WHERE r2.player = :player "
+                                + "AND m2.approved = 0)",
+                    Integer.class);
             q.setParameter("player", player);
-            q.setMaxResults(1);
-            Object[] res = q.getSingleResult();
-            return (Integer) res[0];
+            Integer elo = q.getSingleResult();
+            return elo;
         } catch (NoResultException e) {
             // No matches in database, use default (start) ELO-rating
             return EloRating.START_ELO;
@@ -76,7 +79,7 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
 
     @Override
     public List<TimeAndElo> getEloOverTimeList(final Player player) {
-        final EntityManager em = this.factory.createEntityManager();
+        final EntityManager em = factory.createEntityManager();
         final TypedQuery<TimeAndElo> q = em.createQuery(
                 "SELECT NEW no.uib.inf319.bordtennis.model."
                 + "TimeAndElo(m.time, r.elo) "
@@ -94,7 +97,7 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
 
     @Override
     public int getPreviousElo(final Player player, final Timestamp time) {
-        EntityManager em = this.factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
         try {
             TypedQuery<Object[]> q = em.createQuery(
                     "SELECT r.elo, m.time "
@@ -129,5 +132,30 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
         List<Player> players = q.getResultList();
         em.close();
         return players;
+    }
+
+    @Override
+    public List<RankingListPlayer> getRankingListPlayers(final Timestamp time) {
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<RankingListPlayer> q = em.createQuery(
+                "SELECT NEW no.uib.inf319.bordtennis.model.RankingListPlayer("
+                    + "p, r.elo, m.time, "
+                        + "(SELECT COUNT(m3) "
+                        + "FROM Result r3 JOIN r3.match m3 JOIN r3.player p3 "
+                        + "WHERE p3 = p AND m3.approved = 0)) "
+                + "FROM Result r JOIN r.match m JOIN r.player p "
+                + "WHERE p.locked = FALSE "
+                    + "AND m.approved = 0 "
+                    + "AND m.time >= :time "
+                    + "AND m.time = "
+                        + "(SELECT MAX(m2.time) "
+                        + "FROM Result r2 JOIN r2.match m2 "
+                        + "WHERE r2.player = p "
+                            + "AND m2.approved = 0) "
+                + "ORDER BY r.elo DESC",
+                RankingListPlayer.class);
+        q.setParameter("time", time);
+        List<RankingListPlayer> res = q.getResultList();
+        return res;
     }
 }
