@@ -157,7 +157,7 @@ public final class NewMatchServlet extends HttpServlet {
         Player player = (Player) session.getAttribute("player");
         PlayerDao playerDao = new PlayerDaoJpa();
         List<Player> playerlist = playerDao
-                .getAllPlayersExceptForOne(player);
+                .getNonLockedPlayersExceptForOne(player);
         request.setAttribute("playerlist", playerlist);
         request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                 response);

@@ -45,15 +45,15 @@ public final class GenerateRankingsFile {
         String fileName = "/usr/share/tomcat/tabletennis/ranking.tex";
 
         PropertiesDao propertiesDao = new PropertiesDaoFile();
-        String activityLimitString = propertiesDao.getProperty("activityLimit");
-        int activityLimit = Integer.parseInt(activityLimitString);
+        String inactiveLimitString = propertiesDao.getProperty("inactiveLimit");
+        int inactiveLimit = Integer.parseInt(inactiveLimitString);
 
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, -activityLimit);
+        cal.add(Calendar.MONTH, -inactiveLimit);
         Timestamp time = new Timestamp(cal.getTimeInMillis());
 
         PlayerDao playerDao = new PlayerDaoJpa();
-        List<RankingListPlayer> players = playerDao.getRankingListPlayers(time);
+        List<RankingListPlayer> players = playerDao.getActiveRankingListPlayers(time);
 
         PrintWriter out = new PrintWriter(fileName, "UTF-8");
         out.print(HEAD);

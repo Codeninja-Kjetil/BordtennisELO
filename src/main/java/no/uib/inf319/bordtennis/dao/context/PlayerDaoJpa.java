@@ -121,12 +121,13 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
     }
 
     @Override
-    public List<Player> getAllPlayersExceptForOne(final Player player) {
+    public List<Player> getNonLockedPlayersExceptForOne(final Player player) {
         EntityManager em = factory.createEntityManager();
         TypedQuery<Player> q = em.createQuery(
                 "SELECT p "
                 + "FROM Player p "
                 + "WHERE p <> :player "
+                    + "AND p.locked = FALSE "
                 + "ORDER BY p.name", Player.class);
         q.setParameter("player", player);
         List<Player> players = q.getResultList();
@@ -135,7 +136,7 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
     }
 
     @Override
-    public List<RankingListPlayer> getRankingListPlayers(final Timestamp time) {
+    public List<RankingListPlayer> getActiveRankingListPlayers(final Timestamp time) {
         EntityManager em = factory.createEntityManager();
         TypedQuery<RankingListPlayer> q = em.createQuery(
                 "SELECT NEW no.uib.inf319.bordtennis.model.RankingListPlayer("

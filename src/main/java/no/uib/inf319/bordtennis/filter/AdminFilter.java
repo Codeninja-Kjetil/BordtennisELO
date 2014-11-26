@@ -27,7 +27,8 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
                 "/AdminMatchList",
                 "/AdminAddMatch",
                 "/AdminEditMatch",
-                "/AdminRemoveMatch"
+                "/AdminRemoveMatch",
+                "/AdminEditInactiveLimit"
         })
 public final class AdminFilter implements Filter {
 

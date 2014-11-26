@@ -17,5 +17,7 @@
   <h2>Edit Matches</h2>
   <p><a href="AdminAddMatch">New Match</a></p>
   <p><a href="AdminMatchList">Match List</a></p>
+  <h2>Other</h2>
+  <p><a href="AdminEditInactiveLimit">Edit Inactive Limit</a></p>
 </body>
 </html>

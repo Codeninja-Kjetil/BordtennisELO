@@ -48,14 +48,14 @@ public interface PlayerDao extends AbstractDao<Player> {
     int getPreviousElo(Player player, Timestamp time);
 
     /**
-     * Get all the players except for the one specified by the
+     * Get all the non-locked players except for the one specified by the
      * <code>player</code>-parameter.
      * The list is sorted by name ascending.
      *
      * @param player the player not to include in the list
-     * @return a list of all players except for one
+     * @return a list of all non-locked players except for one
      */
-    List<Player> getAllPlayersExceptForOne(Player player);
+    List<Player> getNonLockedPlayersExceptForOne(Player player);
 
     /**
      * Get a list of all active, non-locked players for the ranking list.
@@ -66,5 +66,5 @@ public interface PlayerDao extends AbstractDao<Player> {
      * this time
      * @return a list of RankingListPlayer-objects
      */
-    List<RankingListPlayer> getRankingListPlayers(Timestamp time);
+    List<RankingListPlayer> getActiveRankingListPlayers(Timestamp time);
 }
