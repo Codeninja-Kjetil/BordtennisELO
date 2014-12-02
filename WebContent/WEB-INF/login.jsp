@@ -23,7 +23,7 @@
 				<td><input type="password" name="pass" /></td>
 			</tr>
 		</table>
-        <c:if test="${error != null && !error.isEmpty()}">
+        <c:if test="${not empty error}">
             <div>${error}</div>
         </c:if>
         <div>

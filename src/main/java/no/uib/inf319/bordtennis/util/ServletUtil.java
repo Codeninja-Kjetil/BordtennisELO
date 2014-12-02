@@ -1,8 +1,10 @@
 package no.uib.inf319.bordtennis.util;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -125,5 +127,18 @@ public final class ServletUtil {
     public static boolean isStringABoolean(final String string) {
         return string != null && (string.equalsIgnoreCase("true")
                 || string.equalsIgnoreCase("false"));
+    }
+
+    /**
+     * Finds the time a player has to have played after to be an active player.
+     *
+     * @param inactiveLimit the amount of months
+     * @return the time
+     */
+    public static Timestamp findInactiveLimitTime(final int inactiveLimit) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -inactiveLimit);
+        Timestamp time = new Timestamp(cal.getTimeInMillis());
+        return time;
     }
 }

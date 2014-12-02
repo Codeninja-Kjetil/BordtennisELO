@@ -1,9 +1,13 @@
 package no.uib.inf319.bordtennis.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -67,10 +71,11 @@ public final class Player implements Serializable {
     private Boolean locked;
 
     /**
-     * Tells if the user want email notifications when somebody challenges
-     * him/her.
+     * The match results this player has.
      */
-    private Boolean notification;
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
+    @OrderBy("resultid")
+    private List<Result> results;
 
     /**
      * The ELO-rating of the player. This field is not persisted in the player
@@ -217,22 +222,6 @@ public final class Player implements Serializable {
      */
     public void setLocked(final Boolean locked) {
         this.locked = locked;
-    }
-
-    /**
-     * Gets {@link #notification}.
-     * @return notification
-     */
-    public Boolean getNotification() {
-        return notification;
-    }
-
-    /**
-     * Sets {@link #notification}.
-     * @param notification notification
-     */
-    public void setNotification(final Boolean notification) {
-        this.notification = notification;
     }
 
     /**

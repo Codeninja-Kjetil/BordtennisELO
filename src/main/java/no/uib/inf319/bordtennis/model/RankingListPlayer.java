@@ -2,6 +2,8 @@ package no.uib.inf319.bordtennis.model;
 
 import java.sql.Timestamp;
 
+import no.uib.inf319.bordtennis.util.ServletUtil;
+
 public final class RankingListPlayer {
     private Player player;
     private Integer elo;
@@ -46,5 +48,9 @@ public final class RankingListPlayer {
 
     public void setAmountOfMatches(final Long amountOfMatches) {
         this.amountOfMatches = amountOfMatches;
+    }
+
+    public String getLatestMatchTimeString() {
+        return ServletUtil.formatDate(latestMatchTime);
     }
 }

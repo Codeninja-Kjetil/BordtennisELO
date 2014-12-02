@@ -10,6 +10,7 @@ public final class PendingMatch {
     private Timestamp time;
     private int playernumber;
     private int victornumber;
+    private String score;
     private int resultid;
 
     public PendingMatch() {
@@ -18,17 +19,18 @@ public final class PendingMatch {
 
     public PendingMatch(final String player, final String opponent,
             final Timestamp time, final int playernumber,
-            final int victornumber, final int resultid) {
+            final int victornumber, final String score, final int resultid) {
         this.player = player;
         this.opponent = opponent;
         this.time = time;
         this.playernumber = playernumber;
         this.victornumber = victornumber;
+        this.setScore(score);
         this.resultid = resultid;
     }
 
     public String getPlayer() {
-        return this.player;
+        return player;
     }
 
     public void setPlayer(final String player) {
@@ -36,7 +38,7 @@ public final class PendingMatch {
     }
 
     public String getOpponent() {
-        return this.opponent;
+        return opponent;
     }
 
     public void setOpponent(final String opponent) {
@@ -44,7 +46,7 @@ public final class PendingMatch {
     }
 
     public Timestamp getTime() {
-        return this.time;
+        return time;
     }
 
     public void setTime(final Timestamp time) {
@@ -52,7 +54,7 @@ public final class PendingMatch {
     }
 
     public int getPlayernumber() {
-        return this.playernumber;
+        return playernumber;
     }
 
     public void setPlayernumber(final int playernumber) {
@@ -60,7 +62,7 @@ public final class PendingMatch {
     }
 
     public int getVictornumber() {
-        return this.victornumber;
+        return victornumber;
     }
 
     public void setVictornumber(final int victornumber) {
@@ -68,7 +70,7 @@ public final class PendingMatch {
     }
 
     public int getResultid() {
-        return this.resultid;
+        return resultid;
     }
 
     public void setResultid(final int resultid) {
@@ -76,10 +78,18 @@ public final class PendingMatch {
     }
 
     public boolean isVictor() {
-        return this.playernumber == this.victornumber;
+        return playernumber == victornumber;
     }
 
     public String getFormatTime() {
-        return ServletUtil.formatDate(this.time);
+        return ServletUtil.formatDate(time);
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(final String score) {
+        this.score = score;
     }
 }

@@ -25,7 +25,7 @@
             <label>Your password: </label>
             <input type="password" name="password" />
         </p>
-        <c:if test="${error != null && !error.isEmpty()}">
+        <c:if test="${not empty error}">
             <p>${error}</p>
         </c:if>
         <p>

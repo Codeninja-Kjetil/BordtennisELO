@@ -12,14 +12,18 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import no.uib.inf319.bordtennis.dao.PlayerDao;
+import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet Filter implementation class AdminFilter.
+ * Servlet Filter implementation class UpdateSessionPlayerFilter.
  */
-@WebFilter(filterName = "adminFilter")
-public final class AdminFilter implements Filter {
+@WebFilter(filterName = "updateSessionPlayerFilter")
+public final class UpdateSessionPlayerFilter implements Filter {
+
+    private PlayerDao playerDao = new PlayerDaoJpa();
 
     /*
      * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -30,38 +34,27 @@ public final class AdminFilter implements Filter {
             throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
 
-        if (!isLoggedInAdmin(session)) {
-            ServletUtil.sendToErrorPage(request, response, "Admin",
-                    "You are not authorized to view this page.");
-        } else {
-            // pass the request along the filter chain
-            chain.doFilter(request, response);
+        if (ServletUtil.isLoggedIn(session)) {
+            Player sessionPlayer = (Player) session.getAttribute("player");
+            Player dbPlayer = playerDao.find(sessionPlayer.getUsername());
+            session.setAttribute("player", dbPlayer);
         }
+
+        // pass the request along the filter chain
+        chain.doFilter(request, response);
     }
 
     /*
-     * @see Filter#init(FilterConfig)
+     * @see Filter#init(FilterConfig).
      */
     @Override
     public void init(final FilterConfig fConfig) throws ServletException {
     }
 
     /*
-     * @see Filter#destroy()
+     * @see Filter#destroy().
      */
     @Override
     public void destroy() {
-    }
-
-    /**
-     * Checks if the logged in player (if any) is an admin.
-     *
-     * @param session the session to check in.
-     * @return <code>true</code> if logged in player is admin,
-     * <code>false</code> otherwise
-     */
-    private static boolean isLoggedInAdmin(final HttpSession session) {
-        return ServletUtil.isLoggedIn(session)
-                && ((Player) session.getAttribute("player")).getAdmin();
     }
 }

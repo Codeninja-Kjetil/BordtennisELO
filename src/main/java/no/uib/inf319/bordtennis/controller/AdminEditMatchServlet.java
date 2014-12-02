@@ -128,7 +128,7 @@ public final class AdminEditMatchServlet extends HttpServlet {
         String player1Username = request.getParameter("username1");
         String player2Username = request.getParameter("username2");
         String timeString = request.getParameter("time");
-        String victorString = request.getParameter("victor");
+        String score = request.getParameter("score");
         String approvedString = request.getParameter("approved");
 
         // Players
@@ -156,13 +156,28 @@ public final class AdminEditMatchServlet extends HttpServlet {
             return;
         }
 
-        // Victor
-        if (!victorString.equals("1") && !victorString.equals("2")) {
-            request.setAttribute("error", "Please select a valid victor.");
+        // Score
+        if (ServletUtil.isEmptyString(score)) {
+            request.setAttribute("error", "Please select a score.");
             forwardWithMatchAndPlayerlist(request, response, matchWithPlayers);
             return;
         }
-        int victor = Integer.parseInt(victorString);
+
+        if (!score.equals("3-0") && !score.equals("3-1")
+                && !score.equals("3-2") && !score.equals("0-3")
+                && !score.equals("1-3") && !score.equals("2-3")) {
+            request.setAttribute("error", "Please select a valid score.");
+            forwardWithMatchAndPlayerlist(request, response, matchWithPlayers);
+            return;
+        }
+
+        // Victor
+        int victor;
+        if (score.charAt(0) == '3') {
+            victor = 1;
+        } else {
+            victor = 2;
+        }
 
         // Time
         if (ServletUtil.isEmptyString(timeString)) {
@@ -208,6 +223,7 @@ public final class AdminEditMatchServlet extends HttpServlet {
         // Edit Match
         match.setTime(time);
         match.setVictor(victor);
+        match.setScore(score);
         match.setApproved(approved);
 
         result1.setPlayer(player1);
@@ -224,7 +240,8 @@ public final class AdminEditMatchServlet extends HttpServlet {
     }
 
     private void forwardWithMatchAndPlayerlist(final HttpServletRequest request,
-            final HttpServletResponse response, MatchWithPlayerNames match)
+            final HttpServletResponse response,
+            final MatchWithPlayerNames match)
             throws ServletException, IOException {
         List<Player> playerlist = playerDao.findAll();
         request.setAttribute("playerlist", playerlist);

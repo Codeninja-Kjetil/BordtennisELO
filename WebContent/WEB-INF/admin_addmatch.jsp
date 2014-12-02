@@ -33,11 +33,15 @@
                 </select></td>
             </tr>
             <tr>
-                <td><label>Victor: </label></td>
-                <td><select name="victor">
+                <td><label>Score: </label></td>
+                <td><select name="score">
                     <option value=""></option>
-                    <option value="1">Player 1</option>
-                    <option value="2">Player 2</option>
+                    <option value="3-0">3-0</option>
+                    <option value="3-1">3-1</option>
+                    <option value="3-2">3-2</option>
+                    <option value="0-3">0-3</option>
+                    <option value="1-3">1-3</option>
+                    <option value="2-3">2-3</option>
                 </select></td>
             </tr>
             <tr>
@@ -60,7 +64,7 @@
                 </select></td>
             </tr>
         </table>
-        <c:if test="${error != null && !error.isEmpty()}">
+        <c:if test="${not empty error}">
             <div>${error}</div>
         </c:if>
         <div>

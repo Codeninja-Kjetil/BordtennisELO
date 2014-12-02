@@ -89,7 +89,6 @@ public final class AdminEditPlayerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String privateprofileString = request.getParameter("privateprofile");
-        String notificationString = request.getParameter("notification");
 
         String newpassword1 = request.getParameter("newpass1");
         String newpassword2 = request.getParameter("newpass2");
@@ -147,20 +146,9 @@ public final class AdminEditPlayerServlet extends HttpServlet {
         }
         Boolean privateprofile = Boolean.parseBoolean(privateprofileString);
 
-        // Notification
-        if (!ServletUtil.isStringABoolean(notificationString)) {
-            request.setAttribute("error",
-                    "Invalid notification field in request.");
-            request.getRequestDispatcher(ADMIN_EDIT_PLAYER_JSP).forward(request,
-                    response);
-            return;
-        }
-        Boolean notification = Boolean.parseBoolean(notificationString);
-
         player.setName(name);
         player.setEmail(email);
         player.setPrivateprofile(privateprofile);
-        player.setNotification(notification);
         if (changePassword) {
             player.setPassword(Sha256HashUtil.sha256hash(newpassword1));
         }

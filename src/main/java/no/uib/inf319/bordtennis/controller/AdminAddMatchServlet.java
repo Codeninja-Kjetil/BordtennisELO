@@ -79,7 +79,7 @@ public final class AdminAddMatchServlet extends HttpServlet {
         String player1Username = request.getParameter("username1");
         String player2Username = request.getParameter("username2");
         String timeString = request.getParameter("time");
-        String victorString = request.getParameter("victor");
+        String score = request.getParameter("score");
         String approvedString = request.getParameter("approved");
 
         // Players
@@ -107,13 +107,28 @@ public final class AdminAddMatchServlet extends HttpServlet {
             return;
         }
 
-        // Victor
-        if (!victorString.equals("1") && !victorString.equals("2")) {
-            request.setAttribute("error", "Please select a valid victor.");
+        // Score
+        if (ServletUtil.isEmptyString(score)) {
+            request.setAttribute("error", "Please select a score.");
             forwardWithPlayerlist(request, response);
             return;
         }
-        int victor = Integer.parseInt(victorString);
+
+        if (!score.equals("3-0") && !score.equals("3-1")
+                && !score.equals("3-2") && !score.equals("0-3")
+                && !score.equals("1-3") && !score.equals("2-3")) {
+            request.setAttribute("error", "Please select a valid score.");
+            forwardWithPlayerlist(request, response);
+            return;
+        }
+
+        // Victor
+        int victor;
+        if (score.charAt(0) == '3') {
+            victor = 1;
+        } else {
+            victor = 2;
+        }
 
         // Time
         if (ServletUtil.isEmptyString(timeString)) {
@@ -151,6 +166,7 @@ public final class AdminAddMatchServlet extends HttpServlet {
         Match match = new Match();
         match.setTime(time);
         match.setVictor(victor);
+        match.setScore(score);
         match.setApproved(approved);
 
         matchDao.create(match);

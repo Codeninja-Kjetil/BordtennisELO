@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.uib.inf319.bordtennis.dao.PropertiesDao;
+import no.uib.inf319.bordtennis.dao.context.PropertiesDaoFile;
 import no.uib.inf319.bordtennis.util.GenerateRankingsFile;
 
 /**
@@ -23,6 +25,8 @@ public final class DownloadRankingsServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
+    private PropertiesDao propertiesDao = new PropertiesDaoFile();
+
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
@@ -31,7 +35,7 @@ public final class DownloadRankingsServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        GenerateRankingsFile.createTex();
+        GenerateRankingsFile.createTex(propertiesDao);
 
         String fileName = "/usr/share/tomcat/tabletennis/ranking.tex";
         String fileType = "application/x-tex";

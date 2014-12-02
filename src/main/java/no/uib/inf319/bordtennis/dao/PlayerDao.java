@@ -61,10 +61,30 @@ public interface PlayerDao extends AbstractDao<Player> {
      * Get a list of all active, non-locked players for the ranking list.
      * With each player it is included his/her current elo,
      * the time of the last match played and the number of matches played.
+     * It counts only approved matches.
      *
      * @param time the list only includes players that have played a match after
      * this time
      * @return a list of RankingListPlayer-objects
      */
     List<RankingListPlayer> getActiveRankingListPlayers(Timestamp time);
+
+    /**
+     * Get a list of all inactive, non-locked players for the ranking list.
+     * With each player it is included his/her current elo,
+     * the time of the last match played and the number of matches played.
+     * It counts only approved matches.
+     *
+     * @param time the list only includes players that have not played a match
+     * after this time
+     * @return a list of RankingListPlayer-objects
+     */
+    List<RankingListPlayer> getInactiveRankingListPlayers(Timestamp time);
+
+    /**
+     * Get a list of all non-locked players without any approved matches.
+     *
+     * @return a list of Player-entities
+     */
+    List<Player> getNewPlayers();
 }

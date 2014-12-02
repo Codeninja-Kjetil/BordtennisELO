@@ -61,7 +61,7 @@ public final class MatchDaoJpa extends AbstractDaoJpa<Match> implements
         TypedQuery<PendingMatch> q = em.createQuery(
                 "SELECT NEW no.uib.inf319.bordtennis.model.PendingMatch("
                         + "r1.player.name, r2.player.name, m.time, "
-                        + "r1.playernumber, m.victor, r1.resultid) "
+                        + "r1.playernumber, m.victor, m.score, r1.resultid) "
                 + "FROM Match m JOIN m.results r1 JOIN m.results r2 "
                 + "WHERE r1.player = :player "
                         + "AND r1 <> r2 "

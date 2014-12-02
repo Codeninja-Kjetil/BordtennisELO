@@ -1,19 +1,15 @@
 package no.uib.inf319.bordtennis.util;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.PropertiesDao;
 import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
-import no.uib.inf319.bordtennis.dao.context.PropertiesDaoFile;
-import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.model.RankingListPlayer;
 
 public final class GenerateRankingsFile {
@@ -38,24 +34,26 @@ public final class GenerateRankingsFile {
             + "\\end{center}\n\n"
             + "\\end{document}\n";
 
+    private static final String TEX_DIR = "/usr/share/tomcat/tabletennis/";
+
+    private static final String TEX_FILE = "ranking.tex";
+
     private GenerateRankingsFile() {
     }
 
-    public static void createTex() throws IOException {
-        String fileName = "/usr/share/tomcat/tabletennis/ranking.tex";
-
-        PropertiesDao propertiesDao = new PropertiesDaoFile();
+    public static void createTex(PropertiesDao propertiesDao)
+            throws IOException {
+        propertiesDao.retriveProperties();
         String inactiveLimitString = propertiesDao.getProperty("inactiveLimit");
         int inactiveLimit = Integer.parseInt(inactiveLimitString);
 
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, -inactiveLimit);
-        Timestamp time = new Timestamp(cal.getTimeInMillis());
+        Timestamp time = ServletUtil.findInactiveLimitTime(inactiveLimit);
 
         PlayerDao playerDao = new PlayerDaoJpa();
-        List<RankingListPlayer> players = playerDao.getActiveRankingListPlayers(time);
+        List<RankingListPlayer> players =
+                playerDao.getActiveRankingListPlayers(time);
 
-        PrintWriter out = new PrintWriter(fileName, "UTF-8");
+        PrintWriter out = new PrintWriter(TEX_DIR + TEX_FILE, "UTF-8");
         out.print(HEAD);
 
         for (int i = 0; i < players.size(); i++) {
@@ -69,5 +67,20 @@ public final class GenerateRankingsFile {
         out.print(FOOT);
         out.flush();
         out.close();
+    }
+
+    public static void createPdf() throws IOException, InterruptedException {
+        List<String> command = new ArrayList<String>();
+        command.add("pdflatex");
+        command.add(TEX_FILE);
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        processBuilder.directory(new File(TEX_DIR));
+
+        Process process = processBuilder.start();
+        int status = process.waitFor();
+
+        if (status != 0) {
+            // Something went wrong
+        }
     }
 }

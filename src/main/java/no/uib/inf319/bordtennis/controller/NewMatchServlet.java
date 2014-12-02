@@ -76,7 +76,7 @@ public final class NewMatchServlet extends HttpServlet {
         Player player = (Player) session.getAttribute("player");
 
         String opponentUsername = request.getParameter("opponent");
-        String victorString = request.getParameter("victor");
+        String score = request.getParameter("score");
         String timeString = request.getParameter("time");
 
         if (ServletUtil.isEmptyString(opponentUsername)) {
@@ -85,8 +85,8 @@ public final class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        if (ServletUtil.isEmptyString(victorString)) {
-            request.setAttribute("error", "Please select a result.");
+        if (ServletUtil.isEmptyString(score)) {
+            request.setAttribute("error", "Please select a score.");
             forwardWithPlayerlist(request, response, session);
             return;
         }
@@ -106,15 +106,22 @@ public final class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        if (!victorString.equals("1") && !victorString.equals("2")) {
-            request.setAttribute("error", "Please select a valid result.");
+        if (!score.equals("3-0") && !score.equals("3-1")
+                && !score.equals("3-2") && !score.equals("0-3")
+                && !score.equals("1-3") && !score.equals("2-3")) {
+            request.setAttribute("error", "Please select a valid score.");
             forwardWithPlayerlist(request, response, session);
             return;
         }
-        int victor = Integer.parseInt(victorString);
+
+        int victor;
+        if (score.charAt(0) == '3') {
+            victor = 1;
+        } else {
+            victor = 2;
+        }
 
         DateFormat dateformat = new SimpleDateFormat("dd.MM.yy HH:mm");
-        // dateformat.setLenient(false);
         Timestamp time;
         try {
             Date date = dateformat.parse(timeString);
@@ -129,6 +136,7 @@ public final class NewMatchServlet extends HttpServlet {
         Match match = new Match();
         match.setTime(time);
         match.setVictor(victor);
+        match.setScore(score);
         match.setApproved(2);
 
         MatchDao matchDao = new MatchDaoJpa();

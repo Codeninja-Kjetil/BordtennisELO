@@ -30,13 +30,6 @@
                 </select></td>
             </tr>
             <tr>
-                <td>Email notification: </td>
-                <td><select name="notification">
-                    <option value="true" ${user.notification ? 'selected="selected"' : ''}>Yes</option>
-                    <option value="false" ${user.notification ? '' : 'selected="selected"'}>No</option>
-                </select></td>
-            </tr>
-            <tr>
                 <td><label>New Password: </label></td>
                 <td><input type="password" name="newpass1" /></td>
             </tr>
@@ -52,7 +45,7 @@
                 <td><input type="password" name="oldpass" /></td>
             </tr>
         </table>
-        <c:if test="${error != null && !error.isEmpty()}">
+        <c:if test="${not empty error}">
             <div>${error}</div>
         </c:if>
         <div>

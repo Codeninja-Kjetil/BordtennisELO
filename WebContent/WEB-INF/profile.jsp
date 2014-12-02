@@ -56,6 +56,7 @@
           <tr>
             <th>Opponent</th>
             <th>Time</th>
+            <th>Score</th>
             <th>Victory/Loss</th>
             <th>Approve/Reject</th>
           </tr>
@@ -63,6 +64,7 @@
             <tr>
               <td>${m.opponent}</td>
               <td>${m.formatTime}</td>
+              <td>${m.score}</td>
               <td>${m.victor ? "Victory" : "Loss"}</td>
               <td><form method="post" action="AcceptResult">
                   <input type="hidden" name="resultid" value="${m.resultid}" />

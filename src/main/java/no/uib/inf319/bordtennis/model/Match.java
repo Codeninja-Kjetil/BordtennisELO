@@ -2,8 +2,6 @@ package no.uib.inf319.bordtennis.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
  * The persistent class for the match database table.
@@ -43,6 +43,12 @@ public final class Match implements Serializable {
      * Which player won. Is a number between 1 and 2.
      */
     private Integer victor;
+
+    /**
+     * The final score of the match. The String has the following format "X-Y",
+     * where X is the player 1's score and Y is player 2's score.
+     */
+    private String score;
 
     /**
      * A number telling if the match is approved or not based on these criteria:
@@ -111,8 +117,7 @@ public final class Match implements Serializable {
      * @return a string representation of the match time
      */
     public String getTimeString() {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm");
-        return dateFormat.format(time);
+        return ServletUtil.formatDate(time);
     }
 
     /**
@@ -161,5 +166,21 @@ public final class Match implements Serializable {
      */
     public void setResults(final List<Result> results) {
         this.results = results;
+    }
+
+    /**
+     * Gets {@link #score}.
+     * @return score
+     */
+    public String getScore() {
+        return score;
+    }
+
+    /**
+     * Sets {@link #score}.
+     * @param score score
+     */
+    public void setScore(final String score) {
+        this.score = score;
     }
 }

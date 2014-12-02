@@ -13,17 +13,54 @@
     <%@ include file="header.jspf" %>
     <p><a href="pdf/rules.pdf">Rules (pdf)</a></p>
     <p><a href="DownloadRankings">Ranking-list (pdf)</a></p>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Elo-rating</th>
-        </tr>
-        <c:forEach items="${players}" var="p">
+    <c:if test="${not empty activePlayers}">
+        <h2>Active players</h2>
+        <table>
             <tr>
-                <td><a href="Profile?user=${p.username}">${p.name}</a></td>
-                <td>${p.elo}</td>
+                <th>Name</th>
+                <th>Elo-rating</th>
+                <th>Last seen</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach items="${activePlayers}" var="p">
+                <tr>
+                    <td><a href="Profile?user=${p.player.username}">${p.player.name}</a></td>
+                    <td>${p.elo}</td>
+                    <td>${p.latestMatchTimeString}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+    <c:if test="${not empty inactivePlayers}">
+        <h2>Inactive players</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Elo-rating</th>
+                <th>Last seen</th>
+            </tr>
+            <c:forEach items="${inactivePlayers}" var="p">
+                <tr>
+                    <td><a href="Profile?user=${p.player.username}">${p.player.name}</a></td>
+                    <td>${p.elo}</td>
+                    <td>${p.latestMatchTimeString}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+    <c:if test="${not empty newPlayers}">
+    <h2>New players</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Elo-rating</th>
+            </tr>
+            <c:forEach items="${newPlayers}" var="p">
+                <tr>
+                    <td><a href="Profile?user=${p.username}">${p.name}</a></td>
+                    <td>${p.elo}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </body>
 </html>

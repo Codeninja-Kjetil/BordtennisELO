@@ -18,7 +18,7 @@
             <th>Player 1</th>
             <th>Player 2</th>
             <th>Time</th>
-            <th>Victor</th>
+            <th>Score</th>
             <th>Approved?</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -29,7 +29,7 @@
                 <td>${m.player1}</td>
                 <td>${m.player2}</td>
                 <td>${m.match.timeString}</td>
-                <td>${(m.match.victor == 1 ? "Player 1" : "Player 2")}</td>
+                <td>${m.match.score}</td>
                 <td>
                     <c:choose>
                         <c:when test="${m.match.approved == 0}">Approved</c:when>

@@ -139,7 +139,6 @@ public final class NewPlayerServlet extends HttpServlet {
         newplayer.setAdmin(false);
         newplayer.setPrivateprofile(false);
         newplayer.setLocked(false);
-        newplayer.setNotification(false);
 
         dao.create(newplayer);
 

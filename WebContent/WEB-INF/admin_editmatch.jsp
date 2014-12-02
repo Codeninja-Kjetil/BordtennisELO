@@ -34,11 +34,15 @@
                 </select></td>
             </tr>
             <tr>
-                <td><label>Victor: </label></td>
-                <td><select name="victor">
+                <td><label>Score: </label></td>
+                <td><select name="score">
                     <option value=""></option>
-                    <option value="1" ${match.match.victor eq 1 ? 'selected="selected"' : ''}>Player 1</option>
-                    <option value="2" ${match.match.victor eq 2 ? 'selected="selected"' : ''}>Player 2</option>
+                    <option value="3-0" ${match.match.score eq '3-0' ? 'selected="selected"' : ''}>3-0</option>
+                    <option value="3-1" ${match.match.score eq '3-1' ? 'selected="selected"' : ''}>3-1</option>
+                    <option value="3-2" ${match.match.score eq '3-2' ? 'selected="selected"' : ''}>3-2</option>
+                    <option value="0-3" ${match.match.score eq '0-3' ? 'selected="selected"' : ''}>0-3</option>
+                    <option value="1-3" ${match.match.score eq '1-3' ? 'selected="selected"' : ''}>1-3</option>
+                    <option value="2-3" ${match.match.score eq '2-3' ? 'selected="selected"' : ''}>2-3</option>
                 </select></td>
             </tr>
             <tr>
@@ -61,7 +65,7 @@
                 </select></td>
             </tr>
         </table>
-        <c:if test="${error != null && !error.isEmpty()}">
+        <c:if test="${not empty error}">
             <div>${error}</div>
         </c:if>
         <div>

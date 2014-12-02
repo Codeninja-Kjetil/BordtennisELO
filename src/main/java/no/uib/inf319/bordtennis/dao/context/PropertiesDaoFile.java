@@ -16,7 +16,7 @@ public final class PropertiesDaoFile implements PropertiesDao {
 
     private Properties properties;
 
-    public PropertiesDaoFile() throws IOException {
+    public void retriveProperties() throws IOException {
         properties = new Properties();
         InputStream in = null;
         try {
@@ -55,14 +55,13 @@ public final class PropertiesDaoFile implements PropertiesDao {
     }
 
     @Override
-    public String getProperty(String key) {
+    public String getProperty(final String key) {
         return properties.getProperty(key);
     }
 
     @Override
-    public void setProperty(String key, String value) {
+    public void setProperty(final String key, final String value) {
         properties.setProperty(key, value);
-        
     }
 
 }

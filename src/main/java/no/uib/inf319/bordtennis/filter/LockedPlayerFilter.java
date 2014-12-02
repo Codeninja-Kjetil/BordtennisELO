@@ -16,10 +16,10 @@ import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet Filter implementation class AdminFilter.
+ * Servlet Filter implementation class LockedPlayerFilter.
  */
-@WebFilter(filterName = "adminFilter")
-public final class AdminFilter implements Filter {
+@WebFilter(filterName = "lockedPlayerFilter")
+public final class LockedPlayerFilter implements Filter {
 
     /*
      * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -30,9 +30,11 @@ public final class AdminFilter implements Filter {
             throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
 
-        if (!isLoggedInAdmin(session)) {
-            ServletUtil.sendToErrorPage(request, response, "Admin",
-                    "You are not authorized to view this page.");
+        if (isLoggedInLocked(session)) {
+            session.invalidate();
+            ServletUtil.sendToErrorPage(request, response, "Locked",
+                    "You have been logged out because your account has been "
+                    + "locked.");
         } else {
             // pass the request along the filter chain
             chain.doFilter(request, response);
@@ -44,6 +46,7 @@ public final class AdminFilter implements Filter {
      */
     @Override
     public void init(final FilterConfig fConfig) throws ServletException {
+        // TODO Auto-generated method stub
     }
 
     /*
@@ -51,17 +54,19 @@ public final class AdminFilter implements Filter {
      */
     @Override
     public void destroy() {
+        // TODO Auto-generated method stub
     }
 
     /**
-     * Checks if the logged in player (if any) is an admin.
+     * Checks if the logged in player (if any) is locked.
      *
      * @param session the session to check in.
-     * @return <code>true</code> if logged in player is admin,
+     * @return <code>true</code> if logged in player is locked,
      * <code>false</code> otherwise
      */
-    private static boolean isLoggedInAdmin(final HttpSession session) {
+    private static boolean isLoggedInLocked(final HttpSession session) {
         return ServletUtil.isLoggedIn(session)
-                && ((Player) session.getAttribute("player")).getAdmin();
+                && ((Player) session.getAttribute("player")).getLocked();
     }
+
 }

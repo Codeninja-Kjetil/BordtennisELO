@@ -37,6 +37,7 @@ public final class AdminEditInactiveLimitServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         PropertiesDao propertiesDao = new PropertiesDaoFile();
+        propertiesDao.retriveProperties();
         forwardToJspWithProperty(propertiesDao, request, response);
     }
 
@@ -49,7 +50,7 @@ public final class AdminEditInactiveLimitServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         PropertiesDao propertiesDao = new PropertiesDaoFile();
-
+        propertiesDao.retriveProperties();
         String inactiveLimitString = request.getParameter("inactiveLimit");
         if (ServletUtil.isEmptyString(inactiveLimitString)) {
             request.setAttribute("error", "Please write a positive integer "

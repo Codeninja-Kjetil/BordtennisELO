@@ -13,13 +13,13 @@
     <%@ include file="header.jspf"%>
     <h1>Admin - Edit Inactive Limit</h1>
     <p>Insert text here :P</p>
-    <p><form action="AdminEditInactiveLimit" method="post">
+    <form action="AdminEditInactiveLimit" method="post">
         Inactive Limit (in months):
         <input type="text" name="inactiveLimit" value="${inactiveLimit}" /><br />
-        <c:if test="${error != null && !error.isEmpty()}">
+        <c:if test="${not empty error}">
             <span>${error}</span><br />
         </c:if>
         <button type="submit">Submit</button>
-    </form></p>
+    </form>
 </body>
 </html>

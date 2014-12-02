@@ -136,7 +136,8 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
     }
 
     @Override
-    public List<RankingListPlayer> getActiveRankingListPlayers(final Timestamp time) {
+    public List<RankingListPlayer> getActiveRankingListPlayers(
+            final Timestamp time) {
         EntityManager em = factory.createEntityManager();
         TypedQuery<RankingListPlayer> q = em.createQuery(
                 "SELECT NEW no.uib.inf319.bordtennis.model.RankingListPlayer("
@@ -158,5 +159,46 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
         q.setParameter("time", time);
         List<RankingListPlayer> res = q.getResultList();
         return res;
+    }
+
+    @Override
+    public List<RankingListPlayer> getInactiveRankingListPlayers(
+            final Timestamp time) {
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<RankingListPlayer> q = em.createQuery(
+                "SELECT NEW no.uib.inf319.bordtennis.model.RankingListPlayer("
+                    + "p, r.elo, m.time, "
+                        + "(SELECT COUNT(m3) "
+                        + "FROM Result r3 JOIN r3.match m3 JOIN r3.player p3 "
+                        + "WHERE p3 = p AND m3.approved = 0)) "
+                + "FROM Result r JOIN r.match m JOIN r.player p "
+                + "WHERE p.locked = FALSE "
+                    + "AND m.approved = 0 "
+                    + "AND m.time < :time "
+                    + "AND m.time = "
+                        + "(SELECT MAX(m2.time) "
+                        + "FROM Result r2 JOIN r2.match m2 "
+                        + "WHERE r2.player = p "
+                            + "AND m2.approved = 0) "
+                + "ORDER BY r.elo DESC",
+                RankingListPlayer.class);
+        q.setParameter("time", time);
+        List<RankingListPlayer> res = q.getResultList();
+        return res;
+    }
+
+    @Override
+    public List<Player> getNewPlayers() {
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<Player> q = em.createQuery(
+                "SELECT p "
+                + "FROM Player p "
+                + "WHERE p NOT IN "
+                    + "(SELECT p2 "
+                    + "FROM Result r2 JOIN r2.player p2 JOIN r2.match m2 "
+                    + "WHERE m2.approved = 0) "
+                + "ORDER BY p.name ASC", Player.class);
+        List<Player> players = q.getResultList();
+        return players;
     }
 }
