@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.EmailException;
+
 import no.uib.inf319.bordtennis.dao.MatchDao;
 import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.ResultDao;
@@ -24,6 +26,7 @@ import no.uib.inf319.bordtennis.dao.context.ResultDaoJpa;
 import no.uib.inf319.bordtennis.model.Match;
 import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.model.Result;
+import no.uib.inf319.bordtennis.util.EmailSender;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
@@ -155,6 +158,36 @@ public final class NewMatchServlet extends HttpServlet {
         ResultDao resultDao = new ResultDaoJpa();
         resultDao.create(playerResult);
         resultDao.create(opponentResult);
+
+        // Send emails
+        String playerEmail = player.getEmail();
+        String opponentEmail = opponent.getEmail();
+
+        if (playerEmail != null) {
+            try {
+                String message = String.format("You have registered a match "
+                        + "with %s with the time %s and the score %s.",
+                        opponent.getName(), match.getTimeString(),
+                        match.getScore());
+                EmailSender.sendMail("Table Tennis - Match registered",
+                        message, playerEmail);
+            } catch (EmailException e) {
+                // TODO: what here?
+            }
+        }
+        if (opponentEmail != null) {
+            try {
+                String message = String.format("%s has registered a match "
+                        + "with you with the time %s and the score %s. "
+                        + "You must log in and approve it for it to count.",
+                        player.getName(), match.getTimeString(),
+                        match.getScore());
+                EmailSender.sendMail("Table Tennis - Match registered",
+                        message, opponentEmail);
+            } catch (EmailException e) {
+                // TODO: what here?
+            }
+        }
 
         ServletUtil.redirect(response, "Profile?user=" + player.getUsername());
     }

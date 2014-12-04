@@ -11,8 +11,8 @@ public final class EmailSender {
     private EmailSender() {
     }
 
-    public static void sendMail(final String toAddress, final String subject,
-            final String message) throws EmailException {
+    public static void sendMail(final String subject, final String message,
+            final String toAddress) throws EmailException {
         Email email = new SimpleEmail();
         email.setHostName(HOST);
         email.setFrom(FROM);

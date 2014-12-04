@@ -46,7 +46,6 @@ public final class LockedPlayerFilter implements Filter {
      */
     @Override
     public void init(final FilterConfig fConfig) throws ServletException {
-        // TODO Auto-generated method stub
     }
 
     /*
@@ -54,7 +53,6 @@ public final class LockedPlayerFilter implements Filter {
      */
     @Override
     public void destroy() {
-        // TODO Auto-generated method stub
     }
 
     /**

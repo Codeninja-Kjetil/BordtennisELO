@@ -12,7 +12,11 @@
 <body>
     <%@ include file="header.jspf"%>
     <h1>Admin - Edit Inactive Limit</h1>
-    <p>Insert text here :P</p>
+    <p>
+        If a player has not played a match in a specific time period, 
+        that player is considered inactive. The "Inactive Limit" determines 
+        how long this time period is (in months).
+    </p>
     <form action="AdminEditInactiveLimit" method="post">
         Inactive Limit (in months):
         <input type="text" name="inactiveLimit" value="${inactiveLimit}" /><br />

@@ -44,6 +44,7 @@
   <div id="elochart"></div>
   <c:if test="${loggedIn}">
     <p><a href="NewMatch">Register new match</a></p>
+    <p><a href="Challenge">Challenge an other player</a></p>
     <p><a href="EditPlayer">Edit user data</a></p>
     <p><a href="UploadProfileImage">Edit profile image</a></p>
     <h2>Matches to approve</h2>
