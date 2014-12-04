@@ -193,10 +193,11 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
         TypedQuery<Player> q = em.createQuery(
                 "SELECT p "
                 + "FROM Player p "
-                + "WHERE p NOT IN "
-                    + "(SELECT p2 "
-                    + "FROM Result r2 JOIN r2.player p2 JOIN r2.match m2 "
-                    + "WHERE m2.approved = 0) "
+                + "WHERE p.locked = FALSE "
+                    + "AND p NOT IN "
+                        + "(SELECT p2 "
+                        + "FROM Result r2 JOIN r2.player p2 JOIN r2.match m2 "
+                        + "WHERE m2.approved = 0) "
                 + "ORDER BY p.name ASC", Player.class);
         List<Player> players = q.getResultList();
         return players;

@@ -18,6 +18,7 @@
       <th>Name</th>
       <th>Edit</th>
       <th>Lock</th>
+      <th>Admin</th>
       <th>Remove</th>
     </tr>
     <c:forEach items="${playerlist}" var="player">
@@ -26,6 +27,7 @@
         <td>${player.name}</td>
         <td><a href="AdminEditPlayer?user=${player.username}">Edit</a></td>
         <td><a href="AdminLockPlayer?user=${player.username}">${player.locked ? "Unlock" : "Lock"}</a></td>
+        <td><a href="AdminEditAdmin?user=${player.username}">${player.admin ? "Deadmin" : "Admin"}</a></td>
         <td><a href="AdminRemovePlayer?user=${player.username}">Remove</a></td>
       </tr>
     </c:forEach>

@@ -28,6 +28,7 @@
     <url-pattern>/AdminEditMatch</url-pattern>
     <url-pattern>/AdminRemoveMatch</url-pattern>
     <url-pattern>/AdminEditInactiveLimit</url-pattern>
+    <url-pattern>/AdminEditAdmin</url-pattern>
   </filter-mapping>
   <context-param>
     <description>Location to store uploaded file</description>
