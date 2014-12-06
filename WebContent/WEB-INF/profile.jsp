@@ -47,6 +47,7 @@
     <p><a href="Challenge">Challenge an other player</a></p>
     <p><a href="EditPlayer">Edit user data</a></p>
     <p><a href="UploadProfileImage">Edit profile image</a></p>
+    <p><a href="ContactAdmin">Contact Administrators</a></p>
     <h2>Matches to approve</h2>
     <c:choose>
       <c:when test="${pending.isEmpty()}">

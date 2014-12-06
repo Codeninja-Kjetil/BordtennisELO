@@ -87,4 +87,11 @@ public interface PlayerDao extends AbstractDao<Player> {
      * @return a list of Player-entities
      */
     List<Player> getNewPlayers();
+
+    /**
+     * Get a list of all non-locked admin players.
+     *
+     * @return a list of Player-entities
+     */
+    List<Player> getAdmins();
 }

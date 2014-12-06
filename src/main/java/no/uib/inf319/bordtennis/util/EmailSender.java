@@ -12,13 +12,13 @@ public final class EmailSender {
     }
 
     public static void sendMail(final String subject, final String message,
-            final String toAddress) throws EmailException {
+            final String... toAddresses) throws EmailException {
         Email email = new SimpleEmail();
         email.setHostName(HOST);
         email.setFrom(FROM);
         email.setSubject(subject);
         email.setMsg(message);
-        email.addTo(toAddress);
+        email.addTo(toAddresses);
         email.send();
     }
 }

@@ -202,4 +202,17 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
         List<Player> players = q.getResultList();
         return players;
     }
+
+    @Override
+    public List<Player> getAdmins() {
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<Player> q = em.createQuery(
+                "SELECT p "
+                + "FROM Player p "
+                + "WHERE p.admin = TRUE "
+                    + "AND p.locked = FALSE "
+                + "ORDER BY p.name ASC", Player.class);
+        List<Player> players = q.getResultList();
+        return players;
+    }
 }
