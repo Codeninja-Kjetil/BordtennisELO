@@ -47,7 +47,8 @@ public final class AdminEditPlayerServlet extends HttpServlet {
         String username = request.getParameter("user");
         if (ServletUtil.isEmptyString(username)) {
             ServletUtil.sendToErrorPage(request, response,
-                    "Admin - Edit Player", "Please specify username in URL.");
+                    "Admin - Edit Player",
+                    "Please specify username in request.");
             return;
         }
 

@@ -64,7 +64,7 @@ public final class AdminEditPlayerServletTest {
         adminEditPlayerServlet.doGet(request, response);
 
         verify(request).setAttribute("errormessage",
-                "Please specify username in URL.");
+                "Please specify username in request.");
         verify(errorDispatcher).forward(request, response);
     }
 

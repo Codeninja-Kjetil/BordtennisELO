@@ -46,7 +46,8 @@ public final class AdminLockPlayerServlet extends HttpServlet {
         String username = request.getParameter("user");
         if (ServletUtil.isEmptyString(username)) {
             ServletUtil.sendToErrorPage(request, response,
-                    "Admin - Lock Player", "Please specify username in URL.");
+                    "Admin - Lock Player",
+                    "Please specify username in request.");
             return;
         }
 

@@ -68,7 +68,7 @@ public final class AdminRemoveMatchServletTest {
         adminRemoveMatchServlet.doGet(request, response);
 
         verify(request).setAttribute("errormessage",
-                "Please specify matchid in URL.");
+                "Please specify matchid in request.");
         verify(errorDispatcher).forward(request, response);
     }
 

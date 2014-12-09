@@ -59,7 +59,8 @@ public final class AdminRemoveMatchServlet extends HttpServlet {
         String matchidString = request.getParameter("matchid");
         if (ServletUtil.isEmptyString(matchidString)) {
             ServletUtil.sendToErrorPage(request, response,
-                    "Admin - Remove Match", "Please specify matchid in URL.");
+                    "Admin - Remove Match",
+                    "Please specify matchid in request.");
             return;
         }
 

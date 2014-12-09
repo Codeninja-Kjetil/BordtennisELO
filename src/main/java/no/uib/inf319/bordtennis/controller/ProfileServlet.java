@@ -40,7 +40,7 @@ public final class ProfileServlet extends HttpServlet {
         String username = request.getParameter("user");
         if (username == null) {
             ServletUtil.sendToErrorPage(request, response, "Profil",
-                    "Invalid request. Please type in the username in the URL.");
+                "Invalid request. Please type in the username in the request.");
             return;
         }
 

@@ -65,7 +65,8 @@ public final class AdminRemovePlayerServlet extends HttpServlet {
         String username = request.getParameter("user");
         if (ServletUtil.isEmptyString(username)) {
             ServletUtil.sendToErrorPage(request, response,
-                    "Admin - Remove Player", "Please specify username in URL.");
+                    "Admin - Remove Player",
+                    "Please specify username in request.");
             return;
         }
 
