@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/tabletennis.css" />
 <title>Table Tennis - Admin - Edit Inactive Limit</title>
 </head>
 <body>
@@ -18,12 +19,14 @@
         how long this time period is (in months).
     </p>
     <form action="AdminEditInactiveLimit" method="post">
-        Inactive Limit (in months):
-        <input type="text" name="inactiveLimit" value="${inactiveLimit}" /><br />
+        <div>
+            Inactive Limit (in months):
+            <input type="text" name="inactiveLimit" value="${inactiveLimit}" />
+        </div>
         <c:if test="${not empty error}">
-            <span>${error}</span><br />
+            <div class="error">${error}</div>
         </c:if>
-        <button type="submit">Submit</button>
+        <div><button type="submit">Submit</button></div>
     </form>
 </body>
 </html>

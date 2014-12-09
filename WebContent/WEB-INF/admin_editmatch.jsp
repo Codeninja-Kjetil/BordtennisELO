@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/tabletennis.css" />
 <title>Table Tennis - Admin - Edit Match</title>
 </head>
 <body>
@@ -66,7 +67,7 @@
             </tr>
         </table>
         <c:if test="${not empty error}">
-            <div>${error}</div>
+            <div class="error">${error}</div>
         </c:if>
         <div>
             <button type="submit">Submit</button>

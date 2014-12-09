@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/tabletennis.css" />
 <title>Table tennis</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
     <p><a href="DownloadRankings">Ranking-list (pdf)</a></p>
     <c:if test="${not empty activePlayers}">
         <h2>Active players</h2>
-        <table>
+        <table class="table">
             <tr>
                 <th>Name</th>
                 <th>Elo-rating</th>
@@ -32,7 +33,7 @@
     </c:if>
     <c:if test="${not empty inactivePlayers}">
         <h2>Inactive players</h2>
-        <table>
+        <table class="table">
             <tr>
                 <th>Name</th>
                 <th>Elo-rating</th>
@@ -49,7 +50,7 @@
     </c:if>
     <c:if test="${not empty newPlayers}">
     <h2>New players</h2>
-        <table>
+        <table class="table">
             <tr>
                 <th>Name</th>
                 <th>Elo-rating</th>

@@ -1,0 +1,52 @@
+@CHARSET "UTF-8";
+
+body {
+    width: 800px;
+}
+
+body.wide {
+    width: auto;
+}
+
+.error {
+    color: red;
+    background-color: #FFD0D0;
+    width: 600px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 2px solid red;
+}
+
+table.table {
+    border: black solid 1px;
+    border-collapse: collapse;
+}
+
+table.table th, table.table td {
+    border: black solid 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Profile page */
+.floatleft {
+    float: left;
+}
+
+.floatstop {
+    clear: both;
+}
+
+/* Admin Matchlist */
+.red {
+    background-color: #FFB0B0;
+}
+
+.yellow {
+    background-color: #FFFF80;
+}
+
+.green {
+    background-color: #A0FFA0;
+}

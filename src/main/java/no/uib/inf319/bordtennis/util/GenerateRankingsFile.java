@@ -58,7 +58,8 @@ public final class GenerateRankingsFile {
 
         for (int i = 0; i < players.size(); i++) {
             RankingListPlayer p = players.get(i);
-            out.printf("%d & %d & %s & (%s) & %s & %d \\\\\n",
+            out.printf(
+                    "%d & %d & %s & (%s) & %td.%<tm.%<tY %<tH:%<tM & %d \\\\\n",
                     i + 1, p.getElo(), p.getPlayer().getName(),
                     p.getPlayer().getUsername(), p.getLatestMatchTime(),
                     p.getAmountOfMatches());

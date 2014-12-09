@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/tabletennis.css" />
 <title>Table tennis - Admin - Edit Admin</title>
 </head>
 <body>
@@ -34,12 +35,12 @@
             <input type="password" name="password" />
         </p>
         <c:if test="${not empty error}">
-            <p>${error}</p>
+            <div class="error">${error}</div>
         </c:if>
-        <p>
+        <div>
             <button type="submit">Yes, do it</button>
             <a href="AdminPlayerList">No, return me to the playerlist</a>
-        </p>
+        </div>
     </form>
 </body>
 </html>
