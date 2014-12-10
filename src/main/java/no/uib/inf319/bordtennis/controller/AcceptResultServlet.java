@@ -9,14 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.EmailException;
+
 import no.uib.inf319.bordtennis.business.UpdateElo;
 import no.uib.inf319.bordtennis.dao.MatchDao;
+import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.ResultDao;
 import no.uib.inf319.bordtennis.dao.context.MatchDaoJpa;
+import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.dao.context.ResultDaoJpa;
 import no.uib.inf319.bordtennis.model.Match;
 import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.model.Result;
+import no.uib.inf319.bordtennis.util.EmailSender;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
@@ -30,6 +35,21 @@ public final class AcceptResultServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final String ERROR_PAGE_TITLE = "Accept Result";
+
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
+
+    /**
+     * DAO-object to access the database for match-data.
+     */
+    private MatchDao matchDao = new MatchDaoJpa();
+
+    /**
+     * DAO-object to access the database for result-data.
+     */
+    private ResultDao resultDao = new ResultDaoJpa();
 
     /*
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -53,7 +73,6 @@ public final class AcceptResultServlet extends HttpServlet {
                 || (!acceptmethod.equals("accept")
                 && !acceptmethod.equals("deny"))) {
             // Bad request
-            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
                     "Missing acceptmethod parameter. "
                     + "resultid = " + resultString
@@ -66,17 +85,14 @@ public final class AcceptResultServlet extends HttpServlet {
             resultNumber = Integer.parseInt(resultString);
         } catch (NumberFormatException e) {
             // resultString is not a number
-            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
                     "Resultid parameter missing or not a number.");
             return;
         }
 
-        ResultDao rdao = new ResultDaoJpa();
-        Result result = rdao.find(resultNumber);
+        Result result = resultDao.find(resultNumber);
         if (result == null) {
             // No result with that id
-            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
                     "No result with the resultid in the parameter.");
             return;
@@ -88,21 +104,37 @@ public final class AcceptResultServlet extends HttpServlet {
 
         if (!resultPlayer.getUsername().equals(loggedinPlayer.getUsername())) {
             // Not correct player logged in
-            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             ServletUtil.sendToErrorPage(request, response, ERROR_PAGE_TITLE,
                     "Not correct player logged in.");
             return;
         }
 
-        MatchDao mdao = new MatchDaoJpa();
         int newApproved = acceptmethod.equals("accept") ? 0 : -match
                 .getApproved();
         if (result.getPlayernumber().equals(match.getApproved())) {
             match.setApproved(newApproved);
-            mdao.edit(match);
+            matchDao.edit(match);
             if (acceptmethod.equals("accept")) {
                 UpdateElo updateElo = new UpdateElo();
                 updateElo.updateElo(match.getTime());
+            } else {
+                Player opponent = playerDao.getMatchOpponent(match,
+                        resultPlayer);
+                String emailAddress = opponent.getEmail();
+
+                if (!ServletUtil.isEmptyString(emailAddress)) {
+                    String subject = "Table Tennis - Match denied";
+                    String message = String.format(
+                            "%s have rejected a match you have registered. "
+                            + "The match had the time %s and the score %s.",
+                            resultPlayer.getName(), match.getTimeString(),
+                            match.getScore());
+
+                    try {
+                        EmailSender.sendMail(subject, message, emailAddress);
+                    } catch (EmailException e) {
+                    }
+                }
             }
         }
 

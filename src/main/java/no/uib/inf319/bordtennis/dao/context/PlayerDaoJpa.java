@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 
 import no.uib.inf319.bordtennis.business.EloRating;
 import no.uib.inf319.bordtennis.dao.PlayerDao;
+import no.uib.inf319.bordtennis.model.Match;
 import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.model.RankingListPlayer;
 import no.uib.inf319.bordtennis.model.TimeAndElo;
@@ -214,5 +215,21 @@ public final class PlayerDaoJpa extends AbstractDaoJpa<Player> implements
                 + "ORDER BY p.name ASC", Player.class);
         List<Player> players = q.getResultList();
         return players;
+    }
+
+    @Override
+    public Player getMatchOpponent(final Match match, final Player player) {
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<Player> q = em.createQuery(
+                "SELECT p2 "
+                + "FROM Match m JOIN m.results r1 JOIN m.results r2 "
+                    + "JOIN r1.player p1 JOIN r2.player p2 "
+                + "WHERE r1 <> r2 "
+                    + "AND m = :match "
+                    + "AND p1 = :player", Player.class);
+        q.setParameter("match", match);
+        q.setParameter("player", player);
+        Player opponent = q.getSingleResult();
+        return opponent;
     }
 }

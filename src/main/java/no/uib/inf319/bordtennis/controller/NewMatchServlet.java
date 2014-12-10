@@ -200,6 +200,11 @@ public final class NewMatchServlet extends HttpServlet {
         List<Player> playerlist = playerDao
                 .getNonLockedPlayersExceptForOne(player);
         request.setAttribute("playerlist", playerlist);
+
+        DateFormat dateformat = new SimpleDateFormat("dd.MM.yy HH:mm");
+        Date today = new Date();
+        request.setAttribute("todayTime", dateformat.format(today));
+
         request.getRequestDispatcher(NEWMATCH_JSP).forward(request,
                 response);
     }

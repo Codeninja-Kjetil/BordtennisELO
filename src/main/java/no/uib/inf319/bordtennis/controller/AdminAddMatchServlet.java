@@ -197,6 +197,11 @@ public final class AdminAddMatchServlet extends HttpServlet {
             throws ServletException, IOException {
         List<Player> playerlist = playerDao.findAll();
         request.setAttribute("playerlist", playerlist);
+
+        DateFormat dateformat = new SimpleDateFormat("dd.MM.yy HH:mm");
+        Date today = new Date();
+        request.setAttribute("todayTime", dateformat.format(today));
+
         request.getRequestDispatcher(ADMIN_ADD_MATCH_JSP).forward(request,
                 response);
     }

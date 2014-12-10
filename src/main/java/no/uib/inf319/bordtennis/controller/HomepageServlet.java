@@ -54,9 +54,11 @@ public final class HomepageServlet extends HttpServlet {
 
         Timestamp time = ServletUtil.findInactiveLimitTime(inactiveLimit);
 
-        List<RankingListPlayer> activePlayers = playerDao.getActiveRankingListPlayers(time);
+        List<RankingListPlayer> activePlayers =
+                playerDao.getActiveRankingListPlayers(time);
         request.setAttribute("activePlayers", activePlayers);
-        List<RankingListPlayer> inactivePlayers = playerDao.getInactiveRankingListPlayers(time);
+        List<RankingListPlayer> inactivePlayers =
+                playerDao.getInactiveRankingListPlayers(time);
         request.setAttribute("inactivePlayers", inactivePlayers);
         List<Player> newPlayers = playerDao.getNewPlayers();
         request.setAttribute("newPlayers", newPlayers);

@@ -3,6 +3,7 @@ package no.uib.inf319.bordtennis.dao;
 import java.sql.Timestamp;
 import java.util.List;
 
+import no.uib.inf319.bordtennis.model.Match;
 import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.model.RankingListPlayer;
 import no.uib.inf319.bordtennis.model.TimeAndElo;
@@ -94,4 +95,13 @@ public interface PlayerDao extends AbstractDao<Player> {
      * @return a list of Player-entities
      */
     List<Player> getAdmins();
+
+    /**
+     * Get the opponent to the specified player in the specified match.
+     *
+     * @param match the match
+     * @param player the player
+     * @return a Player-entity
+     */
+    Player getMatchOpponent(Match match, Player player);
 }

@@ -9,11 +9,18 @@ import java.util.List;
 
 import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.PropertiesDao;
-import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.model.RankingListPlayer;
 
+/**
+ * Class containing static methods for creating the rankings pdf file.
+ *
+ * @author Kjetil
+ */
 public final class GenerateRankingsFile {
 
+    /**
+     * Start of the LaTeX file.
+     */
     private static final String HEAD =
             "\\documentclass[a4paper]{article}\n"
             + "\\usepackage[a4paper]{geometry}\n"
@@ -29,27 +36,45 @@ public final class GenerateRankingsFile {
             + "\\begin{tabular}{l | l | l  l | l | l}\n"
             + "\\# & Rating & Name && Last seen & Matches \\\\\n"
             + "\\hline\n";
+    /**
+     * End of the LaTeX file.
+     */
     private static final String FOOT =
             "\\end{tabular}\n"
             + "\\end{center}\n\n"
             + "\\end{document}\n";
 
+    /**
+     * Directory containing the LaTeX file.
+     */
     private static final String TEX_DIR = "/usr/share/tomcat/tabletennis/";
 
+    /**
+     * Name of LaTeX file.
+     */
     private static final String TEX_FILE = "ranking.tex";
 
+    /**
+     * Private constructor.
+     */
     private GenerateRankingsFile() {
     }
 
-    public static void createTex(PropertiesDao propertiesDao)
-            throws IOException {
+    /**
+     * Creates a LaTeX file of the current rankings.
+     *
+     * @param propertiesDao propertiesDao
+     * @param playerDao playerDao
+     * @throws IOException IOException
+     */
+    public static void createTex(final PropertiesDao propertiesDao,
+            final PlayerDao playerDao) throws IOException {
         propertiesDao.retriveProperties();
         String inactiveLimitString = propertiesDao.getProperty("inactiveLimit");
         int inactiveLimit = Integer.parseInt(inactiveLimitString);
 
         Timestamp time = ServletUtil.findInactiveLimitTime(inactiveLimit);
 
-        PlayerDao playerDao = new PlayerDaoJpa();
         List<RankingListPlayer> players =
                 playerDao.getActiveRankingListPlayers(time);
 
@@ -70,7 +95,14 @@ public final class GenerateRankingsFile {
         out.close();
     }
 
-    public static void createPdf() throws IOException, InterruptedException {
+    /**
+     * Creates a pdf file based on the rankings LaTeX file using pdfLaTeX.
+     *
+     * @return status code from pdfLaTeX
+     * @throws IOException IOException
+     * @throws InterruptedException InterruptedException
+     */
+    public static int createPdf() throws IOException, InterruptedException {
         List<String> command = new ArrayList<String>();
         command.add("pdflatex");
         command.add(TEX_FILE);
@@ -80,8 +112,6 @@ public final class GenerateRankingsFile {
         Process process = processBuilder.start();
         int status = process.waitFor();
 
-        if (status != 0) {
-            // Something went wrong
-        }
+        return status;
     }
 }

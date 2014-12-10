@@ -51,8 +51,10 @@ public final class HomepageServletTest {
 
         activePlayers = new ArrayList<RankingListPlayer>();
         inactivePlayers = new ArrayList<RankingListPlayer>();
-        when(playerDao.getActiveRankingListPlayers(any(Timestamp.class))).thenReturn(activePlayers);
-        when(playerDao.getInactiveRankingListPlayers(any(Timestamp.class))).thenReturn(inactivePlayers);
+        when(playerDao.getActiveRankingListPlayers(any(Timestamp.class)))
+                .thenReturn(activePlayers);
+        when(playerDao.getInactiveRankingListPlayers(any(Timestamp.class)))
+                .thenReturn(inactivePlayers);
 
         when(request.getRequestDispatcher(HomepageServlet.INDEX_JSP))
                 .thenReturn(dispatcher);

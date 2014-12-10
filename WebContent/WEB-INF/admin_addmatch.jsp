@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <td>Time: </td>
-                <td><input type="text" name="time" /></td>
+                <td><input type="text" name="time" value="${todayTime}" /></td>
             </tr>
             <tr>
                 <td colspan="2">Valid time format is: dd.mm.yy hh:mm</td>
