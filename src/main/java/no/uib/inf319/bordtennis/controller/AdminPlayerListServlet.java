@@ -23,6 +23,11 @@ public final class AdminPlayerListServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
+
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
@@ -31,7 +36,6 @@ public final class AdminPlayerListServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
-        PlayerDao playerDao = new PlayerDaoJpa();
         List<Player> playerlist = playerDao.findAll();
         request.setAttribute("playerlist", playerlist);
         request.getRequestDispatcher("/WEB-INF/admin_playerlist.jsp").forward(

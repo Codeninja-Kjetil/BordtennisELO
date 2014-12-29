@@ -239,6 +239,17 @@ public final class AdminEditMatchServlet extends HttpServlet {
         ServletUtil.redirect(response, "AdminMatchList");
     }
 
+    /**
+     * Helper method which gets the playerlist from the database, sets it in
+     * the request scope along with the spesified match,
+     * then forwards the request to the jsp.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @param match the match to incluse in the request scope
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     private void forwardWithMatchAndPlayerlist(final HttpServletRequest request,
             final HttpServletResponse response,
             final MatchWithPlayerNames match)

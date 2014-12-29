@@ -13,8 +13,8 @@ import no.uib.inf319.bordtennis.dao.PlayerDao;
 import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.InputValidator;
-import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 import no.uib.inf319.bordtennis.util.ServletUtil;
+import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 
 /**
  * Servlet implementation class NewPlayerServlet.
@@ -30,6 +30,11 @@ public final class NewPlayerServlet extends HttpServlet {
      * The url to the NewPlayer JSP.
      */
     private static final String NEWPLAYER_JSP = "WEB-INF/newplayer.jsp";
+
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
 
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -75,8 +80,7 @@ public final class NewPlayerServlet extends HttpServlet {
             return;
         }
 
-        PlayerDao dao = new PlayerDaoJpa();
-        Player playercheck = dao.find(username);
+        Player playercheck = playerDao.find(username);
 
         if (playercheck != null) {
             request.setAttribute("error", "That username already exists.");
@@ -140,7 +144,7 @@ public final class NewPlayerServlet extends HttpServlet {
         newplayer.setPrivateprofile(false);
         newplayer.setLocked(false);
 
-        dao.create(newplayer);
+        playerDao.create(newplayer);
 
         session = request.getSession();
         session.setAttribute("player", newplayer);

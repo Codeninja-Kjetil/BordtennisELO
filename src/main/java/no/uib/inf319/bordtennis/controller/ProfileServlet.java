@@ -29,6 +29,16 @@ public final class ProfileServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
+
+    /**
+     * DAO-object to access the database for match-data.
+     */
+    private MatchDao matchDao = new MatchDaoJpa();
+
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
@@ -44,7 +54,6 @@ public final class ProfileServlet extends HttpServlet {
             return;
         }
 
-        PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(username);
         if (player == null) {
             ServletUtil.sendToErrorPage(request, response, "Profil",
@@ -67,8 +76,8 @@ public final class ProfileServlet extends HttpServlet {
         request.setAttribute("loggedIn", isLoggedIn);
 
         if (isLoggedIn) {
-            MatchDao mdao = new MatchDaoJpa();
-            List<PendingMatch> pendingmatches = mdao.getPendingMatches(player);
+            List<PendingMatch> pendingmatches =
+                    matchDao.getPendingMatches(player);
             request.setAttribute("pending", pendingmatches);
         }
 

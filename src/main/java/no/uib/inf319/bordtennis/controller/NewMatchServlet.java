@@ -44,6 +44,21 @@ public final class NewMatchServlet extends HttpServlet {
      */
     private static final String NEWMATCH_JSP = "WEB-INF/newmatch.jsp";
 
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
+
+    /**
+     * DAO-object to access the database for match-data.
+     */
+    private MatchDao matchDao = new MatchDaoJpa();
+
+    /**
+     * DAO-object to access the database for result-data.
+     */
+    private ResultDao resultDao = new ResultDaoJpa();
+
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
@@ -101,7 +116,6 @@ public final class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        PlayerDao playerDao = new PlayerDaoJpa();
         Player opponent = playerDao.find(opponentUsername);
         if (opponent == null) {
             request.setAttribute("error", "Please select a valid opponent.");
@@ -142,7 +156,6 @@ public final class NewMatchServlet extends HttpServlet {
         match.setScore(score);
         match.setApproved(2);
 
-        MatchDao matchDao = new MatchDaoJpa();
         matchDao.create(match);
 
         Result playerResult = new Result();
@@ -155,7 +168,6 @@ public final class NewMatchServlet extends HttpServlet {
         opponentResult.setPlayernumber(2);
         opponentResult.setPlayer(opponent);
 
-        ResultDao resultDao = new ResultDaoJpa();
         resultDao.create(playerResult);
         resultDao.create(opponentResult);
 
@@ -172,7 +184,6 @@ public final class NewMatchServlet extends HttpServlet {
                 EmailSender.sendMail("Table Tennis - Match registered",
                         message, playerEmail);
             } catch (EmailException e) {
-                // TODO: what here?
             }
         }
         if (opponentEmail != null) {
@@ -185,18 +196,27 @@ public final class NewMatchServlet extends HttpServlet {
                 EmailSender.sendMail("Table Tennis - Match registered",
                         message, opponentEmail);
             } catch (EmailException e) {
-                // TODO: what here?
             }
         }
 
         ServletUtil.redirect(response, "Profile?user=" + player.getUsername());
     }
 
+    /**
+     * Helper method which gets the playerlist from the database, calculates
+     * todays date and sets them in the request scope,
+     * then forwards the request to the jsp.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @param session session
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     private void forwardWithPlayerlist(final HttpServletRequest request,
             final HttpServletResponse response, final HttpSession session)
             throws ServletException, IOException {
         Player player = (Player) session.getAttribute("player");
-        PlayerDao playerDao = new PlayerDaoJpa();
         List<Player> playerlist = playerDao
                 .getNonLockedPlayersExceptForOne(player);
         request.setAttribute("playerlist", playerlist);

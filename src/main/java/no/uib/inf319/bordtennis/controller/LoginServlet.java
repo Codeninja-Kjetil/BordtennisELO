@@ -81,7 +81,6 @@ public final class LoginServlet extends HttpServlet {
         }
 
         String hashedPassword = Sha256HashUtil.sha256hash(password);
-        //PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(username);
 
         if (player == null || !player.getPassword().equals(hashedPassword)) {

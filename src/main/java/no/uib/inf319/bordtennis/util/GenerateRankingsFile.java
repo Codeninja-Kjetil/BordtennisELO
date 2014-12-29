@@ -67,7 +67,7 @@ public final class GenerateRankingsFile {
      * @param playerDao playerDao
      * @throws IOException IOException
      */
-    public static void createTex(final PropertiesDao propertiesDao,
+    public static synchronized void createTex(final PropertiesDao propertiesDao,
             final PlayerDao playerDao) throws IOException {
         propertiesDao.retriveProperties();
         String inactiveLimitString = propertiesDao.getProperty("inactiveLimit");
@@ -102,7 +102,8 @@ public final class GenerateRankingsFile {
      * @throws IOException IOException
      * @throws InterruptedException InterruptedException
      */
-    public static int createPdf() throws IOException, InterruptedException {
+    public static synchronized int createPdf() throws IOException,
+            InterruptedException {
         List<String> command = new ArrayList<String>();
         command.add("pdflatex");
         command.add(TEX_FILE);

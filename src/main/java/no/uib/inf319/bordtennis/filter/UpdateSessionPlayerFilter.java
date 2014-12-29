@@ -23,6 +23,9 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 @WebFilter(filterName = "updateSessionPlayerFilter")
 public final class UpdateSessionPlayerFilter implements Filter {
 
+    /**
+     * DAO-object to access the database for player-data.
+     */
     private PlayerDao playerDao = new PlayerDaoJpa();
 
     /*

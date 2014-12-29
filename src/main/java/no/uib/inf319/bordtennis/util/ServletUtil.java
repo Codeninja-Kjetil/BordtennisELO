@@ -22,6 +22,9 @@ import no.uib.inf319.bordtennis.model.Player;
  */
 public final class ServletUtil {
 
+    /**
+     * The URL to the ErrorPage JSP.
+     */
     public static final String ERRORPAGE_JSP = "/WEB-INF/errorpage.jsp";
     /**
      * A dateformat pattern: <code>dd.MM.yyyy HH:mm</code>.

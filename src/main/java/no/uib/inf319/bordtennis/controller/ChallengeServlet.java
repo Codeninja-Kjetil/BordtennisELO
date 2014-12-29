@@ -113,6 +113,16 @@ public final class ChallengeServlet extends HttpServlet {
         ServletUtil.redirect(response, "Profile?user=" + player.getUsername());
     }
 
+    /**
+     * Helper method which gets the playerlist from the database and sets it in
+     * the request scope, then forwards the request to the jsp.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @param session session
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     private void forwardWithPlayerlist(final HttpServletRequest request,
             final HttpServletResponse response, final HttpSession session)
             throws ServletException, IOException {

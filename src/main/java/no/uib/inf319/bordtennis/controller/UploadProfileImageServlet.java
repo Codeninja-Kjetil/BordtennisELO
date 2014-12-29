@@ -37,6 +37,11 @@ public final class UploadProfileImageServlet extends HttpServlet {
      */
     private static final String UPLOADFILE_JSP = "WEB-INF/uploadfile.jsp";
 
+    /**
+     * DAO-object to access the database for player-data.
+     */
+    private PlayerDao playerDao = new PlayerDaoJpa();
+
     /*
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
@@ -116,7 +121,6 @@ public final class UploadProfileImageServlet extends HttpServlet {
         String imagePath = getServletContext().getInitParameter("imageWebDir")
                 + newFileName;
 
-        PlayerDao playerDao = new PlayerDaoJpa();
         Player player = playerDao.find(logedinPlayer.getUsername());
 
         String oldImagePath = player.getImagepath();

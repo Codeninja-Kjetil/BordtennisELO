@@ -34,6 +34,9 @@ public final class AcceptResultServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Text to put in the title when forwarding to error page.
+     */
     private static final String ERROR_PAGE_TITLE = "Accept Result";
 
     /**

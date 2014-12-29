@@ -21,15 +21,17 @@ import no.uib.inf319.bordtennis.model.Result;
 public final class UpdateElo {
 
     /**
-     * Player DAO.
+     * DAO-object to access the database for player-data.
      */
     private PlayerDao playerDao;
+
     /**
-     * Match DAO.
+     * DAO-object to access the database for match-data.
      */
     private MatchDao matchDao;
+
     /**
-     * Result DAO.
+     * DAO-object to access the database for result-data.
      */
     private ResultDao resultDao;
 

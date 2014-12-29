@@ -192,6 +192,16 @@ public final class AdminAddMatchServlet extends HttpServlet {
         ServletUtil.redirect(response, "AdminMatchList");
     }
 
+    /**
+     * Helper method which gets the playerlist from the database, calculates
+     * todays date and sets them in the request scope,
+     * then forwards the request to the jsp.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     private void forwardWithPlayerlist(final HttpServletRequest request,
             final HttpServletResponse response)
             throws ServletException, IOException {

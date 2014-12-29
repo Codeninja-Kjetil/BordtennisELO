@@ -80,6 +80,16 @@ public final class AdminEditInactiveLimitServlet extends HttpServlet {
         ServletUtil.redirect(response, "Admin");
     }
 
+    /**
+     * Helper method which gets the inactiveLimit from the properties list and
+     * sets it in the request scope, then forwards the request to the jsp.
+     *
+     * @param propertiesDao propertiesDao
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     private static void forwardToJspWithProperty(
             final PropertiesDao propertiesDao,
             final HttpServletRequest request,
