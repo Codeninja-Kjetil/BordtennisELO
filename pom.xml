@@ -75,23 +75,22 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <show>private</show>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
-                <!-- UiB tomcat server -->
                 <configuration>
                     <url>http://alster.uib.no:8080/manager/text</url>
                     <server>inf319Repo</server>
                     <path>/TableTennisELO</path>
                 </configuration>
-                <!-- Local Tomcat server -->
-                <!--
-                <configuration>
-                    <url>http://127.0.0.1:8080/manager/text</url>
-                    <server>inf319LocalRepo</server>
-                    <path>/BordtennisELO</path>
-                </configuration>
-                -->
             </plugin>
             <plugin>
                 <groupId>org.pitest</groupId>

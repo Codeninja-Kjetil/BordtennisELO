@@ -13,7 +13,12 @@ import no.uib.inf319.bordtennis.dao.context.PropertiesDaoFile;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class AdminEditInactiveLimitServlet.
+ * Servlet that can edit the inactive limit,
+ * which is the number of months a player can be inactive (not played a match)
+ * before being moved to the Inactive Users list.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminEditInactiveLimit")
 public final class AdminEditInactiveLimitServlet extends HttpServlet {

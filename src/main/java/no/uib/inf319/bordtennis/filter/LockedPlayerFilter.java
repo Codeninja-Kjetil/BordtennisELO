@@ -16,7 +16,10 @@ import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet Filter implementation class LockedPlayerFilter.
+ * Servlet Filter that checks if the logged in user has a locked account.
+ * If the account is locked then the user is automatically logged out.
+ *
+ * @author Kjetil
  */
 @WebFilter(filterName = "lockedPlayerFilter")
 public final class LockedPlayerFilter implements Filter {

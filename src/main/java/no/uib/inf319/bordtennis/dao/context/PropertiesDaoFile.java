@@ -9,13 +9,26 @@ import java.util.Properties;
 
 import no.uib.inf319.bordtennis.dao.PropertiesDao;
 
+/**
+ * An implementation of the {@link PropertiesDao}-interface using Java's
+ * {@link Properties}-system.
+ *
+ * @author Kjetil
+ */
 public final class PropertiesDaoFile implements PropertiesDao {
 
+    /**
+     * Location of properties-file.
+     */
     private static final String FILENAME =
             "/usr/share/tomcat/tabletennis/tabletennis.properties";
 
+    /**
+     * Properties-object.
+     */
     private Properties properties;
 
+    @Override
     public void retriveProperties() throws IOException {
         properties = new Properties();
         InputStream in = null;

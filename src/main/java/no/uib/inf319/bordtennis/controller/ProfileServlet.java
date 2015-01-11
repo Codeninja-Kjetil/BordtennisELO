@@ -20,7 +20,9 @@ import no.uib.inf319.bordtennis.model.TimeAndElo;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class ProfileServlet.
+ * Servlet that views an user's profile page.
+ *
+ * @author Kjetil
  */
 @WebServlet("/Profile")
 public final class ProfileServlet extends HttpServlet {

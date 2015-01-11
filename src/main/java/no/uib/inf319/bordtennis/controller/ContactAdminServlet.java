@@ -20,7 +20,9 @@ import no.uib.inf319.bordtennis.util.EmailSender;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class ContactAdminServlet.
+ * Servlet that sends a email message from a user to all administrators.
+ *
+ * @author Kjetil
  */
 @WebServlet("/ContactAdmin")
 public final class ContactAdminServlet extends HttpServlet {

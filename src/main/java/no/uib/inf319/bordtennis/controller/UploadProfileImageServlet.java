@@ -22,7 +22,9 @@ import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class UploadProfileImageServlet.
+ * Servlet that uploads a profile image to the server.
+ *
+ * @author Kjetil
  */
 @WebServlet("/UploadProfileImage")
 @MultipartConfig
@@ -77,6 +79,7 @@ public final class UploadProfileImageServlet extends HttpServlet {
 
         Part filePart = request.getPart("file");
 
+        // Use username and file extension from file to generate file name
         String dirPath = getServletContext().getInitParameter("fileUpload");
         String oldFileName = getFileName(filePart);
         String newFileName = logedinPlayer.getUsername() + "."
@@ -89,9 +92,9 @@ public final class UploadProfileImageServlet extends HttpServlet {
             return;
         }
 
+        // Move image data to file on server
         OutputStream out = null;
         InputStream filecontent = null;
-
         try {
             out = new FileOutputStream(new File(filePath));
             filecontent = filePart.getInputStream();
@@ -123,6 +126,8 @@ public final class UploadProfileImageServlet extends HttpServlet {
 
         Player player = playerDao.find(logedinPlayer.getUsername());
 
+        // If has old image with other name, delete it
+        // (If it has the same name as the new image, it be overwritten)
         String oldImagePath = player.getImagepath();
         if (oldImagePath != null && !imagePath.equals(oldImagePath)) {
             String webApp = getServletContext().getInitParameter("webDirPath");
@@ -130,6 +135,7 @@ public final class UploadProfileImageServlet extends HttpServlet {
             oldImage.delete();
         }
 
+        // Update player-object
         player.setImagepath(imagePath);
         playerDao.edit(player);
 

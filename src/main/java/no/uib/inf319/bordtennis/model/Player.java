@@ -16,6 +16,9 @@ import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 
 /**
  * The persistent class for the player database table.
+ * It contains information about the users of the system.
+ *
+ * @author Kjetil
  */
 @Entity
 @Table(name = "player")

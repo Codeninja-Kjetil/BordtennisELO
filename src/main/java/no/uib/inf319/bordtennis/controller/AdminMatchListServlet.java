@@ -14,7 +14,10 @@ import no.uib.inf319.bordtennis.dao.context.MatchDaoJpa;
 import no.uib.inf319.bordtennis.model.MatchWithPlayerNames;
 
 /**
- * Servlet implementation class AdminMatchListServlet.
+ * Servlet that views a list of all matches.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminMatchList")
 public final class AdminMatchListServlet extends HttpServlet {

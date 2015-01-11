@@ -7,21 +7,11 @@
         <class>no.uib.inf319.bordtennis.model.Match</class>
         <class>no.uib.inf319.bordtennis.model.Result</class>
 
-        <!-- UiB MySQL DB -->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tabletennis" />
             <property name="javax.persistence.jdbc.user" value="tabletennis" />
             <property name="javax.persistence.jdbc.password" value="tabletennis" />
         </properties>
-        <!-- Local PostgreSQL DB -->
-        <!--
-        <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bordtennis" />
-            <property name="javax.persistence.jdbc.user" value="bordtennis" />
-            <property name="javax.persistence.jdbc.password" value="bordtennis" />
-        </properties>
-        -->
     </persistence-unit>
 </persistence>

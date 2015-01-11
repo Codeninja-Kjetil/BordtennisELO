@@ -24,7 +24,11 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 
 /**
- * Servlet implementation class AdminLockPlayerServlet.
+ * Servlet that removes a user account. All user data, including all matches
+ * that user had played, is removed.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminRemovePlayer")
 public final class AdminRemovePlayerServlet extends HttpServlet {

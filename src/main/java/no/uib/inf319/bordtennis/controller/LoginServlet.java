@@ -16,7 +16,7 @@ import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class LoginServlet.
+ * Servlet that logs inn a user on the application.
  */
 @WebServlet("/Login")
 public final class LoginServlet extends HttpServlet {

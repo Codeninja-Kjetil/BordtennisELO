@@ -17,7 +17,9 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 
 /**
- * Servlet implementation class EditPlayerServlet.
+ * Servlet used by an user (player) to edit his/her user data.
+ *
+ * @author Kjetil
  */
 @WebServlet("/EditPlayer")
 public final class EditPlayerServlet extends HttpServlet {

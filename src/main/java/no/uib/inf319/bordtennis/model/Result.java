@@ -12,7 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * The persistent class for the result database table.
+ * The persistent class for the ttresult database table.
+ * It contains the player specific information about a table tennis match.
+ *
+ * @see Match
+ * @author Kjetil
  */
 @Entity
 @Table(name = "ttresult")

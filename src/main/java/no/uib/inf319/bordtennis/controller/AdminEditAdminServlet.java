@@ -16,7 +16,10 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 
 /**
- * Servlet implementation class AdminEditAdminServlet.
+ * Servlet that can edit if a user is an administrator or not.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminEditAdmin")
 public final class AdminEditAdminServlet extends HttpServlet {

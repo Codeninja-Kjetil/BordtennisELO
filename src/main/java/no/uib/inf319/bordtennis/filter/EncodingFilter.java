@@ -11,7 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Servlet Filter implementation class EncodingFilter.
+ * Servlet Filter the sets the request character encoding.
+ *
+ * @author Kjetil
  */
 @WebFilter(filterName = "encodingFilter")
 public class EncodingFilter implements Filter {

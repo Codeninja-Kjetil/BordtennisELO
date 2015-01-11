@@ -19,7 +19,9 @@ import no.uib.inf319.bordtennis.util.EmailSender;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class ChallengeServlet.
+ * Servlet that send a challenge e-mail to an user (player) from an other user.
+ *
+ * @author Kjetil
  */
 @WebServlet("/Challenge")
 public final class ChallengeServlet extends HttpServlet {

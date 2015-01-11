@@ -30,7 +30,9 @@ import no.uib.inf319.bordtennis.util.EmailSender;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class NewMatchServlet.
+ * Servlet used to create a new match.
+ *
+ * @author Kjetil
  */
 @WebServlet("/NewMatch")
 public final class NewMatchServlet extends HttpServlet {

@@ -15,7 +15,11 @@ import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class AdminLockPlayerServlet.
+ * Servlet that locks or unlocks an user account.
+ * A locked account can not be logged into.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminLockPlayer")
 public final class AdminLockPlayerServlet extends HttpServlet {

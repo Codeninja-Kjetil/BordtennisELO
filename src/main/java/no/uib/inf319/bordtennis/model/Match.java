@@ -16,7 +16,11 @@ import javax.persistence.Table;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * The persistent class for the match database table.
+ * The persistent class for the ttmatch database table.
+ * It contains information about a table tennis match.
+ *
+ * @see Result
+ * @author Kjetil
  */
 @Entity
 @Table(name = "ttmatch")

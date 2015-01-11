@@ -20,7 +20,10 @@ import no.uib.inf319.bordtennis.model.Match;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class AdminRemoveMatchServlet.
+ * Servlet that removes a match.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminRemoveMatch")
 public final class AdminRemoveMatchServlet extends HttpServlet {

@@ -28,7 +28,11 @@ import no.uib.inf319.bordtennis.model.Result;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class AdminAddMatchServlet.
+ * Servlet that can edit data about a match.
+ * One can edit all data about the match.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminEditMatch")
 public final class AdminEditMatchServlet extends HttpServlet {

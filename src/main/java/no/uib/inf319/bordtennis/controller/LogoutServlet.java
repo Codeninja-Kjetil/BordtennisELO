@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class LogoutServlet.
+ * Servlet that logs out the user from the application.
+ *
+ * @author Kjetil
  */
 @WebServlet("/Logout")
 public final class LogoutServlet extends HttpServlet {

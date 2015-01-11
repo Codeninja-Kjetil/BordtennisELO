@@ -19,7 +19,9 @@ import no.uib.inf319.bordtennis.model.RankingListPlayer;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class TestServlet.
+ * Servlet that views the home page (front page).
+ *
+ * @author Kjetil
  */
 @WebServlet("/Home")
 public final class HomepageServlet extends HttpServlet {

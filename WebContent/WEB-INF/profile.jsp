@@ -30,13 +30,6 @@
     <h2>Info</h2>
     <table>
         <tr>
-            <%-- 
-            <c:if test="${profilePlayer.imagepath != null && !profilePlayer.imagepath.isEmpty()}">
-                <td rowspan="2">
-                    <img src="${profilePlayer.imagepath}" alt="Profile Image" />
-                </td>
-            </c:if>
-            --%>
             <td>Name:</td>
             <td>${profilePlayer.name}</td>
         </tr>

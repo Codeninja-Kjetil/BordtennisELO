@@ -25,7 +25,9 @@ import no.uib.inf319.bordtennis.util.EmailSender;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class AcceptResultServlet.
+ * Servlet that is used to approve or deny a match.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AcceptResult")
 public final class AcceptResultServlet extends HttpServlet {

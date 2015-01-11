@@ -16,7 +16,10 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 
 /**
- * Servlet implementation class AdminEditPlayerServlet.
+ * Servlet that can edit data about an user (player).
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminEditPlayer")
 public final class AdminEditPlayerServlet extends HttpServlet {

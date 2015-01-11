@@ -19,7 +19,9 @@ import no.uib.inf319.bordtennis.util.GenerateRankingsFile;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet implementation class DownloadRankingsServlet.
+ * Servlet used to generate and download the rankings list file.
+ *
+ * @author Kjetil
  */
 @WebServlet("/DownloadRankings")
 public final class DownloadRankingsServlet extends HttpServlet {

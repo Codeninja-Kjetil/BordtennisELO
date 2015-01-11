@@ -14,7 +14,10 @@ import no.uib.inf319.bordtennis.dao.context.PlayerDaoJpa;
 import no.uib.inf319.bordtennis.model.Player;
 
 /**
- * Servlet implementation class AdminPlayerList.
+ * Servlet that views a list of all users (players).
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/AdminPlayerList")
 public final class AdminPlayerListServlet extends HttpServlet {

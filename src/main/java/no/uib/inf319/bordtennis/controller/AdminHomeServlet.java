@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AdminServlet.
+ * Servlet that views the administrator home page.
+ * Only administrator users can use this function.
+ *
+ * @author Kjetil
  */
 @WebServlet("/Admin")
 public final class AdminHomeServlet extends HttpServlet {

@@ -17,7 +17,9 @@ import no.uib.inf319.bordtennis.util.ServletUtil;
 import no.uib.inf319.bordtennis.util.Sha256HashUtil;
 
 /**
- * Servlet implementation class NewPlayerServlet.
+ * Servlet used to create a new user (player).
+ *
+ * @author Kjetil
  */
 @WebServlet("/NewPlayer")
 public final class NewPlayerServlet extends HttpServlet {

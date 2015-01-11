@@ -18,7 +18,10 @@ import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet Filter implementation class UpdateSessionPlayerFilter.
+ * Servlet Filter that refreshes the user data in the session about the logged
+ * in user.
+ *
+ * @author Kjetil
  */
 @WebFilter(filterName = "updateSessionPlayerFilter")
 public final class UpdateSessionPlayerFilter implements Filter {

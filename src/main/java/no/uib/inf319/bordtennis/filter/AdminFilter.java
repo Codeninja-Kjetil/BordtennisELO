@@ -16,7 +16,10 @@ import no.uib.inf319.bordtennis.model.Player;
 import no.uib.inf319.bordtennis.util.ServletUtil;
 
 /**
- * Servlet Filter implementation class AdminFilter.
+ * Servlet Filter that checks if the logged in user is an administrator.
+ * This filter is only used on administrator servlets.
+ *
+ * @author Kjetil
  */
 @WebFilter(filterName = "adminFilter")
 public final class AdminFilter implements Filter {
